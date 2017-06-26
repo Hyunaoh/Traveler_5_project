@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="adminSqlSession">
+
+	<select id="getAllAdmin" resultType="com.traveler.model.MemberVO">
+		SELECT 
+		mem.rownum as meRownum
+		, mem.num as num
+		, mem.id as id
+		, mem.name as name
+		, mem.grade as grade
+		, mem.schoolClass as schoolClass
+		, mem.tel as tel
+		, mem.postcode as postcode
+		, mem.roadAddress as roadAddress
+		, mem.jibunAddress as jibunAddress
+		, mem.email as email
+		, mem.level as level
+		, mem.stName as stName
+		, mem.sms as sms
+		, mem.gender as gender
+		, mem.date as date
+		FROM 
+		(
+		SELECT @rownum := @rownum + 1 AS rownum, MEMBER.*
+		FROM
+		MEMBER, (SELECT @rownum :=0) n 
+		where meFlag=0
+		ORDER BY rownum ASC 
+		) mem
+	</select>
+	
+</mapper>
