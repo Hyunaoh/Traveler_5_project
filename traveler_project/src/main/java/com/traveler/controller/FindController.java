@@ -18,12 +18,12 @@ public class FindController {
 	@Autowired
 	SqlSession sqlSession;
 
-	// ê°€ì´ë“œ ì°¾ê¸° ë¦¬ìŠ¤íŠ¸ëª©ë¡
+	// °¡ÀÌµå Ã£±â ¸®½ºÆ®¸ñ·Ï
 	@RequestMapping("/findListForm.go")
 	public String findListForm(Model model) throws Exception {
 		System.out.println("[system] access findListForm!");
 
-		// ëª¨ë“  ë¦¬ìŠ¤íŠ¸ ì¶œë ¥í•  List ê°€ì ¸ì˜´
+		// ¸ğµç ¸®½ºÆ® Ãâ·ÂÇÒ List °¡Á®¿È
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		List<FindVO> findList = findDAO.selectFindListAll();
 		System.out.println("  >> success processing!");
@@ -32,25 +32,25 @@ public class FindController {
 		return "/find/findListForm";
 	}
 
-	// ê°€ì´ë“œ ì°¾ê¸° ëª¨ì§‘ê¸€ ì˜¬ë¦¬ê¸° Form
+	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¿Ã¸®±â Form
 	@RequestMapping("/findInsertForm.go")
 	public String findInsertForm(Model model) throws Exception {
 		System.out.println("[system] access findInsertForm!");
 		return "/find/findInsertForm";
 	}
 
-	// ê°€ì´ë“œ ì°¾ê¸° ëª¨ì§‘ê¸€ ì˜¬ë¦¬ê¸° Pro (ì‹¤ì œ DB Insert ë¶€ë¶„)
+	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¿Ã¸®±â Pro (½ÇÁ¦ DB Insert ºÎºĞ)
 	@RequestMapping("/findInsertPro.go")
 	public String findInsertPro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findInsertPro!");
 
-		// ì„±ê³µì—¬ë¶€ íŒë‹¨í•œ ë³€ìˆ˜
+		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
 		boolean check = false;
 
-		// ì…ë ¥í•œ ì •ë³´ insert
+		// ÀÔ·ÂÇÑ Á¤º¸ insert
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.insertFindInfo(findVO) > 0) {
-			// ì„±ê³µ
+			// ¼º°ø
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);
@@ -59,12 +59,12 @@ public class FindController {
 		return "/find/findInsertPro";
 	}
 
-	// ê°€ì´ë“œ ì°¾ê¸° ëª¨ì§‘ê¸€ ìˆ˜ì • Form
+	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¼öÁ¤ Form
 	@RequestMapping("/findUpdateForm.go")
 	public String findUpdateForm(Model model, FindVO findVO_in) throws Exception {
 		System.out.println("[system] access findUpdateForm!");
 
-		// ìˆ˜ì •í•  ê¸€ì˜ íŠ¹ì •í•œ ì •ë³´ VO í•˜ë‚˜ë¥¼ ê°€ì ¸ì˜´
+		// ¼öÁ¤ÇÒ ±ÛÀÇ Æ¯Á¤ÇÑ Á¤º¸ VO ÇÏ³ª¸¦ °¡Á®¿È
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
 		System.out.println("  >> success processing!");
@@ -73,18 +73,18 @@ public class FindController {
 		return "/find/findUpdateForm";
 	}
 
-	// ê°€ì´ë“œ ì°¾ê¸° ëª¨ì§‘ê¸€ ìˆ˜ì • Pro (ì‹¤ì œ DB Update ë¶€ë¶„)
+	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¼öÁ¤ Pro (½ÇÁ¦ DB Update ºÎºĞ)
 	@RequestMapping("/findUpdatePro.go")
 	public String findUpdatePro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findUpdatePro!");
 
-		// ì„±ê³µì—¬ë¶€ íŒë‹¨í•œ ë³€ìˆ˜
+		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
 		boolean check = false;
 
-		// ì…ë ¥í•œ ì •ë³´ update
+		// ÀÔ·ÂÇÑ Á¤º¸ update
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.updateFindInfo(findVO) > 0) {
-			// ì„±ê³µ
+			// ¼º°ø
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);
@@ -93,18 +93,18 @@ public class FindController {
 		return "/find/findUpdatePro";
 	}
 
-	// ê°€ì´ë“œ ì°¾ê¸° ëª¨ì§‘ê¸€ ì‚­ì œ Pro (ì‹¤ì œ DB Delete ë¶€ë¶„)
+	// °¡ÀÌµå Ã£±â ¸ğÁı±Û »èÁ¦ Pro (½ÇÁ¦ DB Delete ºÎºĞ)
 	@RequestMapping("/findDeletePro.go")
 	public String findDeletePro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findDeletePro!");
 
-		// ì„±ê³µì—¬ë¶€ íŒë‹¨í•œ ë³€ìˆ˜
+		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
 		boolean check = false;
 
-		// ìì‹ ì˜ ëª¨ì§‘ê¸€ ì‚­ì œ
+		// ÀÚ½ÅÀÇ ¸ğÁı±Û »èÁ¦
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.deleteFindInfo(findVO) > 0) {
-			// ì„±ê³µ
+			// ¼º°ø
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);

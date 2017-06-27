@@ -14,5 +14,7 @@
 	<P>The time on the server is ${serverTime}. </P>
 	
 	<h4><a href="find/findListForm.go">find</a></h4>
+	<h4><a href="member/memberInsertForm.go">sign up</a></h4>
+	
 </body>
 </html>

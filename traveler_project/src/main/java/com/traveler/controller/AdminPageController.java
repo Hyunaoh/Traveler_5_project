@@ -23,7 +23,7 @@ public class AdminPageController {
 	@Autowired
 	private AdminPageDao dao;
 	
-	/* ì¶”í›„ ë©”ì„¸ì§€ì™€ ì—°ë™í•  ë•Œ ì‚¬ìš©
+	/* ÃßÈÄ ¸Ş¼¼Áö¿Í ¿¬µ¿ÇÒ ¶§ »ç¿ë
 	 * @Autowired
 	private MessageDaoImpl mDao;*/
 	

@@ -7,7 +7,7 @@ import com.traveler.model.MemberVO;
 
 public interface AdminPageDao {
 	
-	//ëª¨ë“  íšŒì›ì •ë³´ ì¶œë ¥
+	//¸ğµç È¸¿øÁ¤º¸ Ãâ·Â
 	public List<MemberVO> getAllAdmin() throws ClassNotFoundException, SQLException;
 	
 }
