@@ -10,7 +10,7 @@
 	<a href="findInsertForm.go">글 올리기</a>
 	<hr>
 	<c:forEach items="${findList}" var="list">
-		제목 : <a href="">${list.find_title}</a><br>
+		제목 : <a href="findDetailForm.go?find_pk=${list.find_pk}">${list.find_title}</a><br>
 		작성자 :  ${list.member_id}<br>
 		작성시간 : ${list.find_regDate}<br>
 		<a href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>

@@ -113,4 +113,17 @@ public class FindController {
 		return "/find/findResult";
 	}
 
+	// 가이드 찾기 자세한 정보 Form
+	@RequestMapping("/findDetailForm.go")
+	public String findDetailForm(Model model, FindVO findVO_in) throws Exception {
+		System.out.println("[system] access findDetailForm!");
+
+		// 특정한 글의 정보 VO 하나를 가져옴
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
+		System.out.println("  >> success processing!");
+
+		model.addAttribute("findVO", findVO_out);
+		return "/find/findDetailForm";
+	}
 }
