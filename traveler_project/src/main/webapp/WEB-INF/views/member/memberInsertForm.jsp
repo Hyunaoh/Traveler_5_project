@@ -53,6 +53,7 @@
 	상세주소
 	<input type="text" name="member_adrr"><hr>						
 	<input type="hidden" name="member_isGuide" value="0">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	
 	<input type="submit" value="확인">
 	</form>
