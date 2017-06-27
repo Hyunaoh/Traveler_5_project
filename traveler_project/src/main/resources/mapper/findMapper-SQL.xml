@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+<mapper namespace="com.traveler.dao.FindDAO">
+	<!-- 전체 목록 가져옴 -->
+	<select id="selectFindListAll" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+	</select>
+	
+	<!-- 목록 Insert -->
+	<insert id="insertFindInfo" parameterType="com.traveler.model.FindVO">
+		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, MEMBER_ID, FIND_REGDATE)
+		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, #{member_id}, now());
+	</insert>
+	
+	<!-- 목록 Update -->
+	<update id="updateFindInfo" parameterType="com.traveler.model.FindVO">
+		UPDATE FIND
+		<set>
+			<if test="find_title != null and find_title !=''">
+				FIND_TITLE = #{find_title},
+			</if>
+			<if test="find_content != null and find_content !=''">
+				FIND_CONTENT = #{find_content},
+			</if>
+			<if test="find_place1 != null and find_place1 !=''">
+				FIND_PLACE1 = #{find_place1},
+			</if>
+			<if test="find_place2 != null and find_place2 !=''">
+				FIND_PLACE2 = #{find_place2},
+			</if>
+			<if test="find_place3 != null and find_place3 !=''">
+				FIND_PLACE3 = #{find_place3},
+			</if>
+			<if test="find_startDate != null and find_startDate !=''">
+				FIND_STARTDATE = #{find_startDate},
+			</if>
+			<if test="find_endDate != null and find_endDate !=''">
+				FIND_ENDDATE = #{find_endDate}
+			</if>
+		</set>
+		WHERE FIND_PK = #{find_pk}
+	</update>
+	
+	<!-- 목록 Delete -->
+	<delete id="deleteFindInfo" parameterType="com.traveler.model.FindVO">
+		DELETE
+		FROM FIND
+		WHERE FIND_PK = #{find_pk}
+	</delete>
+	
+	<!-- 특정한 정보 하나를 가져옴 -->
+	<select id="selectFindInfo" resultType="com.traveler.model.FindVO" parameterType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		WHERE FIND_PK = #{find_pk}
+	</select>
+</mapper>

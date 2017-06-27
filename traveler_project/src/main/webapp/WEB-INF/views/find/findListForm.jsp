@@ -7,8 +7,15 @@
 	<title>여행을 더하다</title>
 </head>
 <body>
-	<h4>여행상품 이미지</h4><br>
-	<img src="" alt="이미지를 불러오는데 실패 했습니다."><br>
-	상품 이름 : <br>
+	<a href="findInsertForm.go">글 올리기</a>
+	<hr>
+	<c:forEach items="${findList}" var="list">
+		제목 : <a href="findDetailForm.go?find_pk=${list.find_pk}">${list.find_title}</a><br>
+		작성자 :  ${list.member_id}<br>
+		작성시간 : ${list.find_regDate}<br>
+		<a href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>
+		<a href="findDeletePro.go?find_pk=${list.find_pk}">삭제</a>
+		<hr>
+	</c:forEach>
 </body>
 </html>

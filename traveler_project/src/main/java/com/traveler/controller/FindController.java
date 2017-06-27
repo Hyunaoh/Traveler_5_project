@@ -56,7 +56,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findInsertPro";
+		return "/find/findResult";
 	}
 
 	// 가이드 찾기 모집글 수정 Form
@@ -90,7 +90,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findUpdatePro";
+		return "/find/findResult";
 	}
 
 	// 가이드 찾기 모집글 삭제 Pro (실제 DB Delete 부분)
@@ -110,7 +110,20 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findDeletePro";
+		return "/find/findResult";
 	}
 
+	// 가이드 찾기 자세한 정보 Form
+	@RequestMapping("/findDetailForm.go")
+	public String findDetailForm(Model model, FindVO findVO_in) throws Exception {
+		System.out.println("[system] access findDetailForm!");
+
+		// 특정한 글의 정보 VO 하나를 가져옴
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
+		System.out.println("  >> success processing!");
+
+		model.addAttribute("findVO", findVO_out);
+		return "/find/findDetailForm";
+	}
 }
