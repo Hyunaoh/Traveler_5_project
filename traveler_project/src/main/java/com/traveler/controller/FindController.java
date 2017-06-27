@@ -56,7 +56,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findInsertPro";
+		return "/find/findResult";
 	}
 
 	// 가이드 찾기 모집글 수정 Form
@@ -90,7 +90,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findUpdatePro";
+		return "/find/findResult";
 	}
 
 	// 가이드 찾기 모집글 삭제 Pro (실제 DB Delete 부분)
@@ -110,7 +110,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findDeletePro";
+		return "/find/findResult";
 	}
 
 }
