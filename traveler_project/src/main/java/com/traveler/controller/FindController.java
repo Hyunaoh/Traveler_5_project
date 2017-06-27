@@ -56,7 +56,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findInsertPro";
+		return "/find/findResult";
 	}
 
 	// °¡ÀÌµå Ã£±â ¸ðÁý±Û ¼öÁ¤ Form
@@ -90,7 +90,7 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findUpdatePro";
+		return "/find/findResult";
 	}
 
 	// °¡ÀÌµå Ã£±â ¸ðÁý±Û »èÁ¦ Pro (½ÇÁ¦ DB Delete ºÎºÐ)
@@ -110,7 +110,20 @@ public class FindController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		return "/find/findDeletePro";
+		return "/find/findResult";
 	}
 
+	// ê°€ì´ë“œ ì°¾ê¸° ìžì„¸í•œ ì •ë³´ Form
+	@RequestMapping("/findDetailForm.go")
+	public String findDetailForm(Model model, FindVO findVO_in) throws Exception {
+		System.out.println("[system] access findDetailForm!");
+
+		// íŠ¹ì •í•œ ê¸€ì˜ ì •ë³´ VO í•˜ë‚˜ë¥¼ ê°€ì ¸ì˜´
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
+		System.out.println("  >> success processing!");
+
+		model.addAttribute("findVO", findVO_out);
+		return "/find/findDetailForm";
+	}
 }
