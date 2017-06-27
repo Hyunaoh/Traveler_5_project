@@ -32,11 +32,10 @@ public class AdminPageController {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value = "/adminTest.do")
+	@RequestMapping(value = "/adminTest.go")
 	public String adminForm(Model model, MemberVO vo) throws SQLException, ClassNotFoundException{
 		
 		return "admin/adminTest";
-		
 	}
 	
 
