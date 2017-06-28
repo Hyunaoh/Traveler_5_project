@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -84,9 +85,6 @@
 	</script>
 </head>
 <body>
-	<!-- Test용 (나중에 지울것!) -->
-	<% session.setAttribute("member_id", "8518");%>
-	
 	<form action="findInsertPro.go" method="post">
 		제목 : <input type="text" name="find_title" class="form-control"/><br>
 		
@@ -117,8 +115,7 @@
 		기간 : <input type="date" name="find_startDate" id="start_date" class="form-control"/>
 		<span id="date_text"> ~ </span>
 		<input type="date" name="find_endDate" id="end_date" class="form-control"/><br>
-		
-		<input type="hidden" name="member_id" value = "${sessionScope.member_id}" class="form-control"/>
+		<input type="text" name="member_id" value = "<se:authentication property='principal.username' />" class="form-control"/>
 		<!-- 보안상 CSRF 값 넘겨줌 -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<button type="submit" id="submit_btn" class="btn btn-md btn-default">등록하기</button><div id="date_result_text"></div>

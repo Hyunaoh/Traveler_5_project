@@ -41,6 +41,12 @@ public class MemberController {
 		return "/member/memberInsertPro";
 	}
 	
+	@RequestMapping("/loginForm.go")
+	public String loginForm()throws Exception{
+		System.out.println("[system] access loginForm! ");
+		return "/member/loginForm";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/idConfirmAjax.go")
 	public boolean idConfirmAjax(@RequestBody MemberVO memberVO)throws Exception{
