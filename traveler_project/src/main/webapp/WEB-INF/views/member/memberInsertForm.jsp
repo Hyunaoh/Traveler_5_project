@@ -5,12 +5,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원 가입 Form</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+$(function(){
+	var idCheck;
+	$("#id_check").click(function(){
+		alert(1);
+		var dataForm = {
+			member_id: $("#member_id").val()
+		};
+		alert(2);
+		$.ajax({
+			url: 'idConfirmAjax.go',
+			method : 'get',
+			type: 'json',
+			data :  JSON.stringify(dataForm), 
+			contentType: "application/json",
+			success : function(result) {
+				alert(result);
+			},
+			error : function(result, status, er) {
+				alert(result+"/"+status+"/"+er);
+			}
+		});
+		alert(3);
+	});
+});
+	
+</script>
 </head>
 <body>
+
 	<form action="memberInsertPro.go" method="post">
+	<div>
 	ID
-	<input type="text" name="member_id"><input type="button" value="중복확인" onclick=""><hr>
+	<input type="text" name="member_id" id="member_id">
+	<input type="button" value="중복확인" id="id_check">
+	<p id = "id_check_display"></p><hr>
+	</div>
 	비밀번호
 	<input type="text" name="member_pwd"><hr>
 	이름
@@ -22,16 +54,16 @@
 	<input type="radio" name="member_gender" value="woman">woman<hr>
 	국적
 	<select name="member_nationality">
-	<option>선택</option>
-			<option value="대한민국">대한민국</option>
-			<option value="미국">미국</option>
-			<option value="영국">영국</option>
-			<option value="프랑스">프랑스</option>
-			<option value="이탈리아">이탈리아</option>
-			<option value="체코">체코</option>
-			<option value="캐나다">캐나다</option>
-			<option value="중국">중국</option>
-			<option value="일본">일본</option>
+		<option>선택</option>
+		<option value="대한민국">대한민국</option>
+		<option value="미국">미국</option>
+		<option value="영국">영국</option>
+		<option value="프랑스">프랑스</option>
+		<option value="이탈리아">이탈리아</option>
+		<option value="체코">체코</option>
+		<option value="캐나다">캐나다</option>
+		<option value="중국">중국</option>
+		<option value="일본">일본</option>
 	</select><hr>
 	구사언어
 	<input type="checkbox" name="member_language" value="한국어">한국어
@@ -49,7 +81,7 @@
 	<input type="text" name="member_post" readonly="readonly" placeholder="검색버튼을 눌러주세요" class="postcodify_postcode5 form-control" />
 	<p id="postcodify_search_button">검색</p>
 	주소
-	<input type="text" name="member_adrr" readonly="readonly" class="postcodify_address form-control" placeholder="검색버튼을 눌러주세요" />
+	<input type="text" name="member_addrDetail" readonly="readonly" class="postcodify_address form-control" placeholder="검색버튼을 눌러주세요" />
 	상세주소
 	<input type="text" name="member_adrr"><hr>						
 	<input type="hidden" name="member_isGuide" value="0">

@@ -4,13 +4,17 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.traveler.dao.MemberDAO">
- 	<insert id="insertMember" parameterType="com.traveler.dao.MemberDAO">
+ 	<insert id="insertMember" parameterType="com.traveler.model.MemberVO">
  	INSERT INTO MEMBER
  		(MEMBER_ID, MEMBER_PWD, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_GENDER, MEMBER_NATIONALITY, MEMBER_LANGUAGE, MEMBER_CERTIFICATION, MEMBER_TEL, MEMBER_EMAIL, MEMBER_POST, MEMBER_ADRR, MEMBER_ADDRDETAIL, MEMBER_PROFILE, MEMBER_ISGUIDE, MEMBER_JOINDATE)
  		VALUES
  		(#{member_id}, #{member_pwd}, #{member_name}, #{member_nickName}, #{member_gender}, #{member_nationality}, #{member_language}, #{member_certification}, #{member_tel}, #{member_email}, #{member_post}, #{member_adrr}, #{member_addrDetail}, #{member_profile}, #{member_isGuide}, now())
  	</insert>
- 
+ 	<select id="selectMemberList" resultType="com.traveler.model.MemberVO">
+ 	SELECT * 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
  
  </mapper>
  

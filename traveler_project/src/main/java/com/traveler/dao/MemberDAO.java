@@ -4,8 +4,11 @@ import com.traveler.model.MemberVO;
 
 public interface MemberDAO {
 
-	//È¸¿ø µî·Ï
+	//È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public int insertMember(MemberVO memberVO)throws Exception;
+
+	public MemberVO selectMemberList(MemberVO memberVO);
+
 	
 	
 }
