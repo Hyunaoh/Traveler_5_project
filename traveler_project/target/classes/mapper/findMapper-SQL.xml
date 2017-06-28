@@ -7,12 +7,13 @@
 	<select id="selectFindListAll" resultType="com.traveler.model.FindVO">
 		SELECT *
 		FROM FIND
+		ORDER BY FIND_REGDATE DESC
 	</select>
 	
 	<!-- 목록 Insert -->
 	<insert id="insertFindInfo" parameterType="com.traveler.model.FindVO">
-		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, MEMBER_ID, FIND_REGDATE)
-		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, #{member_id}, now());
+		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, FIND_HIT, MEMBER_ID, FIND_REGDATE)
+		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, 0, #{member_id}, now());
 	</insert>
 	
 	<!-- 목록 Update -->
@@ -38,7 +39,10 @@
 				FIND_STARTDATE = #{find_startDate},
 			</if>
 			<if test="find_endDate != null and find_endDate !=''">
-				FIND_ENDDATE = #{find_endDate}
+				FIND_ENDDATE = #{find_endDate},
+			</if>
+			<if test="find_hit != null and find_hit !=''">
+				FIND_HIT = #{find_hit}
 			</if>
 		</set>
 		WHERE FIND_PK = #{find_pk}
@@ -56,5 +60,32 @@
 		SELECT *
 		FROM FIND
 		WHERE FIND_PK = #{find_pk}
+	</select>
+	
+	<!--게시물 개수 가져오기 -->
+	<select id="countFindList" resultType="Integer">
+		SELECT COUNT(*)
+		FROM FIND
+	</select>
+	
+	<!-- 국가 별 목록 가져옴 -->
+	<select id="selectCountryFindList" parameterType="com.traveler.model.FindVO" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		WHERE FIND_PLACE1 = #{find_place1}
+		ORDER BY FIND_REGDATE DESC
+	</select>
+	
+	<!-- 검색 목록 가져옴 -->
+	<select id="selectSearchFindList" parameterType="com.traveler.model.FindVO" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		<where>
+			<if test="find_place1 != '전체'">
+				FIND_PLACE1 = #{find_place1} AND 
+			</if>
+			FIND_TITLE REGEXP #{search}
+		</where>
+		ORDER BY FIND_REGDATE DESC
 	</select>
 </mapper>
