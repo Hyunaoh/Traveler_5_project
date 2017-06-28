@@ -80,9 +80,9 @@ public class PackageVO {
 	public String getMember_id(){
 		return this.member_id;
 	}
-	
-	public Date getPackage_regDate(){
-		return this.package_regDate;
-	}	
+
+	public Date getPackage_regDate() {
+		return package_regDate;
+	}
 	
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.traveler.model.PackageVO;
 
-@Repository
 public interface PackageDAO {
 	
 	

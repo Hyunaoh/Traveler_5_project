@@ -14,6 +14,8 @@
 	<br>
 	</c:forEach>
 	
-	<br>
+	<hr>
+	<input type="button" value="상품 등록하기" onclick="location.'insertPackage.go'">
 </body>
 </html>
+

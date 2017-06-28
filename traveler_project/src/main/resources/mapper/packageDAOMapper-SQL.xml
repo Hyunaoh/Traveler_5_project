@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+    
+<mapper namespace="com.traveler.dao.PackageDAO">
+	
+	<select id="getAllPackage" resultType="com.traveler.model.PackageVO">
+		SELECT *
+		FROM PACKAGE
+    </select>
+    
+    <insert id="insertPackage" parameterType="com.traveler.model.PackageVO">
+    	INSERT INTO PACKAGE (
+    		package_title, package_content, package_place1,
+    		package_place2, package_place3, package_leadTime,
+    		member_id, package_regDate)
+         VALUES ( #{package_title}, #{package_content}, #{package_place1},
+         		  #{package_place2},#{package_place3},#{package_leadTime},
+         		  #{member_id},now()
+         		  )
+    </insert>
+  
+
+</mapper>
