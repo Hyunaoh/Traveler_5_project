@@ -12,48 +12,6 @@
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
-
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/animate.css"/>">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/icomoon.css"/>">
-	<!-- Simple Line Icons -->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/simple-line-icons.css"/>">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/magnific-popup.css"/>">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>">
-	
-	<!-- 
-	Default Theme Style 
-	You can change the style.css (default color purple) to one of these styles
-	
-	1. pink.css
-	2. blue.css
-	3. turquoise.css
-	4. orange.css
-	5. lightblue.css
-	6. brown.css
-	7. green.css
-
-	-->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/style.css"/>">
-	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
-	<link rel="stylesheet" id="theme-switch" href="<c:url value="/resources/css/bootstrap/style.css"/>">
-	<!-- End demo purposes only -->
 	<style>
 		/* For demo purpose only */
 		/* For Demo Purposes Only ( You can delete this anytime :-) */
@@ -157,35 +115,11 @@
 		}
 	</style>
 	<!-- End demo purposes only -->
-
-	<!-- Modernizr JS -->
-	<script src="<c:url value="/resources/js/bootstrap/modernizr-2.6.2.min.js"/>"></script>
 </head>
 <body>
-	<header role="banner" id="fh5co-header">
-		<div class="container">
-			<!-- <div class="row"> -->
-		    <nav class="navbar navbar-default">
-	        <div class="navbar-header">
-	        	<!-- Mobile Toggle Menu Button -->
-				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-	        	<a class="navbar-brand" href="home.go">여행가</a> 
-	        </div>
-	        <div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#" data-nav-section="home"><span>Home</span></a></li>
-					<li><a href="#" onclick="location='find/findListForm.go'"><span>가이드 찾기</span></a></li>
-					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
-					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-					<li><a href="#" data-nav-section="about"><span>About</span></a></li>
-					<li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
-				</ul>
-	        </div>
-		    </nav>
-		  <!-- </div> -->
-	  </div>
-	</header>
-
+	<!-- header -->
+	<jsp:include page="header.jsp" />
+	
 	<section id="fh5co-home" data-section="home">
 		<div class="gradient"></div>
 		<div class="container">
@@ -262,8 +196,8 @@
 					<a href="<c:url value="/resources/images/work_1.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_1.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 1</h2>
-						<span>Branding</span>
+							<h2>Project 1</h2>
+							<span>Branding</span>
 						</div>
 					</a>
 				</div>
@@ -271,8 +205,8 @@
 					<a href="<c:url value="/resources/images/work_2.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_2.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Web</span>
+							<h2>Project 2</h2>
+							<span>Web</span>
 						</div>
 					</a>
 				</div>
@@ -283,8 +217,8 @@
 					<a href="<c:url value="/resources/images/work_3.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_3.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 3</h2>
-						<span>Web</span>
+							<h2>Project 3</h2>
+							<span>Web</span>
 						</div>
 					</a>
 				</div>
@@ -292,8 +226,8 @@
 					<a href="<c:url value="/resources/images/work_4.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_4.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 4</h2>
-						<span>UI/UX</span>
+							<h2>Project 4</h2>
+							<span>UI/UX</span>
 						</div>
 					</a>
 				</div>
@@ -304,8 +238,8 @@
 					<a href="<c:url value="/resources/images/work_5.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_5.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 1</h2>
-						<span>Photography</span>
+							<h2>Project 1</h2>
+							<span>Photography</span>
 						</div>
 					</a>
 				</div>
@@ -313,8 +247,8 @@
 					<a href="<c:url value="/resources/images/work_6.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_6.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Illustration</span>
+							<h2>Project 2</h2>
+							<span>Illustration</span>
 						</div>
 					</a>
 				</div>
@@ -325,8 +259,8 @@
 					<a href="<c:url value="/resources/images/work_7.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_7.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 3</h2>
-						<span>Web</span>
+							<h2>Project 3</h2>
+							<span>Web</span>
 						</div>
 					</a>
 				</div>
@@ -334,8 +268,8 @@
 					<a href="<c:url value="/resources/images/work_8.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_8.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 4</h2>
-						<span>Sketch</span>
+							<h2>Project 4</h2>
+							<span>Sketch</span>
 						</div>
 					</a>
 				</div>
@@ -346,8 +280,8 @@
 					<a href="<c:url value="/resources/images/work_1.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_1.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Illustration</span>
+							<h2>Project 2</h2>
+							<span>Illustration</span>
 						</div>
 					</a>
 				</div>
@@ -607,12 +541,9 @@
 					</div>
 					</div>
 				</div>
-
 			</div>
-		</div>
 		<div id="map" class="to-animate"></div>
 	</section>
-	
 	
 	<footer id="footer" role="contentinfo">
 		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
@@ -620,7 +551,6 @@
 			<div class="">
 				<div class="col-md-12 text-center">
 					<p>&copy; Elate Free HTML5. All Rights Reserved. <br>Created by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Images: <a href="http://pexels.com/" target="_blank">Pexels</a>, <a href="http://plmd.me/" target="_blank">plmd.me</a></p>
-					
 				</div>
 			</div>
 			<div class="row">
@@ -634,7 +564,6 @@
 			</div>
 		</div>
 	</footer>
-	
 	
 	<!-- For demo purposes Only ( You may delete this anytime :-) -->
 	<div id="colour-variations">
@@ -705,6 +634,7 @@
 	<h4><a href="message/messageWrite.go">message22</a></h4>
 	
 </body>
+	
 	<script>
 		$(function(){
 			$('#colour-variations ul').styleSwitcher({
@@ -721,9 +651,6 @@
 		});
 	</script>
 	<!-- End demo purposes only -->
-
-	<!-- Main JS (Do not remove) -->
-	<script src="<c:url value="/resources/js/bootstrap/main.js"/>"></script>
 
 	</body>
 </html>

@@ -8,12 +8,17 @@
 	<h4>상품 등록하기</h4>
 	<form action="insertPackagePro.go" method="post">
 		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
+		<select name="package_place1" >
+		<option n>
+		<input type="text" name="package_place1" placeholder="제목을 입력해주세요">
+		</select>
 		
+		<input type="text" name="package_place2" placeholder="제목을 입력해주세요">
+		<input type="text" name="package_place3" placeholder="제목을 입력해주세요">
+		<input type="text" name="package_content" placeholder="내용을 입력해주세요">
+		<input type="text" name="package_leadTime" placeholder="제목을 입력해주세요">
+		
+		<input type="hidden" name="member_id" placeholder="제목을 입력해주세요">
 		package_title, package_content, package_place1,
     		package_place2, package_place3, package_leadTime,
     		member_id, package_regDate

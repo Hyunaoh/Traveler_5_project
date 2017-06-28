@@ -20,4 +20,13 @@ public interface FindDAO {
 
 	// 특정한 정보 하나를 가져옴
 	public FindVO selectFindInfo(FindVO findVO_in);
+	
+	// 전체 게시물 개수 가져옴
+	public int countFindList() throws Exception;
+
+	// 국가별 목록 가져옴
+	public List<FindVO> selectCountryFindList(FindVO findVO);
+
+	// 검색 리스트 가져옴
+	public List<FindVO> selectSearchFindList(FindVO findVO);
 }

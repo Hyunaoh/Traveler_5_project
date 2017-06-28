@@ -13,8 +13,10 @@ public class FindVO {
 	private String find_place3; // varchar(3000) not null, -- 원하는 상세내용
 	private String find_startDate; // varchar(500) not null, -- 여행 시작 기간
 	private String find_endDate; // varchar(500) not null, -- 여행 끝 기간
+	private int find_hit; // int(1) not null default 0, -- 조회수
 	private String member_id; // varchar(500) not null, -- 작성자 아이디
 	private Timestamp find_regDate; // timestamp not null -- 글 작성 날짜
+	private String search; // 검색어
 	
 	public int getFind_pk() {
 		return find_pk;
@@ -76,14 +78,17 @@ public class FindVO {
 	public void setFind_regDate(Timestamp find_regDate) {
 		this.find_regDate = find_regDate;
 	}
-	
-	@Override
-	public String toString() {
-		return "FindVO [find_pk=" + find_pk + ", find_title=" + find_title + ", find_content=" + find_content
-				+ ", find_place1=" + find_place1 + ", find_place2=" + find_place2 + ", find_place3=" + find_place3
-				+ ", find_startDate=" + find_startDate + ", find_endDate=" + find_endDate + ", member_id=" + member_id
-				+ ", find_regDate=" + find_regDate + "]";
+	public int getFind_hit() {
+		return find_hit;
 	}
-	
+	public void setFind_hit(int find_hit) {
+		this.find_hit = find_hit;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	
 }
