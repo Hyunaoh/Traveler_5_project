@@ -1,14 +1,20 @@
 package com.traveler.controller;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.traveler.dao.MessageDAO;
 import com.traveler.model.MessageVO;
@@ -28,6 +34,11 @@ public class MessageController {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@RequestMapping("/messageListView.go")
+	public String messageListView(){
+		return "/message/messageListView";
+	}
+	
 	// 받은 메세지함
 	@RequestMapping("/messageGet.go")
 	public String messageGet(){
@@ -44,17 +55,6 @@ public class MessageController {
 	@RequestMapping("/messageWrite.go")
 	public String messageWrite(){
 		return "/message/messageWrite";
-	}
-	
-	// 받은 메세지함 프로세스
-	@RequestMapping("/messageGetPro.go")
-	public String messageGetPro(Model model, MessageVO mVo){
-		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
-		
-		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
-		
-		model.addAttribute("mList", mList);
-		return "/message/messageGet";
 	}
 	
 	// 보낸 메세지함 프로세스
@@ -78,6 +78,23 @@ public class MessageController {
 		model.addAttribute("insert_res", insertRes);
 		
 		return "/message/messageWrite";
+	}
+	
+	// 메세지 리스트의 Ajax
+	
+	@ResponseBody
+	@RequestMapping("/messageGetViewAjax.go")
+	public boolean messageGetViewAjax(@RequestBody MessageVO mVo, Principal principal){
+
+		boolean check = false;
+		
+		System.out.println("받은 메세지함 Ajax실행");
+	    
+	    MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+	    
+		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
+		
+		return true;
 	}
 	
 }
