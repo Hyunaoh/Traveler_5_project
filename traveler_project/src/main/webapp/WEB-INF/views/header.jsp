@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -75,7 +76,13 @@
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/message/messageWrite.go" />'"><span>쪽지</span></a></li>
-					<li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
+					<se:authorize access="isAnonymous()">
+						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
+					</se:authorize>
+					<se:authorize access="isAuthenticated()">
+						<li><a href="#" onclick="location='<c:url value="/j_spring_security_logout" />'"><span>로그아웃(<se:authentication property='principal.username' />)</span></a></li>
+					</se:authorize>
 				</ul>
 	        </div>
 		    </nav>
