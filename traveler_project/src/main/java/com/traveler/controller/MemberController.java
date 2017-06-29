@@ -42,7 +42,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/loginForm.go")
-	public String loginForm()throws Exception{
+	public String loginForm() throws Exception{
 		System.out.println("[system] access loginForm! ");
 		return "/member/loginForm";
 	}

@@ -115,7 +115,7 @@
 		기간 : <input type="date" name="find_startDate" id="start_date" class="form-control"/>
 		<span id="date_text"> ~ </span>
 		<input type="date" name="find_endDate" id="end_date" class="form-control"/><br>
-		<input type="text" name="member_id" value = "<se:authentication property='principal.username' />" class="form-control"/>
+		<input type="hidden" name="member_id" value = "<se:authentication property='principal.username' />" class="form-control"/>
 		<!-- 보안상 CSRF 값 넘겨줌 -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<button type="submit" id="submit_btn" class="btn btn-md btn-default">등록하기</button><div id="date_result_text"></div>

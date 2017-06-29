@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,8 +60,13 @@
 										${list.find_hit}
 	              					</div>
 	              					<div class="col-md-2">
-										<a class="btn btn-default btn-sm" href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>
-										<a class="btn btn-default btn-sm" href="findDeletePro.go?find_pk=${list.find_pk}">삭제</a>
+	              						<se:authorize access="isAuthenticated()">
+		              					<se:authentication property="principal.username" var="sessionID"/>
+		              					<c:if test="${list.member_id == sessionID}">
+		              						<a class="btn btn-default btn-sm" href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>
+											<a class="btn btn-default btn-sm" href="findDeletePro.go?find_pk=${list.find_pk}">삭제</a>
+		              					</c:if>
+		              					</se:authorize>
 	              					</div>
 								</div>
 							</c:forEach>
