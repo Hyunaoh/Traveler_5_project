@@ -10,6 +10,33 @@
 		ORDER BY FIND_REGDATE DESC
 	</select>
 	
+	<!-- 전체 목록 가져옴 (페이징 이용)-->
+	<select id="selectFindListAllPaging" parameterType="com.traveler.model.FindVO" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		ORDER BY FIND_REGDATE DESC
+		LIMIT #{startBoardNum}, #{countBoardPerPage}
+	</select>
+	
+	<!-- 전체 목록 가져옴 (페이징 이용)-->
+	<select id="selectBadFindListAllPaging" parameterType="com.traveler.model.FindVO" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		WHERE CONCAT(FIND_TITLE, FIND_CONTENT, FIND_PLACE3) REGEXP(
+			'[사-싷][바-빟]|[바-빟][사-싷]|[자-짛][라-맇]|육시럴|제기랄|
+			옘병|엠창|미친|[사-싷][까-낗]')
+		ORDER BY FIND_REGDATE DESC
+		LIMIT #{startBoardNum}, #{countBoardPerPage}
+	</select>
+	<!--게시물 개수 가져오기 -->
+	<select id="countBadFindList" resultType="Integer">
+		SELECT COUNT(*)
+		FROM FIND
+		WHERE CONCAT(FIND_TITLE, FIND_CONTENT, FIND_PLACE3) REGEXP(
+			'[사-싷][바-빟]|[바-빟][사-싷]|[자-짛][라-맇]|육시럴|제기랄|
+			옘병|엠창|미친|[사-싷][까-낗]')
+	</select>
+	
 	<!-- 목록 Insert -->
 	<insert id="insertFindInfo" parameterType="com.traveler.model.FindVO">
 		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, FIND_HIT, MEMBER_ID, FIND_REGDATE)

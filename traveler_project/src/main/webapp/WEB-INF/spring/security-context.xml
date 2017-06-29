@@ -14,8 +14,9 @@
 		<security:logout logout-success-url="/home.go" logout-url="/j_spring_security_logout"/>
 		<!-- 권한 설정 -->
 
-		<security:intercept-url pattern="/message/*" 
-		access="hasRole('ROLE_MEMBER') or hasRole('ROLE_VIP') or hasRole('ROLE_GUIDE') or hasRole('ROLE_ADMIN')"/> 
+		<!-- 쪽지 -->
+		<!-- <security:intercept-url pattern="/message/*" access="hasRole('Role_Parent') 
+			or hasRole('Role_Teacher') or hasRole('Role_Admin')"/> -->
 
 	</security:http>
 
