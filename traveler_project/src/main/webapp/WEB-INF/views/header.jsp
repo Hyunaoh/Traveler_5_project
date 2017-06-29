@@ -74,7 +74,7 @@
 					<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'"><span>가이드 찾기</span></a></li>
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-					<li><a href="#" onclick="location='<c:url value="/message/messageWrite.go" />'"><span>쪽지</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'"><span>쪽지</span></a></li>
 					<se:authorize access="isAnonymous()">
 						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
 						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
