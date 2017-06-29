@@ -14,12 +14,22 @@
     	INSERT INTO PACKAGE (
     		package_title, package_content, package_place1,
     		package_place2, package_place3, package_leadTime,
-    		member_id, package_regDate)
+    		member_id, package_regDate, package_image)
          VALUES ( #{package_title}, #{package_content}, #{package_place1},
          		  #{package_place2},#{package_place3},#{package_leadTime},
-         		  #{member_id},now()
+         		  #{member_id},now(), #{package_image)
          		  )
     </insert>
+    
+    <select id="countTotalPackage" resultType="Integer">
+    	SELECT COUNT (*)
+    	FROM PACKAGE    
+    </select>
   
+    <select id="searchPackage" resultType="com.traveler.model.PackageVO">
+    	SELECT *
+    	FROM PACKAGE
+    	WHERE PACKAGE_PLACE1 = #{package_place1}
+    </select>
 
 </mapper>

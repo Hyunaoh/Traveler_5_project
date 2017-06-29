@@ -11,6 +11,8 @@ public class PackageVO {
 	private String package_place3;
 	private String package_leadTime;
 	private String member_id;
+	private String package_hit;
+	private String package_image;
 	private Date package_regDate;
 	
 	public void setPackage_pk(String package_pk){
@@ -84,5 +86,32 @@ public class PackageVO {
 	public Date getPackage_regDate() {
 		return package_regDate;
 	}
+
+	public String getPackage_hit() {
+		return package_hit;
+	}
+
+	public void setPackage_hit(String package_hit) {
+		this.package_hit = package_hit;
+	}
+
+	public String getPackage_image() {
+		return package_image;
+	}
+
+	public void setPackage_image(String package_image) {
+		this.package_image = package_image;
+	}
+
+	@Override
+	public String toString() {
+		return "PackageVO [package_pk=" + package_pk + ", package_title=" + package_title + ", package_content="
+				+ package_content + ", package_place1=" + package_place1 + ", package_place2=" + package_place2
+				+ ", package_place3=" + package_place3 + ", package_leadTime=" + package_leadTime + ", member_id="
+				+ member_id + ", package_hit=" + package_hit + ", package_image=" + package_image + ", package_regDate="
+				+ package_regDate + "]";
+	}
+
+	
 	
 }

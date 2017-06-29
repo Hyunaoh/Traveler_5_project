@@ -10,9 +10,9 @@
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 
-<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
-	<div class="fh5co-overlay"></div>
-
+ <section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
+	<div class="fh5co-overlay"></div> 
+	
 	<!-- Page Content -->
     <div class="container">
         <div class="row">

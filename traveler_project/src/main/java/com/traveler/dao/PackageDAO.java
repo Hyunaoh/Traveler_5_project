@@ -23,7 +23,11 @@ public interface PackageDAO {
 	//삭제
 	public void deletePackage(PackageVO packageVO) throws Exception;
 		
-	//특정한 목록 찾기
-	public List<PackageVO> getPackage(PackageVO packageVO) throws Exception;
-
+	//특정한 나라 목록 찾기
+	public List<PackageVO> searchPackage(PackageVO packageVO) throws Exception;
+	
+	//전체 패키지 등록 갯수
+	public int countTotalPackage() throws Exception;
+	
+	
 }
