@@ -58,14 +58,17 @@ public class MessageController {
 	}
 	
 	// 보낸 메세지함 프로세스
-	@RequestMapping("/messageSendPro.go")
-	public String messageSendPro(Model model, MessageVO mVo){
-		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+	@RequestMapping("/messageSendViewAjax.go")
+	public boolean messageSendViewAjax(Model model, MessageVO mVo){
+		boolean check = false;
 		
+		System.out.println("보낸 메세지함 Ajax실행");
+	    
+	    MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+	    
 		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
 		
-		model.addAttribute("mList", mList);
-		return "/message/messageSend";
+		return true;
 	}
 	
 	// 메세지 쓰는 함 프로세스

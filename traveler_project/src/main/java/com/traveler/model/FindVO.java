@@ -16,9 +16,6 @@ public class FindVO {
 	private String member_id; // varchar(500) not null, -- 작성자 아이디
 	private Timestamp find_regDate; // timestamp not null -- 글 작성 날짜
 	private String search; // 검색어
-	private int countBoardPerPage; // 한 페이지 당 게시물 개수
-	private int startBoardNum; // 해당 페이에서의 첫 시작 글
-	private int endBoardNum; // 해당 페이에서의 마지막 글
 	
 	public int getFind_pk() {
 		return find_pk;
@@ -91,24 +88,6 @@ public class FindVO {
 	}
 	public void setSearch(String search) {
 		this.search = search;
-	}
-	public int getCountBoardPerPage() {
-		return countBoardPerPage;
-	}
-	public void setCountBoardPerPage(int countBoardPerPage) {
-		this.countBoardPerPage = countBoardPerPage;
-	}
-	public int getStartBoardNum() {
-		return startBoardNum;
-	}
-	public void setStartBoardNum(int startBoardNum) {
-		this.startBoardNum = startBoardNum;
-	}
-	public int getEndBoardNum() {
-		return endBoardNum;
-	}
-	public void setEndBoardNum(int endBoardNum) {
-		this.endBoardNum = endBoardNum;
 	}
 	
 }

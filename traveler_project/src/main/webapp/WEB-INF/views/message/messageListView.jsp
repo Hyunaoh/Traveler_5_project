@@ -10,10 +10,13 @@
 <script type="text/javascript">
 
 	/* 쪽지함 Ajax */
-
-	$("#messageGet").click(
-			function() { 
-				var dataForm = {message_get: $("#username").val()};
+	$(document).ready(function(){
+		
+	$("#messageGet").click(function() { 
+				alert('버튼클릭');
+				var dataForm = {
+					message_get: $("#username").val()
+				};
 				
 				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
 					url : "messageGetViewAjax.go",
@@ -42,15 +45,21 @@
 					}
 				});
 			});
+		});
 </script>
 </head>
 <body>
-	<button type="button" id="messageGet" name="messageGet">받은쪽지함</button>
-	<button type="button" id="messageSend" name="messageSend">보낸쪽지함</button>
-	<button type="button" id="messageWrite" name="messageWrite">쪽지작성화면</button>
-	<input type="text" id="username" name="username" value="<se:authentication property='principal.username' />"/>
 	
-	<div class="messageView">[ 메세지 뷰 ]</div>
+	<div style="margin-top : 20px" >
+		<input type="button" id="messageGet" name="messageGet" value="받은쪽지함">
+		<input type="button" id="messageSend" name="messageSend" value="보낸쪽지함">
+		<input type="button" id="messageWrite" name="messageWrite" value="쪽지작성화면">
+		<p>
+		현재 접속자 아이디 : <se:authentication property='principal.username' />
+		</p>
+		<input type="hidden" id="username" name="username" value="<se:authentication property='principal.username' />" />
+		<div class="messageView">[ 쪽지함 뷰 ]</div>
+	</div>
 	
 </body>
 </html>
