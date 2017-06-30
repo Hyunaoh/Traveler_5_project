@@ -10,11 +10,52 @@
  		VALUES
  		(#{member_id}, #{member_pwd}, #{member_name}, #{member_nickName}, #{member_gender}, #{member_nationality}, #{member_language}, #{member_certification}, #{member_tel}, #{member_email}, #{member_post}, #{member_adrr}, #{member_addrDetail}, #{member_profile}, #{member_isGuide}, now())
  	</insert>
+ 	
+ 	<insert id="insertRole" parameterType="com.traveler.model.MemberVO">
+ 	Insert into role
+ 		(member_id, role)
+ 		values
+ 		(#{member_id}, 'ROLE_MEMBER')
+ 	</insert>
+ 	
  	<select id="selectMemberList" resultType="com.traveler.model.MemberVO">
  	SELECT * 
  	FROM MEMBER
  	WHERE MEMBER_ID = #{member_id}
  	</select>
+ 	
+ 	<select id ="selectMyPage" resultType="com.traveler.model.MemberVO">
+ 	SELECT * 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
  
+ 	<update id="updateMember" parameterType="com.traveler.model.MemberVO" >
+ 	 UPDATE member
+	    <set>
+	    	<if test="member_nationality != null and member_nationality != ''">
+	    		member_nationality = #{member_nationality}
+	    	</if>
+	    	<if test="member_language != null and member_language != ''">
+	    		,member_language = #{member_language}
+	    	</if>
+	    	<if test="member_certification != null and member_certification != ''">
+	    		,member_certification = #{member_certification}
+	    	</if>
+	    	<if test="member_post != null and member_post != ''">
+	    		,member_post = #{member_post}
+	    	</if>
+	    	<if test="member_adrr != null and member_adrr != ''">
+	    		,member_adrr = #{member_adrr}
+	    	</if>
+	    	<if test="member_addrDetail != null and member_addrDetail != ''">
+	    		,member_addrDetail = #{member_addrDetail}
+	    	</if>
+	    	<if test="member_profile != null and member_profile != ''">
+	    		,member_profile = #{member_profile}
+	    	</if>
+	    </set>
+	    WHERE member_id = #{member_id}
+ 	</update>
  </mapper>
  

@@ -75,6 +75,7 @@
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/message/messageWrite.go" />'"><span>쪽지</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
 				</ul>
 	        </div>
