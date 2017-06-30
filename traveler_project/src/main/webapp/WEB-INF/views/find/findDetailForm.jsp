@@ -17,5 +17,6 @@
 	<a href="findListForm.go">목록보기</a>
 	<a href="findUpdateForm.go?find_pk=${findVO.find_pk}">수정</a>
 	<a href="findDeletePro.go?find_pk=${findVO.find_pk}">삭제</a>
+	<a href="findDeclarePro.go?find_pk=${findVO.find_pk}">신고</a>
 </body>
 </html>

@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
 import com.traveler.model.FindVO;
+import com.traveler.model.PagingVO;
 
 @Controller
 @RequestMapping("/find")
@@ -23,19 +25,30 @@ public class FindController {
 
 	// 가이드 찾기 전체 리스트
 	@RequestMapping("/findListForm.go")
-	public String findListForm(Model model) throws Exception {
+	public String findListForm(Model model, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findListForm!");
 
-		// 가이드 찾기 전체 List 가져옴
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
-		List<FindVO> findList = findDAO.selectFindListAll();
-		System.out.println("  >> success processing!");
-
 		// 전체 게시물 개수 가져옴
 		int totalCount = findDAO.countFindList();
-		
+		final int COUNT_PER_PAGE = 5; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
+
+		// 가이드 찾기 전체 List 가져옴
+		FindVO findVO = new FindVO();
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
+		List<FindVO> findList = findDAO.selectFindListAllPaging(findVO);
+		System.out.println("  >> success processing!");
+
+		// 전체 게시판에서 가져옴
+		pagingVO.setState("listAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
 		return "/find/findListForm";
 	}
 
@@ -130,66 +143,109 @@ public class FindController {
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
 		System.out.println("  >> success processing! (select)");
-		
+
 		// 조회수 증가
 		boolean check = false;
 		FindVO findVO_view = new FindVO();
 		findVO_view.setFind_pk(findVO_in.getFind_pk());
 		try {
-			if((int)session.getAttribute("view_check") == findVO_in.getFind_pk()){
+			if ((int) session.getAttribute("view_check") == findVO_in.getFind_pk()) {
 				// 새로고침 했을때는 그대로 값유지
 				findVO_view.setFind_hit(findVO_out.getFind_hit());
-			} else{
+			} else {
 				findVO_view.setFind_hit(findVO_out.getFind_hit() + 1);
 			}
 		} catch (Exception e) {
 			findVO_view.setFind_hit(findVO_out.getFind_hit() + 1);
 		} finally {
-			if(findDAO.updateFindInfo(findVO_view) > 0){
+			if (findDAO.updateFindInfo(findVO_view) > 0) {
 				// 성공
 				check = true;
 				session.setAttribute("view_check", findVO_in.getFind_pk());
 			}
 			System.out.println("  >> Increase View Processing Result : " + check);
 		}
-		
+
 		model.addAttribute("findVO", findVO_out);
 		return "/find/findDetailForm";
 	}
-	
+
 	// 국가 별 조건 리스트 검색
 	@RequestMapping("/findCountryListForm.go")
-	public String findCountryListForm(Model model, FindVO findVO) throws Exception {
+	public String findCountryListForm(Model model, FindVO findVO, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findCountryListForm!");
 
-		// 국가 별 리스트 출력할 List 가져옴
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+
+		// 전체 게시물 개수 가져옴
+		int totalCount = findDAO.countCountryFindList(findVO);
+		final int COUNT_PER_PAGE = 5; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
+
+		// 국가 별 리스트 출력할 List 가져옴
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
 		List<FindVO> findList = findDAO.selectCountryFindList(findVO);
 		System.out.println("  >> success processing!");
 
-		// 전체 게시물 개수 가져옴
-		int totalCount = findDAO.countFindList();
-		
+		// 나라 게시판에서 가져옴
+		pagingVO.setState("listCountryAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("findVO", findVO);
 		return "/find/findListForm";
 	}
-	
-	// 국가 별 조건 리스트 검색
+
+	// 검색
 	@RequestMapping("/findSearchListForm.go")
-	public String findSearchListForm(Model model, FindVO findVO) throws Exception {
+	public String findSearchListForm(Model model, FindVO findVO, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findSearchListForm!");
 
 		// 검색 리스트 출력할 List 가져옴
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+
+		// 전체 게시물 개수 가져옴
+		int totalCount = findDAO.countSearchFindList(findVO);
+		final int COUNT_PER_PAGE = 5; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
+
+		// 국가 별 리스트 출력할 List 가져옴
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
 		List<FindVO> findList = findDAO.selectSearchFindList(findVO);
 		System.out.println("  >> success processing!");
 
-		// 전체 게시물 개수 가져옴
-		int totalCount = findDAO.countFindList();
-		
+		// 검색 게시판에서 가져옴
+		pagingVO.setState("listSearchAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("findVO", findVO);
 		return "/find/findListForm";
+	}
+
+	// 신고했을경우
+	@RequestMapping("/findDeclarePro.go")
+	public String findDeclarePro(Model model, FindVO findVO) throws Exception {
+		System.out.println("[system] access findDeclarePro!");
+
+		boolean check = false;
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		findVO.setFind_badState(0);
+		if (findDAO.declareFind(findVO) > 0) {
+			// success
+			check = true;
+		}
+		System.out.println("  >> processing result : " + check);
+
+		model.addAttribute("check", check);
+		return "/find/findDeclarePro";
 	}
 }

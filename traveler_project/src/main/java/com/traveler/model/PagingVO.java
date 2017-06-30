@@ -8,6 +8,7 @@ public class PagingVO {
 	private int currentPageNum; // 현재 페이지 번호
 	private int startBoardNum; // 해당 페이에서의 첫 시작 글
 	private int endBoardNum; // 해당 페이에서의 마지막 글
+	private String state;// 어떤 조건으로 게시글을 가지고 오는지 확인
 	
 	// set get method
 	public int getTotalCount() {
@@ -45,5 +46,11 @@ public class PagingVO {
 	}
 	public void setCountBoardPerPage(int countBoardPerPage) {
 		this.countBoardPerPage = countBoardPerPage;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 }

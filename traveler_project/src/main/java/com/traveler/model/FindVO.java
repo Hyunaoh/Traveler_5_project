@@ -15,6 +15,7 @@ public class FindVO {
 	private int find_hit; // int(1) not null default 0, -- 조회수
 	private String member_id; // varchar(500) not null, -- 작성자 아이디
 	private Timestamp find_regDate; // timestamp not null -- 글 작성 날짜
+	private int find_badState; // int(1) null -- 0 : 의심되는 게시물 / 나머지: 정상
 	private String search; // 검색어
 	private int countBoardPerPage; // 한 페이지 당 게시물 개수
 	private int startBoardNum; // 해당 페이에서의 첫 시작 글
@@ -85,6 +86,12 @@ public class FindVO {
 	}
 	public void setFind_hit(int find_hit) {
 		this.find_hit = find_hit;
+	}
+	public int getFind_badState() {
+		return find_badState;
+	}
+	public void setFind_badState(int find_badState) {
+		this.find_badState = find_badState;
 	}
 	public String getSearch() {
 		return search;
