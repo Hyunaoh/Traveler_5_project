@@ -51,7 +51,7 @@
 	<!-- 목록 Insert -->
 	<insert id="insertFindInfo" parameterType="com.traveler.model.FindVO">
 		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, FIND_HIT, MEMBER_ID, FIND_REGDATE, find_badState)
-		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, 0, #{member_id}, now(), 1);
+		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, 0, #{member_id}, date_format(now(),'%Y/%m/%d %H:%i:%s'), 1);
 	</insert>
 	
 	<!-- 목록 Update -->
