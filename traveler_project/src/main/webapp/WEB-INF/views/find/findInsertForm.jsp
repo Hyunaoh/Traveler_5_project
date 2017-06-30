@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -85,40 +86,98 @@
 	</script>
 </head>
 <body>
-	<form action="findInsertPro.go" method="post">
-		제목 : <input type="text" name="find_title" class="form-control"/><br>
-		
-		본문 : <input type="text" name="find_content" class="form-control"/><br>
-		
-		국가 :
-		<select name="find_place1" id="country">
-			<option>선택</option>
-			<option value="대한민국">대한민국</option>
-			<option value="미국">미국</option>
-			<option value="영국">영국</option>
-			<option value="프랑스">프랑스</option>
-			<option value="이탈리아">이탈리아</option>
-			<option value="체코">체코</option>
-			<option value="캐나다">캐나다</option>
-			<option value="중국">중국</option>
-			<option value="일본">일본</option>
-		</select>
-		
-		<span id="area_text1">도시 : </span>
-		<select name="find_place2" id="area">
-		</select>
-		
-		<p id="area_text2">상세사항 : </p>
-		<textarea name="find_place3" id="detail_info" rows="10" cols="50" class="form-control"></textarea><br>
-		<br>
-		
-		기간 : <input type="date" name="find_startDate" id="start_date" class="form-control"/>
-		<span id="date_text"> ~ </span>
-		<input type="date" name="find_endDate" id="end_date" class="form-control"/><br>
-		<input type="text" name="member_id" value = "<se:authentication property='principal.username' />" class="form-control"/>
-		<!-- 보안상 CSRF 값 넘겨줌 -->
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		<button type="submit" id="submit_btn" class="btn btn-md btn-default">등록하기</button><div id="date_result_text"></div>
-	</form>
+
+	<!-- header -->
+	<jsp:include page="../header.jsp" />
+	
+	<!-- contents -->
+	<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center to-animate">
+					<h2>가이드 찾기</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>글을 작성해서 원하는 가이드를 찾아보세요!<br>자세하게 입력 할수록 원하는 가이드를 찾기 쉬워집니다.<br>편하게 여행을 즐기세요!</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-md well">
+				<div class="col-md-6 to-animate">
+					<h3>작성 요령</h3>
+					<ul class="fh5co-contact-info">
+						<li class="fh5co-contact-address ">
+							<font color="green">제목</font>은 게시판에서 미리 보여지는 부분입니다.<br><br>간단하면서 임팩트있게 작성할수록 가이드를 구하기 쉬워집니다.
+						</li>
+						<br><hr>
+						<li class="fh5co-contact-address ">
+							<font color="green">본문</font>에는 자신이 가이드에게 원하는 정보나<br><br>자기소개를 써주시면 자신과 맞는 가이드를 찾을 수 있습니다.
+						</li>
+						<br><hr>
+						<li class="fh5co-contact-address ">
+							<font color="green">나라</font>와 <font color="green">도시</font>, 그리고 <font color="green">가고싶은 장소</font>를 입력해주세요.
+						</li>
+						<br><hr>
+						<li class="fh5co-contact-address ">
+							<font color="green">여행기간</font>을 정확히 확인해서 올려주세요.
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-md-6 to-animate">
+					<form action="findInsertPro.go" method="post">
+						<h3>가이드 찾기 글 작성</h3>
+						<div class="form-group ">
+							<label>제목</label>
+							<input type="text" name="find_title" class="form-control" placeholder="제목을 입력해주세요"/>
+						</div>
+						<div class="form-group ">
+							<label>본문</label>
+							<textarea name="find_content" class="form-control" rows="5" cols="30" placeholder="자세한 내용을 입력해주세요"></textarea>
+						</div>
+						<div class="form-group ">
+							<label>나라 </label>
+							<select name="find_place1" id="country">
+								<option>선택</option>
+								<option value="대한민국">대한민국</option>
+								<option value="미국">미국</option>
+								<option value="영국">영국</option>
+								<option value="프랑스">프랑스</option>
+								<option value="이탈리아">이탈리아</option>
+								<option value="체코">체코</option>
+								<option value="캐나다">캐나다</option>
+								<option value="중국">중국</option>
+								<option value="일본">일본</option>
+							</select>
+							<label id="area_text1"> 도시</label>
+							<select name="find_place2" id="area">
+							</select>
+						</div>
+						<div class="form-group ">
+							<label id="area_text2">상세정보</label>
+							<textarea name="find_place3" id="detail_info" rows="5" cols="30"
+							class="form-control" placeholder="가고 싶은 장소 등 상세정보를 입력해주세요"></textarea>
+						</div>
+						<div class="form-group ">
+							<label>기간</label>
+							<input type="date" name="find_startDate" id="start_date" class="form-control"/>
+						</div>
+						<div class="form-group ">
+							<label id="date_text"> ~ </label>
+							<input type="date" name="find_endDate" id="end_date" class="form-control"/>
+						</div>
+						<div class="form-group ">
+							<input type="hidden" name="member_id" value = "<se:authentication property='principal.username' />" class="form-control"/>
+							<!-- 보안상 CSRF 값 넘겨줌 -->
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							<input class="btn btn-primary btn-lg" value="작성완료" type="submit">
+						</div>
+						<div id="date_result_text"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<title>여행을 더하다</title>
+	<style type="text/css">
+		.pointer{
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	<!-- header -->
@@ -18,7 +24,7 @@
         <div class="row">
         	<!-- Title -->
         	<div class="col-md-12 section-heading text-center to-animate">
-				<h2 onclick="location='findListForm.go'">가이드 찾기</h2>
+				<h2 onclick="location='findListForm.go'" class="pointer">가이드 찾기</h2>
 			</div>
             <div class="fh5co-counter col-lg-8">
                 <!-- Banner Image -->
@@ -47,7 +53,7 @@
 							<c:forEach items="${findList}" var="list">
 	              				<div class="well row">
 	              					<div class="col-md-3">
-										<a href="findDetailForm.go?find_pk=${list.find_pk}">${list.find_title}/${list.find_place1}</a>
+										<a href="findDetailForm.go?find_pk=${list.find_pk}">${list.find_title}<br>${list.find_place1}</a>
 	              					</div>
 	              					<div class="col-md-2">
 										${list.member_id}
@@ -59,15 +65,71 @@
 										${list.find_hit}
 	              					</div>
 	              					<div class="col-md-2">
-										<a class="btn btn-default btn-sm" href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>
-										<a class="btn btn-default btn-sm" href="findDeletePro.go?find_pk=${list.find_pk}">삭제</a>
+	              						<se:authorize access="isAuthenticated()">
+		              					<se:authentication property="principal.username" var="sessionID"/>
+		              					<c:if test="${list.member_id == sessionID}">
+		              						<a class="btn btn-default btn-sm" href="findUpdateForm.go?find_pk=${list.find_pk}">수정</a>
+											<a class="btn btn-default btn-sm" href="findDeletePro.go?find_pk=${list.find_pk}">삭제</a>
+		              					</c:if>
+		              					</se:authorize>
 	              					</div>
 								</div>
 							</c:forEach>
 							<hr>
+							<div class="row">
+								<div class="fh5co-counter col-lg-12">
+									<c:set value="1" var="pageNum" />
+									<!-- 전체 게시판일때... -->
+									<c:if test="${pagingVO.state eq 'listAll'}">
+										<c:if test="${pagingVO.currentPageNum ne 1 && pagingVO.currentPageNum ne '' && pagingVO.currentPageNum ne null}">
+											<a href="findListForm.go?currentPageNum=${pagingVO.currentPageNum-1}">[이전] </a>
+										</c:if>
+										<c:forEach begin="${pageNum}" end="${pagingVO.totalPageCount}" var="i">
+											<a href="findListForm.go?currentPageNum=${i}">${i} </a>
+										</c:forEach>
+										<c:if test="${spagingVO.totalPageCount ne 1 && pagingVO.currentPageNum eq '' && pagingVO.currentPageNum eq null}">
+											<a href="findListForm.go?currentPageNum=2">[다음]</a>
+										</c:if>
+										<c:if test="${pagingVO.currentPageNum ne pagingVO.totalPageCount && pagingVO.currentPageNum >= '1'}">
+											<a href="findListForm.go?currentPageNum=${pagingVO.currentPageNum+1}">[다음]</a>
+										</c:if>
+									</c:if>
+									<!-- 나라 게시판일때... -->
+									<c:if test="${pagingVO.state eq 'listCountryAll'}">
+										<c:if test="${pagingVO.currentPageNum ne 1 && pagingVO.currentPageNum ne '' && pagingVO.currentPageNum ne null}">
+											<a href="findCountryListForm.go?currentPageNum=${pagingVO.currentPageNum-1}&find_place1=${findVO.find_place1}">[이전] </a>
+										</c:if>
+										<c:forEach begin="${pageNum}" end="${pagingVO.totalPageCount}" var="i">
+											<a href="findCountryListForm.go?currentPageNum=${i}&find_place1=${findVO.find_place1}">${i} </a>
+										</c:forEach>
+										<c:if test="${spagingVO.totalPageCount ne 1 && pagingVO.currentPageNum eq '' && pagingVO.currentPageNum eq null}">
+											<a href="findCountryListForm.go?currentPageNum=2&find_place1=${findVO.find_place1}">[다음]</a>
+										</c:if>
+										<c:if test="${pagingVO.currentPageNum ne pagingVO.totalPageCount && pagingVO.currentPageNum >= '1'}">
+											<a href="findCountryListForm.go?currentPageNum=${pagingVO.currentPageNum+1}&find_place1=${findVO.find_place1}">[다음]</a>
+										</c:if>
+									</c:if>
+									<!-- 검색 게시판일때... -->
+									<c:if test="${pagingVO.state eq 'listSearchAll'}">
+										<c:if test="${pagingVO.currentPageNum ne 1 && pagingVO.currentPageNum ne '' && pagingVO.currentPageNum ne null}">
+											<a href="findSearchListForm.go?currentPageNum=${pagingVO.currentPageNum-1}&find_place1=${findVO.find_place1}&search=${findVO.search}">[이전] </a>
+										</c:if>
+										<c:forEach begin="${pageNum}" end="${pagingVO.totalPageCount}" var="i">
+											<a href="findSearchListForm.go?currentPageNum=${i}&find_place1=${findVO.find_place1}&search=${findVO.search}">${i} </a>
+										</c:forEach>
+										<c:if test="${spagingVO.totalPageCount ne 1 && pagingVO.currentPageNum eq '' && pagingVO.currentPageNum eq null}">
+											<a href="findSearchListForm.go?currentPageNum=2&find_place1=${findVO.find_place1}&search=${findVO.search}">[다음]</a>
+										</c:if>
+										<c:if test="${pagingVO.currentPageNum ne pagingVO.totalPageCount && pagingVO.currentPageNum >= '1'}">
+											<a href="findSearchListForm.go?currentPageNum=${pagingVO.currentPageNum+1}&find_place1=${findVO.find_place1}&search=${findVO.search}">[다음]</a>
+										</c:if>
+									</c:if>
+								</div>
+							</div>
+							<hr>
 							<i class="fh5co-counter-icon icon-briefcase to-animate-2"></i>
 							<span class="fh5co-counter-number js-counter" data-from="0" data-to="${totalCount}" data-speed="2000" data-refresh-interval="50">${totalCount}</span>
-							<span class="fh5co-counter-label">전체 게시물 개수</span>
+							<span class="fh5co-counter-label">게시물 개수</span>
 						</div>
 					</div>
 				</div>
