@@ -12,6 +12,8 @@
 			background-color: rgba(0,0,0,0.3);
 		}
 	</style>
+</head>
+<body>
 	<c:if test="${check == true}">
 		<script type="text/javascript">
 			alert("완료");
@@ -22,8 +24,6 @@
 			alert("Error");
 		</script>
 	</c:if>
-</head>
-<body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
@@ -80,7 +80,8 @@
 							<p>조회수 : ${badList.find_hit}</p>
 							<p>작성자 : ${badList.member_id}</p>
 							<p>작성날짜 : ${badList.find_regDate}</p>
-							<p><a class="btn btn-default" href="<c:url value='adminBoardDeletePro.go?find_pk=${badList.find_pk}' />">삭제</a></p>
+							<p><a class="btn btn-default" href="<c:url value='adminBoardDeletePro.go?find_pk=${badList.find_pk}' />">삭제</a>
+							<a class="btn btn-default" href="<c:url value='adminBoardDeclarePro.go?find_pk=${badList.find_pk}' />">정상으로 표시</a></p>
 						</div>
 					</c:forEach>
 				</div>

@@ -70,7 +70,7 @@
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" data-nav-section="home"><span>Home</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/home.go" />'"><span><i class="icon-home"></i> Home</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'"><span>가이드 찾기</span></a></li>
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>

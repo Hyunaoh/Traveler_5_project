@@ -18,13 +18,24 @@
 		LIMIT #{startBoardNum}, #{countBoardPerPage}
 	</select>
 	
-	<!-- 전체 목록 가져옴 (페이징 이용)-->
+	<!-- 전체 의심되는 게시물 목록 가져옴 (페이징 이용)-->
 	<select id="selectBadFindListAllPaging" parameterType="com.traveler.model.FindVO" resultType="com.traveler.model.FindVO">
-		SELECT *
-		FROM FIND
-		WHERE CONCAT(FIND_TITLE, FIND_CONTENT, FIND_PLACE3) REGEXP(
-			'[사-싷][바-빟]|[바-빟][사-싷]|[자-짛][라-맇]|육시럴|제기랄|
-			옘병|엠창|미친|[사-싷][까-낗]')
+		SELECT A.*
+		FROM
+			(SELECT *
+			FROM FIND
+			WHERE FIND_BADSTATE = 0
+			UNION
+			SELECT *
+			FROM FIND
+			WHERE FIND_BADSTATE != 1
+			UNION
+			SELECT *
+			FROM FIND
+			WHERE FIND_BADSTATE != 1 AND
+				CONCAT(FIND_TITLE, FIND_CONTENT, FIND_PLACE3) REGEXP(
+					'[사-싷][바-빟]|[바-빟][사-싷]|[자-짛][라-맇]|육시럴|제기랄|
+					옘병|엠창|미친|[사-싷][까-낗]')) AS A
 		ORDER BY FIND_REGDATE DESC
 		LIMIT #{startBoardNum}, #{countBoardPerPage}
 	</select>
@@ -39,8 +50,8 @@
 	
 	<!-- 목록 Insert -->
 	<insert id="insertFindInfo" parameterType="com.traveler.model.FindVO">
-		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, FIND_HIT, MEMBER_ID, FIND_REGDATE)
-		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, 0, #{member_id}, now());
+		INSERT INTO FIND (FIND_TITLE, FIND_CONTENT, FIND_PLACE1, FIND_PLACE2, FIND_PLACE3, FIND_STARTDATE, FIND_ENDDATE, FIND_HIT, MEMBER_ID, FIND_REGDATE, find_badState)
+		VALUES(#{find_title}, #{find_content}, #{find_place1}, #{find_place2}, #{find_place3}, #{find_startDate}, #{find_endDate}, 0, #{member_id}, now(), 1);
 	</insert>
 	
 	<!-- 목록 Update -->
@@ -101,6 +112,14 @@
 		FROM FIND
 		WHERE FIND_PLACE1 = #{find_place1}
 		ORDER BY FIND_REGDATE DESC
+		LIMIT #{startBoardNum}, #{countBoardPerPage}
+	</select>
+	
+	<!-- 국가 검색 게시물 개수 가져오기 -->
+	<select id="countCountryFindList" resultType="Integer" parameterType="com.traveler.model.FindVO">
+		SELECT COUNT(*)
+		FROM FIND
+		WHERE FIND_PLACE1 = #{find_place1}
 	</select>
 	
 	<!-- 검색 목록 가져옴 -->
@@ -114,5 +133,24 @@
 			FIND_TITLE REGEXP #{search}
 		</where>
 		ORDER BY FIND_REGDATE DESC
+		LIMIT #{startBoardNum}, #{countBoardPerPage}
 	</select>
+	
+	<!-- 검색 게시물 개수 가져오기 -->
+	<select id="countSearchFindList" resultType="Integer" parameterType="com.traveler.model.FindVO">
+		SELECT COUNT(*)
+		FROM FIND
+		<where>
+			<if test="find_place1 != '전체'">
+				FIND_PLACE1 = #{find_place1} AND 
+			</if>
+			FIND_TITLE REGEXP #{search}
+		</where>
+	</select>
+	<!-- 신고 -->
+	<update id="declareFind" parameterType="com.traveler.model.FindVO">
+		UPDATE FIND
+		SET FIND_BADSTATE = #{find_badState}
+		WHERE FIND_PK = #{find_pk}
+	</update>
 </mapper>

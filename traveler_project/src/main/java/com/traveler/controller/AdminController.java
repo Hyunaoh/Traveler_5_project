@@ -86,6 +86,26 @@ public class AdminController {
 		return "redirect:adminBoardForm.go";
 	}
 	
+	@RequestMapping("/adminBoardDeclarePro.go")
+	public String adminBoardDeclarePro(Model model, FindVO findVO) throws Exception{
+		System.out.println("[system] access adminBoardDeclarePro!");
+		
+		// 결과 상태 표시해줄 변수
+		boolean check = false;
+
+		// 괜찮은 상태로 수정
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		findVO.setFind_badState(1);
+		if (findDAO.declareFind(findVO) > 0) {
+			// 성공
+			check = true;
+		}
+		System.out.println("  >> processing result : " + check);
+
+		model.addAttribute("check", check);
+		
+		return "redirect:adminBoardForm.go";
+	}
 	
 	@RequestMapping("/adminMemberForm.go")
 	public String adminMemberForm(){
