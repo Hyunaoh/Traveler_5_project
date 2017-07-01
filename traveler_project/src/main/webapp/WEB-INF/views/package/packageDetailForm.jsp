@@ -4,18 +4,20 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>여행가 - 가이드 찾기 글</title>
+	<title>여행가 - 패키지 상품 상세보기</title>
 </head>
 <body>
-	제목 : ${findVO.find_title}<br>
-	작성날짜 : ${findVO.find_regDate}<br>
-	작성자 :  ${findVO.member_id}<br>
-	내용 : ${findVO.find_content}<br>
-	여행하는 곳 : ${findVO.find_place1} ${findVO.find_place2} ${findVO.find_place3}<br>
-	기간 : ${findVO.find_startDate} ~ ${findVO.find_endDate}<br>
+	PK : ${packageVO.package_pk}<br>
+	제목 : ${packageVO.package_title}<br>
+	작성날짜 : ${packageVO.package_regDate}<br>
+	작성자 :  ${packageVO.member_id}<br>
+	내용 : ${packageVO.package_content}<br>
+	여행하는 곳 : ${packageVO.package_place1} ${packageVO.package_place2}<br>
+	상세 내용: ${packageVO.package_place3}<br>
+	소요시간 : ${packageVO.package_leadTime} <br>
 	<hr>
-	<a href="findListForm.go">목록보기</a>
-	<a href="findUpdateForm.go?find_pk=${findVO.find_pk}">수정</a>
-	<a href="findDeletePro.go?find_pk=${findVO.find_pk}">삭제</a>
+	<a href="getAllPackage.go">목록보기</a>
+	<a href="updatePackageForm.go?package_pk=${packageVO.package_pk}">수정</a>
+	<a href="packageDeletePro.go?package_pk=${packageVO.package_pk}">삭제</a>
 </body>
 </html>

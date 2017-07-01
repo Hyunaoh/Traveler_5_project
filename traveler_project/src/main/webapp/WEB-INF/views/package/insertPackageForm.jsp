@@ -140,7 +140,7 @@
 </head>
 <body>
 	<h4>상품 등록하기</h4>
-	<form name="insertForm" action="insertPackagePro.go" method="get" enctype="multipart/form-data">
+	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
 		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
 		<select name="package_place1" id="place1" >
 			<option>나라 선택</option>
@@ -164,7 +164,7 @@
 		
 		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요"></textarea><br>
 		<input type="text" name="package_leadTime" placeholder="소요시간을 입력해주세요">
-		<input type ="file" name="package_image">
+		<input type ="file" name="imgFile">
 		
 		<input type="hidden" name="member_id"  value="test">
 		

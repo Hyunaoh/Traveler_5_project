@@ -14,8 +14,11 @@ public interface PackageDAO {
 	//전체 목록
 	public List<PackageVO> getAllPackage() throws Exception;
 	
+	//특정한 패키지 불러오기
+	public PackageVO selectPackage(PackageVO packageVO) throws Exception;
+	
 	//추가
-	public void insertPackage(PackageVO packageVO) throws Exception;
+	public int insertPackage(PackageVO packageVO) throws Exception;
 	
 	//수정
 	public void updatePackage(PackageVO packageVO) throws Exception;
@@ -28,6 +31,5 @@ public interface PackageDAO {
 	
 	//전체 패키지 등록 갯수
 	public int countTotalPackage() throws Exception;
-	
 	
 }

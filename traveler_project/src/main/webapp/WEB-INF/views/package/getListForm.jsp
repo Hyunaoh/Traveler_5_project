@@ -22,9 +22,37 @@
 					</div>
 				</div>
 			</div>
+				<fieldset>
+				<div class="row row-bottom-padded-sm">
+				<legend> 사진 잘 나오나???? </legend>
+					<c:forEach items="${listAll}" var="list">
+						<c:if test="${list.package_image eq null}">
+						<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+						<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+							<h2>${list.package_title}</h2>
+							<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+						</div>
+						</a>
+						</c:if>
+					
+						<c:if test="${list.package_image ne null}">
+						<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+						<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+							<h2>${list.package_title}</h2>
+							<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+						</div>
+						</a>
+						</c:if>
+						
+					</c:forEach>
+				</div>
+				</fieldset>
+				
 			<div class="row row-bottom-padded-sm">
+
 				<div class="col-md-4 col-sm-6 col-xxs-12">
-				<c:forEach items="${listAll}" var="list"></c:forEach>
 					<a href="<c:url value="/resources/images/work_1.jpg" />" class="fh5co-project-item image-popup to-animate">
 						<img src="<c:url value="/resources/images/work_1.jpg" />" alt="Image" class="img-responsive">
 						<div class="fh5co-text">

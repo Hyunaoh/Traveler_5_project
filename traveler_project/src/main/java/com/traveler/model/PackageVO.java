@@ -3,7 +3,7 @@ import java.sql.Date;
 
 public class PackageVO {
 	
-	private String package_pk;
+	private int package_pk;
 	private String package_title;
 	private String package_content;
 	private String package_place1;
@@ -11,13 +11,12 @@ public class PackageVO {
 	private String package_place3;
 	private String package_leadTime;
 	private String member_id;
-	private String package_hit;
+	private int package_hit;
 	private String package_image;
 	private Date package_regDate;
+	private int package_status;
 	
-	public void setPackage_pk(String package_pk){
-		this.package_pk = package_pk;
-	}
+	
 	
 	public void setPackage_title(String package_title){
 		this.package_title = package_title;
@@ -50,11 +49,15 @@ public class PackageVO {
 	public void setPackage_regDate(Date package_regDate){
 		this.package_regDate = package_regDate;
 	}
-	
-	public String getPackage_pk(){
-		return this.package_pk;
+		
+	public int getPackage_pk() {
+		return package_pk;
 	}
-	
+
+	public void setPackage_pk(int package_pk) {
+		this.package_pk = package_pk;
+	}
+
 	public String getPackage_title(){
 		return this.package_title;
 	}
@@ -87,11 +90,11 @@ public class PackageVO {
 		return package_regDate;
 	}
 
-	public String getPackage_hit() {
+	public int getPackage_hit() {
 		return package_hit;
 	}
 
-	public void setPackage_hit(String package_hit) {
+	public void setPackage_hit(int package_hit) {
 		this.package_hit = package_hit;
 	}
 
@@ -101,6 +104,14 @@ public class PackageVO {
 
 	public void setPackage_image(String package_image) {
 		this.package_image = package_image;
+	}
+
+	public int getPackage_status() {
+		return package_status;
+	}
+
+	public void setPackage_status(int package_status) {
+		this.package_status = package_status;
 	}
 
 	@Override
