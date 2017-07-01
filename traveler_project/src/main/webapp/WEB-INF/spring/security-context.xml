@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:security="http://www.springframework.org/schema/security"
-   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 예시입니당. 참고만 하세요~~ -->
-   <security:http auto-config="true" use-expressions="true">
-         <security:form-login login-page="/login/loginForm.do"
-         authentication-failure-url="/login/error.do"
-         username-parameter="id"
-         password-parameter="pw"
-         login-processing-url="/j_spring_security_check"
-         default-target-url="/login/loginMain.do"/>
-         
-      <security:logout logout-success-url="/" />
-      <!-- 권한 설정 -->
-      
-      <!-- 학생 마당 -->
-      <security:intercept-url pattern="/studentboard/*" access="hasRole('Role_Student') or hasRole('Role_Teacher') or hasRole('Role_Admin')"/>        
-      
-      <!-- 학부모 마당 -->
-      <!-- <security:intercept-url pattern="/parentboard/*" access="hasRole('Role_Parent') or hasRole('Role_Teacher') or hasRole('Role_Admin')"/> -->
-        
-      <!-- 커리큘럼 -->
-      <security:intercept-url pattern="/curriculum/*" access="hasRole('Role_Student') or hasRole('Role_Parent') or hasRole('Role_Teacher') or hasRole('Role_Admin')"/>
-        
-      <!-- 출석부 -->
-      <security:intercept-url pattern="/attendance/*" access="hasRole('Role_Student') or hasRole('Role_Parent') or hasRole('Role_Teacher') or hasRole('Role_Admin')"/>
-        
-      <!-- 쪽지 -->
-      <security:intercept-url pattern="/message/*" access="hasRole('Role_Parent') or hasRole('Role_Teacher') or hasRole('Role_Admin')"/>  
-         
-       </security:http>   
-   
-   <security:authentication-manager>
-      <security:authentication-provider>
-         
-         <security:jdbc-user-service data-source-ref="driverManagerDataSource"
-         users-by-username-query="SELECT id, pw, 1 enabled FROM MEMBER where id=?" 
-         authorities-by-username-query="select id, level
-                                 from MEMBER
-                                 where id=?" />
-      </security:authentication-provider>
-   </security:authentication-manager>
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true" />
+		<security:form-login login-page="/member/loginForm.go"
+			authentication-failure-url="/member/loginForm.go?err=true"
+			username-parameter="id" password-parameter="pwd"
+			login-processing-url="/j_spring_security_check" default-target-url="/home.go" />
+
+		<security:logout logout-success-url="/home.go" logout-url="/j_spring_security_logout"/>
+		<!-- 권한 설정 -->
+
+		<!-- 쪽지 -->
+		<!-- <security:intercept-url pattern="/message/*" access="hasRole('Role_Parent') 
+			or hasRole('Role_Teacher') or hasRole('Role_Admin')"/> -->
+		<security:intercept-url pattern="/find/findInsertForm.go" access="hasAnyRole('ROLE_VIP', 'ROLE_ADMIN', 'ROLE_GUIDE')" />
+		<security:intercept-url pattern="/find/findUpdateForm.go" access="hasAnyRole('ROLE_VIP', 'ROLE_ADMIN', 'ROLE_GUIDE')" />
+		<security:intercept-url pattern="/find/findDeleteForm.go" access="hasAnyRole('ROLE_VIP', 'ROLE_ADMIN', 'ROLE_GUIDE')" />
+		<security:intercept-url pattern="/find/findDetailForm.go" access="isAuthenticated()" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+
+			<security:jdbc-user-service
+				data-source-ref="driverManagerDataSource"
+				users-by-username-query="SELECT T.*
+         							FROM
+	         							(SELECT ADMIN_ID AS ID, ADMIN_PWD AS PWD, ADMIN_ENABLED AS ENABLED
+	         							FROM ADMIN
+	         							UNION
+	         							SELECT MEMBER_ID AS ID , MEMBER_PWD AS PWD, 1 AS ENABLED
+	         							FROM MEMBER) AS T
+         							WHERE ID = ?"
+				authorities-by-username-query="SELECT T.*
+	         							FROM
+		         							(SELECT A.ADMIN_ID AS ID,  R.ROLE AS ROLE
+		         							FROM ADMIN AS A, ROLE AS R
+		         							WHERE A.ADMIN_ID = R.MEMBER_ID
+		         							UNION
+		         							SELECT M.MEMBER_ID AS ID , R.ROLE AS ROLE
+		         							FROM MEMBER AS M, ROLE AS R
+		         							WHERE M.MEMBER_ID = R.MEMBER_ID) AS T
+	         							WHERE ID = ?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 </beans>
