@@ -6,32 +6,23 @@ import com.traveler.model.FindVO;
 
 public interface FindDAO {
 
-	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ÀüÃ¼ ¸ñ·Ï °¡Á®¿È
 	public List<FindVO> selectFindListAll() throws Exception;
-	
-	// í˜ì´ì§• ì²˜ë¦¬ë˜ì„œ ì „ì²´ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜´
-	public List<FindVO> selectFindListAllPaging(FindVO findVO) throws Exception;
 
-	// í˜ì´ì§• ì²˜ë¦¬ë˜ì„œ ì „ì²´ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜´
-	public List<FindVO> selectBadFindListAllPaging(FindVO findVO) throws Exception;
-
-	// ï¿½ï¿½ï¿½ Insert
+	// ¸ñ·Ï Insert
 	public int insertFindInfo(FindVO findVO) throws Exception;
 
-	// ï¿½ï¿½ï¿½ Update
+	// ¸ñ·Ï Update
 	public int updateFindInfo(FindVO findVO) throws Exception;
 
-	// ï¿½ï¿½ï¿½ Delete
+	// ¸ñ·Ï Delete
 	public int deleteFindInfo(FindVO findVO) throws Exception;
 
-	// Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// Æ¯Á¤ÇÑ Á¤º¸ ÇÏ³ª¸¦ °¡Á®¿È
 	public FindVO selectFindInfo(FindVO findVO_in);
 	
 	// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
 	public int countFindList() throws Exception;
-
-	// ì „ì²´ ë‚˜ìœ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
-	public int countBadFindList() throws Exception;
 
 	// êµ­ê°€ë³„ ëª©ë¡ ê°€ì ¸ì˜´
 	public List<FindVO> selectCountryFindList(FindVO findVO);
