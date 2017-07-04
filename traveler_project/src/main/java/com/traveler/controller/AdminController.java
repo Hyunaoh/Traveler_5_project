@@ -103,7 +103,6 @@ public class AdminController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		
 		return "redirect:adminBoardForm.go";
 	}
 	
@@ -117,14 +116,12 @@ public class AdminController {
 	@RequestMapping("/adminGuideForm.go")
 	public String adminGuideForm(){
 		System.out.println("[system] access adminGuideForm!");
-		
 		return "admin/adminGuideForm";
 	}
 
 	@RequestMapping("/adminPackageForm.go")
 	public String adminPackageForm(){
 		System.out.println("[system] access adminPackageForm!");
-		
 		return "admin/adminPackageForm";
 	}
 }
