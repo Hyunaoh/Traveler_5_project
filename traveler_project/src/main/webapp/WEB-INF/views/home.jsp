@@ -137,7 +137,6 @@
 		<div class="slant"></div>
 	</section>
 	
-<<<<<<< HEAD
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
@@ -654,9 +653,5 @@
 	<!-- End demo purposes only -->
 
 	</body>
-=======
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<a href="review/writeform.go">testReview</a>
-</body>
->>>>>>> jihoon
+
 </html>
