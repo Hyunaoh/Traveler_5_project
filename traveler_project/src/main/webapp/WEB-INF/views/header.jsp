@@ -62,7 +62,8 @@
 	<jsp:include page="../views/message/alarm_conn.jsp"></jsp:include>
 	
 </head>
-<body onload="alarm_access();">
+<!-- <body onload="alarm_access();"> -->
+<body>
 	<header role="banner" id="fh5co-header">
 		<div class="container">
 			<!-- <div class="row"> -->
