@@ -27,7 +27,7 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminBoardForm.go")
-	public String adminBoardForm(Model model, PagingVO pagingVO) throws Exception{
+	public String adminBoardForm(Model model,PagingVO pagingVO) throws Exception{
 		System.out.println("[system] access adminBoardForm!");
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		
