@@ -1,5 +1,6 @@
 package com.traveler.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -79,18 +80,29 @@ public class FindController {
 		return "/find/findResult";
 	}
 
-	// ���̵� ã�� ������ ���� Form
+	// 수정 Form
 	@RequestMapping("/findUpdateForm.go")
-	public String findUpdateForm(Model model, FindVO findVO_in) throws Exception {
+	public String findUpdateForm(Model model, FindVO findVO_in, Principal principal) throws Exception {
 		System.out.println("[system] access findUpdateForm!");
 
-		// ������ ���� Ư���� ���� VO �ϳ��� ������
+		// 세션 ID 값 가져옴
+		String id = principal.getName();
+		
+		// 정보 가져옴
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
 		System.out.println("  >> success processing!");
+		
+		// 작성자가 아니면 글을 수정 할 수 없음 (억지로 URL에 주소 치고 들어오는 사람 방지)
+		String view;
+		if(id.equals(findVO_out.getMember_id())){
+			view = "/find/findUpdateForm";
+		} else {
+			view = "redirect:findListForm.go";
+		}
 
 		model.addAttribute("findVO", findVO_out);
-		return "/find/findUpdateForm";
+		return view;
 	}
 
 	// ���̵� ã�� ������ ���� Pro (���� DB Update �κ�)

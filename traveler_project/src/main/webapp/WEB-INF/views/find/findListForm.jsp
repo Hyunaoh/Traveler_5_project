@@ -140,7 +140,17 @@
                 <!-- Write Well -->
                 <div class="well">
                 	<h4>글을 올려 찾으세요!</h4>
-              		<a href="findInsertForm.go">글 작성</a>
+                	<se:authorize access="isAnonymous()">
+                		<a href="findInsertForm.go">글 작성</a>
+                		<h4><font color="red">회원만 글을 작성 할 수 있습니다.</font></h4>
+                	</se:authorize>
+                	<se:authorize access="hasRole('ROLE_MEMBER')">
+                		<a href="">추가정보 입력하기</a>
+                		<h4><font color="red">추가 정보 입력 후 글을 작성 할 수 있습니다.</font></h4>
+                	</se:authorize>
+                	<se:authorize access="hasAnyRole('ROLE_VIP', 'ROLE_GUIDE', 'ROLE_ADMIN')">
+              			<a href="findInsertForm.go">글 작성</a>
+              		</se:authorize>
                 </div>
                 <!-- Search Well -->
                 <div class="well">

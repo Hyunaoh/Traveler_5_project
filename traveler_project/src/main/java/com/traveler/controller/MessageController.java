@@ -57,44 +57,40 @@ public class MessageController {
 		return "/message/messageWrite";
 	}
 	
-	// 보낸 메세지함 프로세스
-	@RequestMapping("/messageSendPro.go")
-	public String messageSendPro(Model model, MessageVO mVo){
-		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
-		
-		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
-		
-		model.addAttribute("mList", mList);
-		return "/message/messageSend";
-	}
-	
 	// 메세지 쓰는 함 프로세스
-	@RequestMapping(value="/messageWritePro.go", method=RequestMethod.GET)
-	public String messageWritePro(Model model, MessageVO mVo) throws Exception{
+	@ResponseBody
+	@RequestMapping(value="/messageWriteAjax.go", method=RequestMethod.POST)
+	public int messageWritePro(@RequestBody MessageVO mVo, Principal principal) throws Exception{
+		
+		
+		System.out.println("메세지 쓰는 Ajax실행");
+		
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 		
 		int insertRes = mDao.insertMessage(mVo);
+		System.out.println("메세지 insert 여부 : " + insertRes);
 		
-		model.addAttribute("insert_res", insertRes);
-		
-		return "/message/messageWrite";
+		return insertRes;
 	}
 	
 	// 메세지 리스트의 Ajax
-	
 	@ResponseBody
-	@RequestMapping("/messageGetViewAjax.go")
-	public boolean messageGetViewAjax(@RequestBody MessageVO mVo, Principal principal){
+	@RequestMapping("/messageViewAjax.go")
+	public List<MessageVO> messageGetViewAjax(Model model,@RequestBody MessageVO mVo, Principal principal){
 
-		boolean check = false;
+		boolean res_check = false;
 		
-		System.out.println("받은 메세지함 Ajax실행");
+		System.out.println("보낸/받은 메세지함 Ajax실행");
 	    
 	    MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 	    
 		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
 		
-		return true;
+		System.out.println(mList);
+		
+		res_check = true;
+		
+		return mList;
 	}
 	
 }
