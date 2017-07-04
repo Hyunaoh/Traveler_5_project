@@ -57,5 +57,24 @@
 	    </set>
 	    WHERE member_id = #{member_id}
  	</update>
+ 	
+ 	<select id="selectAllMember" resultType="com.traveler.model.MemberVO">
+ 		SELECT *
+ 		FROM MEMBER
+ 	</select>
+ 	
+ 	<update id="adminUpdateGuide" parameterType="com.traveler.model.MemberVO">
+ 		update member
+ 		<set>
+ 		<if test ="member_isGuide==0">
+ 			member_isGuide = 1
+ 		</if>
+ 		<if test="member_isGuide==1">
+ 			member_isGuide = 0
+ 		</if>
+ 		</set> 
+ 		where member_id = #{member_id}
+ 	</update>
+ 	
  </mapper>
  

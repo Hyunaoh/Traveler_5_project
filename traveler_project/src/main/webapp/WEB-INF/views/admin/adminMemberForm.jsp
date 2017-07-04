@@ -9,5 +9,8 @@
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
+	<button onclick="location='adminMemberListForm.go'">회원리스트</button>
+	
+	
 </body>
 </html>
