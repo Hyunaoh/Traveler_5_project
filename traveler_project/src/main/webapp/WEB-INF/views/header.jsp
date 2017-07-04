@@ -58,11 +58,11 @@
 	<!-- Modernizr JS -->
 	<script src="<c:url value="/resources/js/bootstrap/modernizr-2.6.2.min.js"/>"></script>
 	
-	<!-- 06.30 오현아 알람 쪽지 js -->
-	<script src="<c:url value= "/resources/js/msg_alarm/msg_alarm.js"/>"></script>
-
+	<!-- 06.30 오현아 알람 쪽지 및 user 정보 js -->
+	<jsp:include page="../views/message/alarm_conn.jsp"></jsp:include>
+	
 </head>
-<body>
+<body onload="alarm_access();">
 	<header role="banner" id="fh5co-header">
 		<div class="container">
 			<!-- <div class="row"> -->
