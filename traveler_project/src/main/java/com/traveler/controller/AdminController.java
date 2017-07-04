@@ -110,18 +110,21 @@ public class AdminController {
 	@RequestMapping("/adminMemberForm.go")
 	public String adminMemberForm(){
 		System.out.println("[system] access adminMemberForm!");
+		
 		return "admin/adminMemberForm";
 	}
 
 	@RequestMapping("/adminGuideForm.go")
 	public String adminGuideForm(){
 		System.out.println("[system] access adminGuideForm!");
+		
 		return "admin/adminGuideForm";
 	}
 
 	@RequestMapping("/adminPackageForm.go")
 	public String adminPackageForm(){
 		System.out.println("[system] access adminPackageForm!");
+		
 		return "admin/adminPackageForm";
 	}
 }

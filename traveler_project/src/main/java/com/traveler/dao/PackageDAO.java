@@ -32,4 +32,7 @@ public interface PackageDAO {
 	//전체 패키지 등록 갯수
 	public int countTotalPackage() throws Exception;
 	
+	//미승인 게시글 불러오기
+	public List<PackageVO> getUnapprovedPackage() throws Exception;
+	
 }

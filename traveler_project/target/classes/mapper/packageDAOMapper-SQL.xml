@@ -5,6 +5,7 @@
     
 <mapper namespace="com.traveler.dao.PackageDAO">
 	
+     <!--승인 완료 된 게시글 불러오기(Client에게 노출될 리스트) -->
 	<select id="getAllPackage" resultType="com.traveler.model.PackageVO">
 		SELECT *
 		FROM PACKAGE
@@ -12,6 +13,7 @@
 		ORDER BY PACKAGE_REGDATE DESC;
     </select>
     
+     <!-- 추가 -->
     <insert id="insertPackage" parameterType="com.traveler.model.PackageVO">
     	INSERT INTO PACKAGE (
     		PACKAGE_TITLE, PACKAGE_CONTENT, PACKAGE_PLACE1,
@@ -22,28 +24,33 @@
          		  #{member_id},now(), #{package_image})
     </insert>
     
+     <!-- 전체 게시물 수 -->
     <select id="countTotalPackage" resultType="Integer">
     	SELECT COUNT (*)
     	FROM PACKAGE    
     </select>
   
+     <!-- 국가로 게시글 찾기 -->
     <select id="searchPackage" resultType="com.traveler.model.PackageVO">
     	SELECT *
     	FROM PACKAGE
     	WHERE PACKAGE_PLACE1 = #{package_place1}
     </select>
 
+     <!-- 특정 게시글 불러오기 -->
     <select id="selectPackage" resultType="com.traveler.model.PackageVO">
     	SELECT *
     	FROM PACKAGE
     	WHERE PACKAGE_PK = #{package_pk}
     </select>
     
+     <!-- 삭제 -->
     <delete id ="deletePackage" parameterType="com.traveler.model.PackageVO">
     	DELETE FROM PACKAGE
     	WHERE PACKAGE_PK = #{package_pk}
     </delete>
     
+     <!-- 수정 -->
     <update id ="updatePackage" parameterType="com.traveler.model.PackageVO">
     	UPDATE PACKAGE
     	<set>
@@ -71,4 +78,12 @@
 		</set>
 		WHERE PACKAGE_PK = #{package_pk}
     </update>
+    
+    <!-- 미승인 상태의 게시물 불러오기 -->
+    <select id="getUnapprovedPackage" resultType="com.traveler.model.PackageVO">
+		SELECT *
+		FROM PACKAGE
+		WHERE PACKAGE_STATUS=0
+		ORDER BY PACKAGE_REGDATE DESC;
+    </select>
 </mapper>

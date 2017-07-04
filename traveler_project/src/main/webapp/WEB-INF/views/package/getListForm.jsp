@@ -67,8 +67,8 @@
 			<div class="fh5co-counter to-animate col-md-4">
 				<!-- Write Well -->
 				<div class="well">
-					<h4>글을 올려 찾으세요!</h4>
-					<a href="insertPackageForm.go">글 작성</a>
+					<h4>직접 상품을 기획해 올려보세요!</h4>
+					<a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
 				</div>
 				<!-- Search Well -->
 				<div class="well">
@@ -105,28 +105,28 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<ul class="list-unstyled">
-								<li><a href="getAllPackage.go">전체</a></li>
-								<li><a href="packageCountryListForm.go?package_place1=대한민국">대한민국</a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=미국">미국</a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=영국">영국</a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=프랑스">프랑스</a>
-								</li>
+									<li><a href="getAllPackage.go"><font color="#55d9ad">전체</font></a></li>
+									<li><a href="packageCountryListForm.go?package_place1=대한민국"><font color="#55d9ad">대한민국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=미국"><font color="#55d9ad">미국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=영국"><font color="#55d9ad">영국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=프랑스"><font color="#55d9ad">프랑스</font></a>
+									</li>
 							</ul>
 						</div>
 						<div class="col-lg-6">
 							<ul class="list-unstyled">
-								<li><a href="packageCountryListForm.go?package_place1=이탈리아">이탈리아</a>
+								<li><a href="packageCountryListForm.go?package_place1=이탈리아"><font color="#55d9ad">이탈리아</font></a>
 								</li>
-								<li><a href="packageCountryListForm.go?package_place1=체코">체코</a>
+								<li><a href="packageCountryListForm.go?package_place1=체코"><font color="#55d9ad">체코</font></a>
 								</li>
-								<li><a href="packageCountryListForm.go?package_place1=일본">일본</a>
+								<li><a href="packageCountryListForm.go?package_place1=일본"><font color="#55d9ad">일본</font></a>
 								</li>
-								<li><a href="packageCountryListForm.go?package_place1=중국">중국</a>
+								<li><a href="packageCountryListForm.go?package_place1=중국"><font color="#55d9ad">중국</font></a>
 								</li>
-								<li><a href="packageCountryListForm.go?package_place1=캐나다">캐나다</a>
+								<li><a href="packageCountryListForm.go?package_place1=캐나다"><font color="#55d9ad">캐나다</font></a>
 								</li>
 							</ul>
 						</div>

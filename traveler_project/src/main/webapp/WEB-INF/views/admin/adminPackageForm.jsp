@@ -5,6 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>여행가 - 관리자 (가이드 상품)</title>
+<style type="text/css">
+		.cursor-point:hover{
+			cursor: pointer;
+			background-color: rgba(0,0,0,0.3);
+		}
+</style>
 </head>
 <body>
 	<!-- header -->
