@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Jiho
 Build-Jdk: 1.8.0_131
+=======
+Built-By: rjh12_000
+Build-Jdk: 1.8.0_111
+>>>>>>> cebf6ca312bf99275128642492fa79af5b3623fe
 Created-By: Maven Integration for Eclipse
 
