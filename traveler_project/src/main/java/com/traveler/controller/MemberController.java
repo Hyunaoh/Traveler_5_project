@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +84,38 @@ public class MemberController {
 		}
 		return check;
 	}
+	
+	@RequestMapping("/memberDeleteForm.go")
+	public String memberDeleteForm(Model model)throws Exception{
+		System.out.println("[system] access memberDelete! ");
+		
+		return "/member/memberDeleteForm";
+	}
+	
+	@RequestMapping("/memberDelete.go")
+	public String memberDelete(Model model, HttpServletRequest request, Principal principal )throws Exception{
+		System.out.println("[system] access memberDelete! ");
+		String confirm_pwd=request.getParameter("confirm_pwd");
+				System.out.println("confirm_pwd:" + confirm_pwd);
+			
+		int flag= 0;
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		MemberVO vo= new MemberVO();
+		vo.setMember_id(principal.getName());
+		System.out.println(vo.toString());
+		String member_pwd = memberDAO.selectMemberPwd(vo);
+		
+				System.out.println("member_pwd:" + member_pwd);
+		if(member_pwd.equals(confirm_pwd)){
+		memberDAO.memberDelete(vo);
+		flag= 1;
+		}else{
+		System.out.println("실패");
+		}
+		model.addAttribute("flag", flag);
+		return "/member/loginForm";
+	}
+	
 	
 	@RequestMapping("/mypageForm.go")
 	public String myPageForm(Model model, Principal principal)throws Exception{

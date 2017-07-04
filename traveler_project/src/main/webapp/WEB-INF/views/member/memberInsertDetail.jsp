@@ -40,7 +40,7 @@
 		우편번호 <input type="text" name="member_post" readonly="readonly"
 			placeholder="검색버튼을 눌러주세요" class="postcodify_postcode5 form-control" />
 		<p id="postcodify_search_button">검색</p>
-		주소 <input type="text" name="member_addr" readonly="readonly"
+		주소 <input type="text" name="member_adrr" readonly="readonly"
 			class="postcodify_address form-control" placeholder="검색버튼을 눌러주세요" />
 		상세주소 <input type="text" name="member_addrDetail">
 		<hr>

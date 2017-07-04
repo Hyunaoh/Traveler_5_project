@@ -24,8 +24,15 @@ public interface MemberDAO {
 	//모든 회원 정보 가져오기
 	public List<MemberVO> selectAllMember();
 
-	
+	//가이드 권한 바꾸기
 	public void adminUpdateGuide(MemberVO memberVO);
+
+	//회원탈퇴
+	public void memberDelete(MemberVO vo);
+
+	public String selectMemberPwd(MemberVO vo);
+
+	
 
 	
 	

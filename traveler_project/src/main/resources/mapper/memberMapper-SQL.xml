@@ -76,5 +76,16 @@
  		where member_id = #{member_id}
  	</update>
  	
+ 	<select id="selectMemberPwd" resultType="String">
+ 	SELECT MEMBER_PWD 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
+ 	
+ 	<delete id="memberDelete" parameterType="com.traveler.model.MemberVO">
+ 	DELETE
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</delete>
  </mapper>
  

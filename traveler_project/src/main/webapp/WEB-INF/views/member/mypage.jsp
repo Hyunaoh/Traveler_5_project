@@ -23,9 +23,11 @@
 	닉네임: ${ list.member_nickName }<br>
 	국가	: ${ list.member_nationality }<br>
 	구사언어: ${ list.member_language }<br>
-	주소: ( ${ list.member_post} )${ list.member_adrr }<br>
-	${list.member_addrDetail }
+	주소: ( ${ list.member_post} )<br>
+	${ list.member_adrr }<br>
+	${	list.member_addrDetail }
 	<input type="button" value="추가정보수정" onclick="location='memberInsertDetail.go'">
+	<input type="button" value="회원탈퇴" onclick="location='memberDeleteForm.go'">
 	</div>
 </body>
 </html>
