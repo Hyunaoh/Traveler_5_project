@@ -11,6 +11,40 @@
 			cursor: pointer;
 		}
 	</style>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			mostViewAjax();
+			window.setInterval(function(){
+				mostViewAjax();
+			}, 10000); // 10초마다 업데이트
+		})
+		function mostViewAjax(){
+			$.ajax({
+				url : "findMostViewAjax.go",
+				method : 'POST',
+				type : 'json',
+				contentType : "application/json",
+				success : function(data) {
+					var text = '';
+					$("#mostViewList").html(text);
+					for(var i = 0; data.length; i++){
+						text = "<a href='findDetailForm.go?find_pk="
+								+ data[i].find_pk
+								+ "'>"
+								+ data[i].find_title
+								+ " (view : "
+								+ data[i].find_hit
+								+ ")</a><br>";
+						$("#mostViewList").append(text);
+					}
+				},
+				error : function(result, status, er) {
+					$("#mostViewList").html("error");
+				}
+			});
+		}
+	</script>
 </head>
 <body>
 	<!-- header -->
@@ -219,8 +253,8 @@
 
                 <!-- Side Widget Well -->
                 <div class="well">
-                    <h4>Side Widget Well</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                    <h4>가장 많이 본 글 TOP 5</h4>
+					<div id="mostViewList"></div>
                 </div>
             </div>
         </div>
