@@ -36,7 +36,7 @@ public class MemberController {
 		if(memberDAO.insertMember(memberVO) > 0){
 			check = true;
 		}
-		System.out.println("��ϵǾ����ϴ�");
+		System.out.println("멤버 입력 완료");
 		model.addAttribute("check", check);
 		return "/member/memberInsertPro";
 	}

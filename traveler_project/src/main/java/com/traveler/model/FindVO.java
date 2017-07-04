@@ -15,8 +15,12 @@ public class FindVO {
 	private String find_endDate; // varchar(500) not null, -- 여행 끝 기간
 	private int find_hit; // int(1) not null default 0, -- 조회수
 	private String member_id; // varchar(500) not null, -- 작성자 아이디
-	private Timestamp find_regDate; // timestamp not null -- 글 작성 날짜
+	private String find_regDate; // timestamp not null -- 글 작성 날짜
+	private int find_badState; // int(1) null -- 0 : 의심되는 게시물 / 나머지: 정상
 	private String search; // 검색어
+	private int countBoardPerPage; // 한 페이지 당 게시물 개수
+	private int startBoardNum; // 해당 페이에서의 첫 시작 글
+	private int endBoardNum; // 해당 페이에서의 마지막 글
 	
 	public int getFind_pk() {
 		return find_pk;
@@ -72,10 +76,10 @@ public class FindVO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public Timestamp getFind_regDate() {
+	public String getFind_regDate() {
 		return find_regDate;
 	}
-	public void setFind_regDate(Timestamp find_regDate) {
+	public void setFind_regDate(String find_regDate) {
 		this.find_regDate = find_regDate;
 	}
 	public int getFind_hit() {
@@ -84,11 +88,35 @@ public class FindVO {
 	public void setFind_hit(int find_hit) {
 		this.find_hit = find_hit;
 	}
+	public int getFind_badState() {
+		return find_badState;
+	}
+	public void setFind_badState(int find_badState) {
+		this.find_badState = find_badState;
+	}
 	public String getSearch() {
 		return search;
 	}
 	public void setSearch(String search) {
 		this.search = search;
+	}
+	public int getCountBoardPerPage() {
+		return countBoardPerPage;
+	}
+	public void setCountBoardPerPage(int countBoardPerPage) {
+		this.countBoardPerPage = countBoardPerPage;
+	}
+	public int getStartBoardNum() {
+		return startBoardNum;
+	}
+	public void setStartBoardNum(int startBoardNum) {
+		this.startBoardNum = startBoardNum;
+	}
+	public int getEndBoardNum() {
+		return endBoardNum;
+	}
+	public void setEndBoardNum(int endBoardNum) {
+		this.endBoardNum = endBoardNum;
 	}
 	
 }

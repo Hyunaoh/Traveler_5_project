@@ -120,7 +120,7 @@
 	<!-- header -->
 	<jsp:include page="header.jsp" />
 	
-	<section id="fh5co-home" data-section="home">
+	<section id="fh5co-home" style="background-image: url(<c:url value='/resources/images/bg.jpg' />);" data-section="home">
 		<div class="gradient"></div>
 		<div class="container">
 			<div class="text-wrap">

@@ -1,5 +1,6 @@
 package com.traveler.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
 import com.traveler.model.FindVO;
+import com.traveler.model.PagingVO;
 
 @Controller
 @RequestMapping("/find")
@@ -21,43 +24,54 @@ public class FindController {
 	@Autowired
 	SqlSession sqlSession;
 
-	// °¡ÀÌµå Ã£±â ¸®½ºÆ®¸ñ·Ï
+	// ê°€ì´ë“œ ì°¾ê¸° ì „ì²´ ë¦¬ìŠ¤íŠ¸
 	@RequestMapping("/findListForm.go")
-	public String findListForm(Model model) throws Exception {
+	public String findListForm(Model model, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findListForm!");
 
-		// ¸ğµç ¸®½ºÆ® Ãâ·ÂÇÒ List °¡Á®¿È
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
-		List<FindVO> findList = findDAO.selectFindListAll();
-		System.out.println("  >> success processing!");
-
 		// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
 		int totalCount = findDAO.countFindList();
-		
+		final int COUNT_PER_PAGE = 5; // í•œí˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ ê°œìˆ˜
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // í˜ì´ì§• ì—°ì‚°
+
+		// ê°€ì´ë“œ ì°¾ê¸° ì „ì²´ List ê°€ì ¸ì˜´
+		FindVO findVO = new FindVO();
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
+		List<FindVO> findList = findDAO.selectFindListAllPaging(findVO);
+		System.out.println("  >> success processing!");
+
+		// ì „ì²´ ê²Œì‹œíŒì—ì„œ ê°€ì ¸ì˜´
+		pagingVO.setState("listAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
 		return "/find/findListForm";
 	}
 
-	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¿Ã¸®±â Form
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ Form
 	@RequestMapping("/findInsertForm.go")
 	public String findInsertForm(Model model) throws Exception {
 		System.out.println("[system] access findInsertForm!");
 		return "/find/findInsertForm";
 	}
 
-	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¿Ã¸®±â Pro (½ÇÁ¦ DB Insert ºÎºĞ)
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ Pro (ï¿½ï¿½ï¿½ï¿½ DB Insert ï¿½Îºï¿½)
 	@RequestMapping("/findInsertPro.go")
 	public String findInsertPro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findInsertPro!");
 
-		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		boolean check = false;
 
-		// ÀÔ·ÂÇÑ Á¤º¸ insert
+		// ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ insert
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.insertFindInfo(findVO) > 0) {
-			// ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);
@@ -66,32 +80,43 @@ public class FindController {
 		return "/find/findResult";
 	}
 
-	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¼öÁ¤ Form
+	// ìˆ˜ì • Form
 	@RequestMapping("/findUpdateForm.go")
-	public String findUpdateForm(Model model, FindVO findVO_in) throws Exception {
+	public String findUpdateForm(Model model, FindVO findVO_in, Principal principal) throws Exception {
 		System.out.println("[system] access findUpdateForm!");
 
-		// ¼öÁ¤ÇÒ ±ÛÀÇ Æ¯Á¤ÇÑ Á¤º¸ VO ÇÏ³ª¸¦ °¡Á®¿È
+		// ì„¸ì…˜ ID ê°’ ê°€ì ¸ì˜´
+		String id = principal.getName();
+		
+		// ì •ë³´ ê°€ì ¸ì˜´
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
 		System.out.println("  >> success processing!");
+		
+		// ì‘ì„±ìê°€ ì•„ë‹ˆë©´ ê¸€ì„ ìˆ˜ì • í•  ìˆ˜ ì—†ìŒ (ì–µì§€ë¡œ URLì— ì£¼ì†Œ ì¹˜ê³  ë“¤ì–´ì˜¤ëŠ” ì‚¬ëŒ ë°©ì§€)
+		String view;
+		if(id.equals(findVO_out.getMember_id())){
+			view = "/find/findUpdateForm";
+		} else {
+			view = "redirect:findListForm.go";
+		}
 
 		model.addAttribute("findVO", findVO_out);
-		return "/find/findUpdateForm";
+		return view;
 	}
 
-	// °¡ÀÌµå Ã£±â ¸ğÁı±Û ¼öÁ¤ Pro (½ÇÁ¦ DB Update ºÎºĞ)
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Pro (ï¿½ï¿½ï¿½ï¿½ DB Update ï¿½Îºï¿½)
 	@RequestMapping("/findUpdatePro.go")
 	public String findUpdatePro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findUpdatePro!");
 
-		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		boolean check = false;
 
-		// ÀÔ·ÂÇÑ Á¤º¸ update
+		// ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ update
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.updateFindInfo(findVO) > 0) {
-			// ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);
@@ -100,18 +125,18 @@ public class FindController {
 		return "/find/findResult";
 	}
 
-	// °¡ÀÌµå Ã£±â ¸ğÁı±Û »èÁ¦ Pro (½ÇÁ¦ DB Delete ºÎºĞ)
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Pro (ï¿½ï¿½ï¿½ï¿½ DB Delete ï¿½Îºï¿½)
 	@RequestMapping("/findDeletePro.go")
 	public String findDeletePro(Model model, FindVO findVO) throws Exception {
 		System.out.println("[system] access findDeletePro!");
 
-		// ¼º°ø¿©ºÎ ÆÇ´ÜÇÑ º¯¼ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		boolean check = false;
 
-		// ÀÚ½ÅÀÇ ¸ğÁı±Û »èÁ¦
+		// ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		if (findDAO.deleteFindInfo(findVO) > 0) {
-			// ¼º°ø
+			// ï¿½ï¿½ï¿½ï¿½
 			check = true;
 		}
 		System.out.println("  >> processing result : " + check);
@@ -130,66 +155,109 @@ public class FindController {
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		FindVO findVO_out = findDAO.selectFindInfo(findVO_in);
 		System.out.println("  >> success processing! (select)");
-		
+
 		// ì¡°íšŒìˆ˜ ì¦ê°€
 		boolean check = false;
 		FindVO findVO_view = new FindVO();
 		findVO_view.setFind_pk(findVO_in.getFind_pk());
 		try {
-			if((int)session.getAttribute("view_check") == findVO_in.getFind_pk()){
+			if ((int) session.getAttribute("view_check") == findVO_in.getFind_pk()) {
 				// ìƒˆë¡œê³ ì¹¨ í–ˆì„ë•ŒëŠ” ê·¸ëŒ€ë¡œ ê°’ìœ ì§€
 				findVO_view.setFind_hit(findVO_out.getFind_hit());
-			} else{
+			} else {
 				findVO_view.setFind_hit(findVO_out.getFind_hit() + 1);
 			}
 		} catch (Exception e) {
 			findVO_view.setFind_hit(findVO_out.getFind_hit() + 1);
 		} finally {
-			if(findDAO.updateFindInfo(findVO_view) > 0){
+			if (findDAO.updateFindInfo(findVO_view) > 0) {
 				// ì„±ê³µ
 				check = true;
 				session.setAttribute("view_check", findVO_in.getFind_pk());
 			}
 			System.out.println("  >> Increase View Processing Result : " + check);
 		}
-		
+
 		model.addAttribute("findVO", findVO_out);
 		return "/find/findDetailForm";
 	}
-	
+
 	// êµ­ê°€ ë³„ ì¡°ê±´ ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
 	@RequestMapping("/findCountryListForm.go")
-	public String findCountryListForm(Model model, FindVO findVO) throws Exception {
+	public String findCountryListForm(Model model, FindVO findVO, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findCountryListForm!");
 
-		// êµ­ê°€ ë³„ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥í•  List ê°€ì ¸ì˜´
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+
+		// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
+		int totalCount = findDAO.countCountryFindList(findVO);
+		final int COUNT_PER_PAGE = 5; // í•œí˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ ê°œìˆ˜
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // í˜ì´ì§• ì—°ì‚°
+
+		// êµ­ê°€ ë³„ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥í•  List ê°€ì ¸ì˜´
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
 		List<FindVO> findList = findDAO.selectCountryFindList(findVO);
 		System.out.println("  >> success processing!");
 
-		// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
-		int totalCount = findDAO.countFindList();
-		
+		// ë‚˜ë¼ ê²Œì‹œíŒì—ì„œ ê°€ì ¸ì˜´
+		pagingVO.setState("listCountryAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("findVO", findVO);
 		return "/find/findListForm";
 	}
-	
-	// êµ­ê°€ ë³„ ì¡°ê±´ ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
+
+	// ê²€ìƒ‰
 	@RequestMapping("/findSearchListForm.go")
-	public String findSearchListForm(Model model, FindVO findVO) throws Exception {
+	public String findSearchListForm(Model model, FindVO findVO, PagingVO pagingVO) throws Exception {
 		System.out.println("[system] access findSearchListForm!");
 
 		// ê²€ìƒ‰ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥í•  List ê°€ì ¸ì˜´
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+
+		// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
+		int totalCount = findDAO.countSearchFindList(findVO);
+		final int COUNT_PER_PAGE = 5; // í•œí˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ ê°œìˆ˜
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // í˜ì´ì§• ì—°ì‚°
+
+		// êµ­ê°€ ë³„ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥í•  List ê°€ì ¸ì˜´
+		findVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		findVO.setStartBoardNum(pagingVO.getStartBoardNum());
 		List<FindVO> findList = findDAO.selectSearchFindList(findVO);
 		System.out.println("  >> success processing!");
 
-		// ì „ì²´ ê²Œì‹œë¬¼ ê°œìˆ˜ ê°€ì ¸ì˜´
-		int totalCount = findDAO.countFindList();
-		
+		// ê²€ìƒ‰ ê²Œì‹œíŒì—ì„œ ê°€ì ¸ì˜´
+		pagingVO.setState("listSearchAll");
+
 		model.addAttribute("findList", findList);
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("findVO", findVO);
 		return "/find/findListForm";
+	}
+
+	// ì‹ ê³ í–ˆì„ê²½ìš°
+	@RequestMapping("/findDeclarePro.go")
+	public String findDeclarePro(Model model, FindVO findVO) throws Exception {
+		System.out.println("[system] access findDeclarePro!");
+
+		boolean check = false;
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		findVO.setFind_badState(0);
+		if (findDAO.declareFind(findVO) > 0) {
+			// success
+			check = true;
+		}
+		System.out.println("  >> processing result : " + check);
+
+		model.addAttribute("check", check);
+		return "/find/findDeclarePro";
 	}
 }

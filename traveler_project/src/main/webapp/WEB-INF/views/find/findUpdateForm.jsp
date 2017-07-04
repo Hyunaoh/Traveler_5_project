@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,52 +99,118 @@
 			} else if ($("#country").val() == "일본"){
 				$("#area").html("<option value='없음'>선택</option><option value='도쿄'>도쿄</option><option value='교토'>교토</option><option value='오사카'>오사카</option><option value='삿포로'>삿포로</option><option value='고베'>고베</option><option value='기타'>기타</option>");
 			}
+			
 			$("#area").val($("#find_place2").val()).attr("selected", "selected");
+
+			$("[name=find_title]").hide();
+			$("#title_btn").click(function(){
+				$("[name=find_title]").toggle();
+			});
+			$("[name=find_content]").hide();
+			$("#content_btn").click(function(){
+				$("[name=find_content]").toggle();
+			});
+			$("#country").hide();
+			$("#area_text1").hide();
+			$("#area").hide();
+			$("#area_text2").hide();
+			$("#detail_info").hide();
+			$("#place_btn").click(function(){
+				$("#country").toggle();
+				$("#area_text1").toggle();
+				$("#area").toggle();
+				$("#area_text2").toggle();
+				$("#detail_info").toggle();
+			});
+			$("[name=find_startDate]").hide();
+			$("[name=find_endDate]").hide();
+			$("#date_text").hide();
+			$("#date_btn").click(function(){
+				$("[name=find_startDate]").toggle();
+				$("[name=find_endDate]").toggle();
+				$("#date_text").toggle();
+			});
 		}
 	</script>
 </head>
 <body>
-	<!-- Test용 (나중에 지울것!) -->
-	<% session.setAttribute("member_id", "8518");%>
+
+	<!-- header -->
+	<jsp:include page="../header.jsp" />
 	
-	<form action="findUpdatePro.go" method="post">
-		제목 : <input type="text" name="find_title" value="${findVO.find_title}" class="form-control"/><br>
-		
-		본문 : <input type="text" name="find_content" value="${findVO.find_content}" class="form-control"/><br>
-		
-		국가 :
-		<input type="hidden" id="find_place1" value="${findVO.find_place1}"/>
-		<input type="hidden" id="find_place2" value="${findVO.find_place2}"/>
-		<select name="find_place1" id="country">
-			<option>선택</option>
-			<option value="대한민국">대한민국</option>
-			<option value="미국">미국</option>
-			<option value="영국">영국</option>
-			<option value="프랑스">프랑스</option>
-			<option value="이탈리아">이탈리아</option>
-			<option value="체코">체코</option>
-			<option value="캐나다">캐나다</option>
-			<option value="중국">중국</option>
-			<option value="일본">일본</option>
-		</select>
-		
-		<span id="area_text1">도시 : </span>
-		<select name="find_place2" id="area">
-		</select>
-		
-		<p id="area_text2">상세사항 : </p>
-		<textarea name="find_place3" id="detail_info" rows="10" cols="50" class="form-control">${findVO.find_place3}</textarea><br>
-		<br>
-		
-		기간 : <input type="date" name="find_startDate" value="${findVO.find_startDate}" id="start_date" class="form-control"/>
-		<span id="date_text"> ~ </span>
-		<input type="date" name="find_endDate" id="end_date" value="${findVO.find_endDate}" class="form-control"/><br>
-		
-		<input type="hidden" name="member_id" value = "${sessionScope.member_id}" class="form-control"/>
-		<input type="hidden" name="find_pk" value = "${findVO.find_pk}" class="form-control"/>
-		<!-- 보안상 CSRF 값 넘겨줌 -->
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		<button type="submit" id="submit_btn" class="btn btn-md btn-default">등록하기</button><div id="date_result_text"></div>
-	</form>
+	<!-- contents -->
+	<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center to-animate">
+					<h2>가이드 수정</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>글을 작성해서 원하는 가이드를 찾아보세요!<br>자세하게 입력 할수록 원하는 가이드를 찾기 쉬워집니다.<br>편하게 여행을 즐기세요!</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-md well">
+				<div class="col-md-6 to-animate">
+					<form action="findUpdatePro.go" method="post">
+						<h3>가이드 찾기 글 수정</h3>
+						<div class="form-group ">
+							<label>제목</label>
+							<a class="btn btn-defusalt btn-lg" id="title_btn">수정</a>
+							<input type="text" name="find_title" value="${findVO.find_title}" class="form-control" placeholder="제목을 입력해주세요"/>
+						</div>
+						<div class="form-group">
+							<label>본문</label>
+							<a class="btn btn-defusalt btn-lg" id="content_btn">수정</a>
+							<textarea name="find_content" class="form-control" rows="5" cols="30" placeholder="자세한 내용을 입력해주세요">${findVO.find_content}</textarea>
+						</div>
+						<div class="form-group">
+							<label>나라 </label>
+							<a class="btn btn-defusalt btn-lg" id="place_btn">수정</a>
+							<input type="hidden" id="find_place1" value="${findVO.find_place1}"/>
+							<input type="hidden" id="find_place2" value="${findVO.find_place2}"/>
+							<select name="find_place1" id="country">
+								<option>선택</option>
+								<option value="대한민국">대한민국</option>
+								<option value="미국">미국</option>
+								<option value="영국">영국</option>
+								<option value="프랑스">프랑스</option>
+								<option value="이탈리아">이탈리아</option>
+								<option value="체코">체코</option>
+								<option value="캐나다">캐나다</option>
+								<option value="중국">중국</option>
+								<option value="일본">일본</option>
+							</select>
+							<label id="area_text1"> 도시</label>
+							<select name="find_place2" id="area">
+							</select>
+						</div>
+						<div class="form-group ">
+							<label id="area_text2">상세정보</label>
+							<textarea name="find_place3" id="detail_info" rows="5" cols="30"
+							class="form-control" placeholder="가고 싶은 장소 등 상세정보를 입력해주세요">${findVO.find_place3}</textarea>
+						</div>
+						<div class="form-group ">
+							<label>기간</label>
+							<a class="btn btn-defusalt btn-lg" id="date_btn">수정</a>
+							<input type="date" name="find_startDate" id="start_date" value="${findVO.find_startDate}" class="form-control"/>
+						</div>
+						<div class="form-group ">
+							<label id="date_text"> ~ </label>
+							<input type="date" name="find_endDate" id="end_date" value="${findVO.find_endDate}" class="form-control"/>
+						</div>
+						<div class="form-group ">
+							<input type="hidden" name="member_id" value = "${findVO.member_id}"/>
+							<input type="hidden" name="find_pk" value = "${findVO.find_pk}"/>
+							<input class="btn btn-primary btn-lg" value="수정" type="submit">
+						</div>
+						<div id="date_result_text"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
 </body>
 </html>
