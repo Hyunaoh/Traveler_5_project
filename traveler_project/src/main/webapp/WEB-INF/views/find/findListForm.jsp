@@ -6,19 +6,14 @@
 <html>
 <head>
 	<title>여행을 더하다</title>
-	<style type="text/css">
-		.pointer{
-			cursor: pointer;
-		}
-	</style>
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 
-<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
-	<div class="fh5co-overlay"></div>
-
+ <section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
+	<div class="fh5co-overlay"></div> 
+	
 	<!-- Page Content -->
     <div class="container">
         <div class="row">
@@ -140,6 +135,8 @@
                 <!-- Write Well -->
                 <div class="well">
                 	<h4>글을 올려 찾으세요!</h4>
+                	<!-- <div class="colorchange"> -->
+              		<a href="findInsertForm.go">글 작성</a>
                 	<se:authorize access="isAnonymous()">
                 		<a href="findInsertForm.go">글 작성</a>
                 		<h4><font color="red">회원만 글을 작성 할 수 있습니다.</font></h4>
