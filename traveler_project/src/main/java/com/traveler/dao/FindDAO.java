@@ -9,15 +9,15 @@ public interface FindDAO {
 	// 전체 목록 가져옴
 	public List<FindVO> selectFindListAll() throws Exception;
 
-	// 목록 Insert
+	// 紐⑸줉 Insert
 	public int insertFindInfo(FindVO findVO) throws Exception;
 
-	// 목록 Update
+	// 紐⑸줉 Update
 	public int updateFindInfo(FindVO findVO) throws Exception;
 
-	// 목록 Delete
+	// 紐⑸줉 Delete
 	public int deleteFindInfo(FindVO findVO) throws Exception;
 
-	// 특정한 정보 하나를 가져옴
+	// �듅�젙�븳 �젙蹂� �븯�굹瑜� 媛��졇�샂
 	public FindVO selectFindInfo(FindVO findVO_in);
 }
