@@ -3,16 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-</head>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js">
+</script>	
+</head>	
 <body>
 
 	<form method="post" enctype="multipart/form-data" action="memberInsertDetailPro.go">
 	
-	프로필사진	<input type="file" name="imgFile" ><br>
-	
+	프로필사진	<input type="file" name="imgFile"><br>
 	
 		국적 <select name="member_nationality">
 			<option>선택</option>

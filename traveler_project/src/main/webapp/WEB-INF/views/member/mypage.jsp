@@ -15,12 +15,11 @@
 	</c:if><br>
 	<hr>
 	<c:if test="${ list.member_profile == null }">
-	<img style="width: 208px; height: 208px;" src="${pageContext.request.contextPath}/images/profile.jsp" />
+	<img style="width: 208px; height: 208px;" src="<c:url value='/resources/images/profile.jpg' />" alt="">
 	</c:if>
-
 	<c:if test="${ list.member_profile != null }">
-	<img style="width: 208px; height: 208px;" src="<c:url value="/resources/images/profiles/${list.member_profile}" />" alt="">
-	</c:if>
+	<img style="width: 208px; height: 208px;" src="<c:url value='/resources/images/profiles/${list.member_profile}' />" alt="">
+	</c:if> 
 	닉네임: ${ list.member_nickName }<br>
 	국가	: ${ list.member_nationality }<br>
 	구사언어: ${ list.member_language }<br>

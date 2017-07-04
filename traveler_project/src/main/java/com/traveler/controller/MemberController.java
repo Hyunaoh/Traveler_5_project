@@ -110,7 +110,7 @@ public class MemberController {
 		
 		//서버에 이미지 저장
 		
-		String savePath = request.getRealPath("/resources/images/profiles");
+		String savePath = request.getRealPath("resources/images/profiles");
 		String originalFilename=imgFile.getOriginalFilename();
 		String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
 		String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg

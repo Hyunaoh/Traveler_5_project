@@ -101,7 +101,7 @@
 			$("#area").val($("#find_place2").val()).attr("selected", "selected");
 		}
 	</script>
-</head>
+</head>  
 <body>
 	<!-- Test용 (나중에 지울것!) -->
 	<% session.setAttribute("member_id", "8518");%>

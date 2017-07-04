@@ -6,20 +6,20 @@ import java.util.Date;
 public class MemberVO {
 	String member_id;	//id	
 	String member_pwd;	//password
-	String member_name;	//ÀÌ¸§
-	String member_nickName;	//´Ð³×ÀÓ
-	String member_gender;	//¼ºº°	
-	String member_nationality;	//±¹Àû
-	String member_language;	//±¸»ç¾ð¾î
-	String member_certification;	//ÀÚ°ÝÁõ
-	String member_tel;	//ÀüÈ­¹øÈ£
-	String member_email;	//ÀÌ¸ÞÀÏ
-	int member_post;	//¿ìÆí¹øÈ£
-	String member_adrr;	//ÁÖ¼Ò
-	String member_addrDetail;	//»ó¼¼ÁÖ¼Ò
-	String member_profile = "null";	//ÇÁ·ÎÇÊ»çÁø
-	int member_isGuide;	//°¡ÀÌµå ¿©ºÎ 
-	String member_joinDate;	//°¡ÀÔ³¯Â¥
+	String member_name;	//ï¿½Ì¸ï¿½
+	String member_nickName;	//ï¿½Ð³ï¿½ï¿½ï¿½
+	String member_gender;	//ï¿½ï¿½ï¿½ï¿½	
+	String member_nationality;	//ï¿½ï¿½ï¿½ï¿½
+	String member_language;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	String member_certification;	//ï¿½Ú°ï¿½ï¿½ï¿½
+	String member_tel;	//ï¿½ï¿½È­ï¿½ï¿½È£
+	String member_email;	//ï¿½Ì¸ï¿½ï¿½ï¿½
+	int member_post;	//ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	String member_adrr;	//ï¿½Ö¼ï¿½
+	String member_addrDetail;	//ï¿½ï¿½ï¿½Ö¼ï¿½
+	String member_profile ;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½ï¿½ï¿½
+	int member_isGuide;	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ 
+	String member_joinDate;	//ï¿½ï¿½ï¿½Ô³ï¿½Â¥
 	public String getMember_id() {
 		return member_id;
 	}

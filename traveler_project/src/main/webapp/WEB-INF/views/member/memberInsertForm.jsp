@@ -9,7 +9,6 @@
 <script type="text/javascript">
 	$(function() {
 		var idCheck;
-
 		window.setInterval(function() {
 			if ($("#member_pwd").val() != '' && $("#pwd_check").val() != '') {
 				if ($("#member_pwd").val() == $("#pwd_check").val()) {
@@ -64,29 +63,29 @@
 
 	<form action="memberInsertPro.go" method="post">
 		<div>
-			ID <input type="text" name="member_id" id="member_id"> <input
+			ID <input type="text" name="member_id" id="member_id" required> <input
 				type="button" value="중복확인" id="id_check">
 			<p id="id_check_display"></p>
 			<hr>
 		</div>
 		<div>
-			비밀번호 <input type="password" name="member_pwd" id="member_pwd"><br>
-			비밀번호 확인 <input type="password" id="pwd_check">
+			비밀번호 <input type="password" name="member_pwd" id="member_pwd" required><br>
+			비밀번호 확인 <input type="password" id="pwd_check" required>
 			<p id="pwd_check_display"></p>
 		</div>
 		<hr>
-		이름 <input type="text" name="member_name">
+		이름 <input type="text" name="member_name" required>
 		<hr>
-		닉네임 <input type="text" name="member_nickName">
+		닉네임 <input type="text" name="member_nickName" required>
 		<hr>
-		성별 <input type="radio" name="member_gender" value="man">man <input
-			type="radio" name="member_gender" value="woman">woman
+		성별 <input type="radio" name="member_gender" value="man" required>man <input
+			type="radio" name="member_gender" value="woman" required>woman
 		<hr>
-		전화번호 <input type="text" name="member_tel" placeholder="'-' 없이 입력해주세요">
+		전화번호 <input type="text" name="member_tel" placeholder="'-' 없이 입력해주세요" required>
 		<hr>
-		이메일 <input type="text" name="member_email">
+		이메일 <input type="text" name="member_email" required>
 		<hr>
-		<input type="submit" value="확인">
+		<input type="submit" value="확인" id="btn_join" required>
 	</form>
 </body>
 </html>
