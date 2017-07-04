@@ -3,6 +3,7 @@ package com.traveler.model;
 import java.sql.Timestamp;
 
 public class FindVO {
+	
 
 	private int find_pk; // int(1) primary key, -- find pk
 	private String find_title; // varchar(500) not null, -- 제목
