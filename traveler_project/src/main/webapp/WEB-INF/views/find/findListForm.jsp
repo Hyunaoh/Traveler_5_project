@@ -6,6 +6,11 @@
 <html>
 <head>
 	<title>여행을 더하다</title>
+	<style type="text/css">
+		.colorchange {
+			font color: "black";
+		}
+	</style>
 </head>
 <body>
 	<!-- header -->
@@ -84,7 +89,8 @@
                 <!-- Write Well -->
                 <div class="well">
                 	<h4>글을 올려 찾으세요!</h4>
-              		<a href="findInsertForm.go">글 작성</a>
+                	<!-- <div class="colorchange"> -->
+              		<a href="findInsertForm.go"><span style="color:black">글 작성</span></a>
                 </div>
                 <!-- Search Well -->
                 <div class="well">

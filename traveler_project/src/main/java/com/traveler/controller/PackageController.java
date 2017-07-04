@@ -4,20 +4,18 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.traveler.dao.PackageDAO;
 import com.traveler.model.PackageVO;
@@ -114,12 +112,33 @@ public class PackageController {
 	
 	//패키지 상세보기
 	@RequestMapping("packageDetailForm.go")
-	public String packageDetailForm (Model model, PackageVO packageVO) throws Exception{
+	public String packageDetailForm (Model model, PackageVO packageVO, HttpSession session) throws Exception{
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
 		
 		PackageVO detailPackage = packageDAO.selectPackage(packageVO);
 		System.out.println("투스트링"+detailPackage.toString());
 		
+		//조회수 증가
+		boolean check = false;
+		PackageVO packageVO_hit = new PackageVO();
+		packageVO_hit.setPackage_pk(packageVO.getPackage_pk());
+		
+		try{
+			if((int)session.getAttribute("view_check") == packageVO.getPackage_pk()){
+				// 새로고침 했을때는 그대로 값유지
+				packageVO_hit.setPackage_hit(detailPackage.getPackage_hit());
+			} else{
+			packageVO_hit.setPackage_hit(detailPackage.getPackage_hit()+1);
+			}
+		} catch (Exception e) {
+			packageVO_hit.setPackage_hit(detailPackage.getPackage_hit()+1);
+		} finally{
+			if(packageDAO.updatePackage(packageVO_hit) > 0){
+				// 성공
+				check = true;
+				session.setAttribute("view_check", packageVO.getPackage_pk());
+			}
+		}
 		model.addAttribute("packageVO", detailPackage);
 		
 		return "/package/packageDetailForm";

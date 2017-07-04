@@ -8,6 +8,8 @@
 	<select id="getAllPackage" resultType="com.traveler.model.PackageVO">
 		SELECT *
 		FROM PACKAGE
+		WHERE PACKAGE_STATUS=1
+		ORDER BY PACKAGE_REGDATE DESC;
     </select>
     
     <insert id="insertPackage" parameterType="com.traveler.model.PackageVO">
@@ -37,12 +39,12 @@
     	WHERE PACKAGE_PK = #{package_pk}
     </select>
     
-    <delete id ="deletePackage">
+    <delete id ="deletePackage" parameterType="com.traveler.model.PackageVO">
     	DELETE FROM PACKAGE
     	WHERE PACKAGE_PK = #{package_pk}
     </delete>
     
-    <update id ="updatePackage">
+    <update id ="updatePackage" parameterType="com.traveler.model.PackageVO">
     	UPDATE PACKAGE
     	<set>
 			<if test="package_title != null and package_title !=''">

@@ -21,10 +21,10 @@ public interface PackageDAO {
 	public int insertPackage(PackageVO packageVO) throws Exception;
 	
 	//수정
-	public void updatePackage(PackageVO packageVO) throws Exception;
+	public int updatePackage(PackageVO packageVO) throws Exception;
 	
 	//삭제
-	public void deletePackage(PackageVO packageVO) throws Exception;
+	public int deletePackage(PackageVO packageVO) throws Exception;
 		
 	//특정한 나라 목록 찾기
 	public List<PackageVO> searchPackage(PackageVO packageVO) throws Exception;

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +11,10 @@
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
-	<section id="fh5co-work" data-section="work">
+	<section id="fh5co-work" data-section="work" >
+		<div class="fh5co-overlay"></div>
+		
+		<!-- Page Content -->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
@@ -18,150 +22,123 @@
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 subtext to-animate">
 							<h3>Find perfect guide here for your wonderful trip :)</h3>
+							<hr>
+							<i class="fh5co-overlay-icon icon-briefcase to-animate-2"></i> <span
+								class="fh5co-overlay-number js-counter" data-from="0"
+								data-to="${count}" data-speed="2000" data-refresh-interval="50">${count}</span>
+							<span class="fh5co-overlay-label">전체 게시물 개수</span>
 						</div>
 					</div>
 				</div>
 			</div>
-				<fieldset>
+			
 				<div class="row row-bottom-padded-sm">
-				<legend> 사진 잘 나오나???? </legend>
 					<c:forEach items="${listAll}" var="list">
-						<c:if test="${list.package_image eq null}">
-						<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>${list.package_title}</h2>
-							<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
-						</div>
-						</a>
-						</c:if>
-					
-						<c:if test="${list.package_image ne null}">
-						<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>${list.package_title}</h2>
-							<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
-						</div>
-						</a>
-						</c:if>
 						
+						<div class="col-md-4 col-sm-6 col-xxs-12">
+							<c:if test="${list.package_image eq null}">
+								<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+									<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive" height="270px">
+									<div class="fh5co-text">
+										<h2>${list.package_title}</h2>
+										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+									</div>
+								</a>
+							</c:if>
+						
+							<c:if test="${list.package_image ne null}">
+								<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+									<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive" height="270px">
+									<div class="fh5co-text">
+										<h2>${list.package_title}</h2>
+										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+									</div>
+								</a>
+							</c:if>
+						</div>
+						<c:forEach items="${listAll}" step="2" >
+						<div class="clearfix visible-sm-block"></div>
+						</c:forEach>
 					</c:forEach>
 				</div>
-				</fieldset>
-				
-			<div class="row row-bottom-padded-sm">
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_1.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_1.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 1</h2>
-							<span>Branding</span>
-						</div>
-					</a>
+			</div>
+			
+			<!-- Sidebar Widgets Column -->
+			<div class="fh5co-counter to-animate col-md-4">
+				<!-- Write Well -->
+				<div class="well">
+					<h4>글을 올려 찾으세요!</h4>
+					<a href="insertPackageForm.go">글 작성</a>
 				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_2.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_2.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 2</h2>
-							<span>Web</span>
+				<!-- Search Well -->
+				<div class="well">
+					<form action="packageSearchListForm.go" method="post">
+						<h4>검색해서 찾아보세요!</h4>
+						<!-- 보안상 CSRF 값 넘겨줌 -->
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<select name="package_place1" class="form-control">
+							<option value="전체">전체</option>
+							<option value="대한민국">대한민국</option>
+							<option value="미국">미국</option>
+							<option value="영국">영국</option>
+							<option value="프랑스">프랑스</option>
+							<option value="이탈리아">이탈리아</option>
+							<option value="체코">체코</option>
+							<option value="캐나다">캐나다</option>
+							<option value="중국">중국</option>
+							<option value="일본">일본</option>
+						</select>
+						<div class="input-group">
+							<input type="text" name="search" class="form-control">
+							<span class="input-group-btn" style="height: 100%;">
+								<button class="btn btn-default" type="submit" style="height: 100%;">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
 						</div>
-					</a>
-				</div>
-
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_3.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_3.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 3</h2>
-							<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_4.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_4.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 4</h2>
-							<span>UI/UX</span>
-						</div>
-					</a>
-				</div>
-				
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_5.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_5.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 1</h2>
-							<span>Photography</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_6.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_6.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 2</h2>
-							<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-				
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_7.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_7.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 3</h2>
-							<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_8.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_8.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 4</h2>
-							<span>Sketch</span>
-						</div>
-					</a>
+					</form>
 				</div>
 
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="<c:url value="/resources/images/work_1.jpg" />" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value="/resources/images/work_1.jpg" />" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-							<h2>Project 2</h2>
-							<span>Illustration</span>
+				<!-- Blog Categories Well -->
+				<div class="well">
+					<h4>원하는 나라에서 찾아보세요!</h4>
+					<div class="row">
+						<div class="col-lg-6">
+							<ul class="list-unstyled">
+								<li><a href="getAllPackage.go">전체</a></li>
+								<li><a href="packageCountryListForm.go?package_place1=대한민국">대한민국</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=미국">미국</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=영국">영국</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=프랑스">프랑스</a>
+								</li>
+							</ul>
 						</div>
-					</a>
+						<div class="col-lg-6">
+							<ul class="list-unstyled">
+								<li><a href="packageCountryListForm.go?package_place1=이탈리아">이탈리아</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=체코">체코</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=일본">일본</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=중국">중국</a>
+								</li>
+								<li><a href="packageCountryListForm.go?package_place1=캐나다">캐나다</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- /.row -->
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 text-center to-animate">
-					<p>* Demo images from <a href="http://plmd.me/" target="_blank">plmd.me</a></p>
-				</div>
-			</div>
-		</div>
 	</section>
 	
 	
 
-	<section id="fh5co-counters"
-		style="background-image: url(<c:url value='/resources/images/jiho.jpg' />);"
-		data-stellar-background-ratio="0.5">
-	<div class="fh5co-overlay"></div>
-
-	<!-- Page Content -->
+	<%-- 
 	<div class="container">
 		<div class="row">
 			<!-- Title -->
@@ -283,9 +260,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> 
 	<!-- /.container -->
-	</section>
+	</section> --%>
 </body>
 </html>
 

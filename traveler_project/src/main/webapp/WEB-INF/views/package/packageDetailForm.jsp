@@ -15,6 +15,7 @@
 	여행하는 곳 : ${packageVO.package_place1} ${packageVO.package_place2}<br>
 	상세 내용: ${packageVO.package_place3}<br>
 	소요시간 : ${packageVO.package_leadTime} <br>
+	조회수 : ${packageVO.package_hit } <br>
 	<hr>
 	<a href="getAllPackage.go">목록보기</a>
 	<a href="updatePackageForm.go?package_pk=${packageVO.package_pk}">수정</a>
