@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>여행가 - 관리자 (회원관리)</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp" />
-	<button onclick="location='adminMemberListForm.go'">회원리스트</button>
-	
-	
+	<form method="post" action="memberDelete.go">
+	탈퇴하시겠습니까?<br>
+	비밀번호를 입력해주세요.
+	<input type="password" name="confirm_pwd">
+	<input type="submit" value="확인">
+	</form>
 </body>
 </html>

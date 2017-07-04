@@ -79,6 +79,9 @@
 					<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'"><span>패키지 찾기</span></a></li>
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
+
+					
+	
 					<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'"><span>쪽지</span></a></li>
 					<se:authorize access="isAnonymous()">
 						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
@@ -86,6 +89,7 @@
 					</se:authorize>
 					<se:authorize access="isAuthenticated()">
 						<li><a href="#" onclick="location='<c:url value="/j_spring_security_logout" />'"><span>로그아웃(<se:authentication property='principal.username' />)</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
 					</se:authorize>
 					<se:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'"><span>관리자</span></a></li>
