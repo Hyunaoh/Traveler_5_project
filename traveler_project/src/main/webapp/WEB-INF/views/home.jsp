@@ -602,6 +602,38 @@
 		</ul>
 	</div>
 	<!-- End demo purposes only -->
+
+	
+	<!-- jQuery -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.min.js"/>"></script>
+	<!-- jQuery Easing -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.easing.1.3.js"/>"></script>
+	<!-- Bootstrap -->
+	<script src="<c:url value="/resources/js/bootstrap/bootstrap.min.js"/>"></script>
+	<!-- Waypoints -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.waypoints.min.js"/>"></script>
+	<!-- Stellar Parallax -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.stellar.min.js"/>"></script>
+	<!-- Counter -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.countTo.js"/>"></script>
+	<!-- Magnific Popup -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.magnific-popup.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/bootstrap/magnific-popup-options.js"/>"></script>
+
+	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<script src="<c:url value="/resources/js/bootstrap/google_map.js"/>"></script>
+
+	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
+	
+	<h4><a href="find/findListForm.go">find</a></h4>
+	<h4><a href="package/getAllPackage.go">package</a></h4>
+
+	
+	<h4><a href="message/messageWrite.go">message22</a></h4>
+	
+</body>
 	
 	<script>
 		$(function(){
