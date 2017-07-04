@@ -120,7 +120,7 @@
 	<!-- header -->
 	<jsp:include page="header.jsp" />
 	
-	<section id="fh5co-home" data-section="home">
+	<section id="fh5co-home" style="background-image: url(<c:url value='/resources/images/bg.jpg' />);" data-section="home">
 		<div class="gradient"></div>
 		<div class="container">
 			<div class="text-wrap">
@@ -137,6 +137,7 @@
 		<div class="slant"></div>
 	</section>
 	
+<<<<<<< HEAD
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
@@ -621,4 +622,9 @@
 	<!-- End demo purposes only -->
 
 	</body>
+=======
+	<h4><a href="find/findListForm.go">find</a></h4>
+	<a href="review/writeform.go">testReview</a>
+</body>
+>>>>>>> jihoon
 </html>
