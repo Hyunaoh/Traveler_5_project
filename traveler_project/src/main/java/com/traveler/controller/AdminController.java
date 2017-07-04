@@ -29,7 +29,7 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminBoardForm.go")
-	public String adminBoardForm(Model model, PagingVO pagingVO) throws Exception{
+	public String adminBoardForm(Model model,PagingVO pagingVO) throws Exception{
 		System.out.println("[system] access adminBoardForm!");
 		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
 		
@@ -105,13 +105,13 @@ public class AdminController {
 		System.out.println("  >> processing result : " + check);
 
 		model.addAttribute("check", check);
-		
 		return "redirect:adminBoardForm.go";
 	}
 	
 	@RequestMapping("/adminMemberForm.go")
 	public String adminMemberForm(){
 		System.out.println("[system] access adminMemberForm!");
+		
 		return "admin/adminMemberForm";
 	}
 

@@ -58,10 +58,11 @@
 	<!-- Modernizr JS -->
 	<script src="<c:url value="/resources/js/bootstrap/modernizr-2.6.2.min.js"/>"></script>
 	
-	<!-- 06.30 오현아 알람 쪽지 js -->
-	<script src="<c:url value= "/resources/js/msg_alarm/msg_alarm.js"/>"></script>
-
+	<!-- 06.30 오현아 알람 쪽지 및 user 정보 js -->
+	<jsp:include page="../views/message/alarm_conn.jsp"></jsp:include>
+	
 </head>
+<!-- <body onload="alarm_access();"> -->
 <body>
 	<header role="banner" id="fh5co-header">
 		<div class="container">
@@ -76,6 +77,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="#" data-nav-section="home" onclick="location='<c:url value="/home.go" />'"><span><i class="icon-home"></i> Home</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'"><span>가이드 찾기</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'"><span>패키지 찾기</span></a></li>
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 

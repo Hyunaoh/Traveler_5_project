@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CSS Star Ratings with Radio Buttons</title>
-<link rel="stylesheet" href="../../../resources/css/star_css.css">
+<link rel="stylesheet" href="../../../resources/css/review/star_css.css">
 </head>
 <body>
 
@@ -29,6 +29,6 @@
 	</form>
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-	<script src="../../../resources/js/star_js.js"></script>
+	<script src="../../../resources/js/review/star_js.js"></script>
 </body>
 </html>

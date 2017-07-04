@@ -47,4 +47,7 @@ public interface FindDAO {
 
 	// 신고
 	public int declareFind(FindVO findVO) throws Exception;
+
+	// 가장 많이 본 글 5개 가져옴
+	public List<FindVO> selectMostFindListAll() throws Exception;
 }

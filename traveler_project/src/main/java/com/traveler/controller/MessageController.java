@@ -1,12 +1,15 @@
 package com.traveler.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sun.glass.ui.Application;
 import com.traveler.dao.MessageDAO;
 import com.traveler.model.MessageVO;
 
@@ -57,11 +61,36 @@ public class MessageController {
 		return "/message/messageWrite";
 	}
 	
+	// 메세지 3초마다 보는 폼
+	@RequestMapping("/alarm_conn.go")
+	public String alarm_conn(){
+		return "/message/alarm_conn";
+	}
+	
+	// 메세지 접속 폼 (+ id List로 뽑아내기)
+	@RequestMapping("/alarm_access.go")
+	public String alarm_access(Principal principal) {	
+		
+		return "/message/alarm_access";
+	}
+	
+	// 메세지 alert 창 
+	@RequestMapping("/alarm_view.go")
+	public String alarm_view(Model model, HttpServletRequest request){
+		
+		String msg = request.getParameter("msg");
+		
+		System.out.println("alert에 띄울 메세지 내용 : " + msg);
+		// alert 창이 뜨기전, 그 안에 msg에 해당하는 객체를 model에 add해준다.
+		
+		model.addAttribute("msg", msg);
+		return "/message/alarm_view";
+	}
+	
 	// 메세지 쓰는 함 프로세스
 	@ResponseBody
 	@RequestMapping(value="/messageWriteAjax.go", method=RequestMethod.POST)
 	public int messageWritePro(@RequestBody MessageVO mVo, Principal principal) throws Exception{
-		
 		
 		System.out.println("메세지 쓰는 Ajax실행");
 		
