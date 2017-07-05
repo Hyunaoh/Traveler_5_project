@@ -24,6 +24,14 @@ public class ReviewController {
 		
 		return "review/star";
 	}
+	@RequestMapping("/logintest.go")
+	public String logintest() throws Exception{
+		return "review/APIExamNaverLogin";
+	}
+	@RequestMapping("/logintest2.go")
+	public String logintest2() throws Exception{
+		return "review/callback";
+	}
 	@RequestMapping("/writeform.go")
 	public String formgo(Model model) throws Exception{
 		System.out.println("writeform 접근");
