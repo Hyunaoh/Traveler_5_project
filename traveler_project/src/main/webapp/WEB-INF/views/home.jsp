@@ -389,8 +389,7 @@
 					<i class="icon to-animate-2 icon-monitor"></i>
 					<h3>CMS &amp; eCommerce</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-				</div>
-				
+				 </div>
 			</div>
 		</div>
 	</section>
@@ -626,12 +625,6 @@
 
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
 	<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
-	
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<h4><a href="package/getAllPackage.go">package</a></h4>
-
-	
-	<h4><a href="message/messageWrite.go">message22</a></h4>
 	
 </body>
 	

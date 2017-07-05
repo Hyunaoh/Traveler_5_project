@@ -33,12 +33,12 @@
 			</div>
 			
 				<div class="row row-bottom-padded-sm">
-					<c:forEach items="${listAll}" var="list">
+					<c:forEach items="${list}" var="list">
 						
 						<div class="col-md-4 col-sm-6 col-xxs-12">
 							<c:if test="${list.package_image eq null}">
 								<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
-									<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive" height="270px">
+									<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive" style="height: 270px; width: 359.98px;">
 									<div class="fh5co-text">
 										<h2>${list.package_title}</h2>
 										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
@@ -48,7 +48,7 @@
 						
 							<c:if test="${list.package_image ne null}">
 								<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
-									<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive" height="270px">
+									<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive" style="height: 270px; width: 359.98px;">
 									<div class="fh5co-text">
 										<h2>${list.package_title}</h2>
 										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
@@ -103,6 +103,7 @@
 				<div class="well">
 					<h4>원하는 나라에서 찾아보세요!</h4>
 					<div class="row">
+					<form action="packageSearchListForm.go" method="post">
 						<div class="col-lg-6">
 							<ul class="list-unstyled">
 									<li><a href="getAllPackage.go"><font color="#55d9ad">전체</font></a></li>
@@ -130,6 +131,7 @@
 								</li>
 							</ul>
 						</div>
+						</form>
 					</div>
 					<!-- /.row -->
 				</div>
