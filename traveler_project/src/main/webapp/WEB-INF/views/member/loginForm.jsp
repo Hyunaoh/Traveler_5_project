@@ -21,9 +21,23 @@
 	<jsp:include page="../header.jsp" />
 	<br><br><br><br><br><br>
 	<!-- contents -->
-	<form action="<c:url value="/j_spring_security_check" />" method="post">
-		ID : <input type = "text" name="id" class="form-control"/><br>
-		password : <input type = "password" name="pwd" class="form-control"/><br>
+	<form action="<c:url value="/j_spring_security_check" />" method="post" name="loginForm">
+		<c:if test="${memberVO.member_id eq null }">
+			ID : <input type = "text" name="id" class="form-control"/><br>
+			password : <input type = "password" name="pwd" class="form-control"/><br>
+		</c:if>
+		<c:if test="${memberVO.member_id ne null }">
+			ID : <input type = "text" name="id" value ="${memberVO.member_id}" class="form-control"/><br>
+			password : <input type = "password" name="pwd" value ="${memberVO.member_pwd}" class="form-control"/><br>
+			<input type="hidden" id="howToLogin" value="1"/>
+			<script type="text/javascript">
+				$(function(){
+					if($("#howToLogin").val() == 1){
+						document.loginForm.submit();
+					}
+				})
+			</script>
+		</c:if>
 		<input type = "submit" value="login" class="btn btn-default"/> 
 	</form>
 	<br>
@@ -37,9 +51,8 @@
 			data-theme="light"
 			data-cookiepolicy="single_host_origin"></button>
 	</div>
-	<a onclick="disconnectUser()">로그아웃</a>
 	<!-- 회원정보 보내줌 -->
-	<form action="memberInsertForm.go" name="googleInfo" method="post">
+	<form action="googleLogin.go" name="googleInfo" method="post">
 		<input type="hidden" name="email" value="">
 		<input type="hidden" name="name" value="">
 		<input type="hidden" name="gender" value="">
@@ -55,6 +68,10 @@
 				google_access_token = resp['access_token'];
 				var idToken = resp['id_token'];
 				gapi.auth.setToken(resp); // 반환된 토큰을 저장합니다.
+				if (window.sessionStorage) {
+	                sessionStorage.setItem('access_token', google_access_token);
+	            }
+				
 				$("#gConnect").hide(); // 사용자가 승인되었으므로 로그인 버튼을 숨김
 				state="google";
 				getEmail();
@@ -83,93 +100,6 @@
 				document.googleInfo.linkUrl.value = obj['link'];
 				document.googleInfo.submit();
 			}
-		}
-		
-		
-		/**
-		 * Sets up an API call after the Google API client loads.
-		 */
-		function apiClientLoaded() {
-			gapi.client.plus.people.get({
-				userId : 'me'
-			}).execute(handleEmailResponse);
-		}
-	
-		/**
-		 * Response callback for when the API client receives a response.
-		 *
-		 * @param resp The API response object with the user email and profile information.
-		 */
-		function handleEmailResponse(resp) {
-			var primaryEmail;
-			for (var i = 0; i < resp.emails.length; i++) {
-				if (resp.emails[i].type === 'account')
-					primaryEmail = resp.emails[i].value;
-			}
-			document.getElementById('responseContainer').value = 'Primary email: '
-					+ primaryEmail + '\n\nFull Response:\n' + JSON.stringify(resp);
-			alert('Primary email: '
-				+ primaryEmail + '\n\nFull Response:\n' + JSON.stringify(resp));
-			alert('Primary email: '
-					+ primaryEmail + '\n\nFull Response:\n' + resp.displayName + "/"+resp.gender);
-			alert("sd");
-			var dataForm = {
-					email : primaryEmail,
-					name : resp.displayName,
-					gender : resp.gender
-			};
-			alert(JSON.stringify(dataForm));
-			$.ajax({
-				type : 'GET',
-				url : "googleLoginPro.go",
-				async : false,
-				data: JSON.stringify(dataForm),
-				contentType : "application/json",
-				dataType : 'jsonp',
-				success : function(nullResponse) {
-					// 성공
-					alert("성공");
-					location.href = 'loginForm.go'; // 로그아웃 한 페이지로 이동
-				},
-				error : function(e) {
-					// 오류 처리
-					// console.log(e);
-					// 실패한 경우 사용자가 수동으로 연결 해제하게 할 수 있습니다.
-					// https://plus.google.com/apps
-					alert("실패");
-					location.href = 'https://plus.google.com/apps';
-				}
-			});	
-		}
-		
-		/* 구글 로그아웃 */
-		function disconnectUser() {
-			var token = gapi.auth.getToken().access_token;
-			var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + token; // 로그아웃 위해 토큰값을 보내줌
-			var dataForm={
-					token : revokeUrl
-			};
-			$.ajax({
-				type : 'GET',
-				url : revokeUrl,
-				async : false,
-				data: JSON.stringify(dataForm),
-				contentType : "application/json",
-				dataType : 'jsonp',
-				success : function(nullResponse) {
-					// 성공
-					alert("성공"+JSON.stringify(nullResponse));
-					location.href = 'loginForm.go'; // 로그아웃 한 페이지로 이동
-				},
-				error : function(e) {
-					// 오류 처리
-					// console.log(e);
-					// 실패한 경우 사용자가 수동으로 연결 해제하게 할 수 있습니다.
-					// https://plus.google.com/apps
-					alert("실패");
-					location.href = 'https://plus.google.com/apps';
-				}
-			});
 		}
 	</script>
 </body>

@@ -33,14 +33,38 @@ public class MemberController {
 	@Autowired
 	SqlSession sqlSession;
 
+	// Google Login
+	@RequestMapping("/googleLogin.go")
+	public String googleLogin(Model model, GoogleVO googleVO) throws Exception {
+		System.out.println("[system] access googleLogin! ");
+		String view = "";
+		if(googleVO != null){
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMember_id(googleVO.getEmail());
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			memberVO = memberDAO.selectMemberList(memberVO);
+			try{
+				if(memberVO.getMember_id().equals(googleVO.getEmail())){
+					// 이미 가입한 회원!
+					// 로그인을 한다.
+					model.addAttribute("memberVO", memberVO);
+					view = "/member/loginForm";
+				}
+			} catch(Exception e){
+				// 회원이 아님 (회원가입을 함)
+				// 구글 정보 가져옴
+				model.addAttribute("googleVO", googleVO);
+				view = "/member/memberInsertForm";
+			}
+		}
+		return view;
+	}
+	
 	// DB member Insert
 	@RequestMapping("/memberInsertForm.go")
 	public String memberInsertForm(Model model, GoogleVO googleVO) throws Exception {
 		System.out.println("[system] access memberInsertForm! ");
-		if(googleVO != null){
-			// 구글 정보 가져옴
-			model.addAttribute("googleVO", googleVO);
-		}
+		model.addAttribute("googleVO", googleVO);
 		return "/member/memberInsertForm";
 	}
 
