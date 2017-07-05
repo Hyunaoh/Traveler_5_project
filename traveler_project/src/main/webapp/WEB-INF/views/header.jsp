@@ -60,7 +60,34 @@
 	
 	<!-- 06.30 오현아 알람 쪽지 및 user 정보 js -->
 	<jsp:include page="../views/message/alarm_conn.jsp"></jsp:include>
-	
+	<script type="text/javascript">
+		/* 구글 로그아웃 */
+		function disconnectUser() {
+			var token = sessionStorage.getItem("access_token");
+			var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + token; // 로그아웃 위해 토큰값을 보내줌
+			var dataForm={
+					token : revokeUrl
+			};
+			if(token != null){
+				$.ajax({
+					type : 'GET',
+					url : revokeUrl,
+					async : false,
+					data: JSON.stringify(dataForm),
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(nullResponse) {
+						// 성공
+						location.href = '/j_spring_security_logout';
+					},
+					error : function(e) {
+					}
+				});
+			} else{
+				location.href = '/j_spring_security_logout'; // 로그아웃 한 페이지로 이동
+			}
+		}
+	</script>
 </head>
 <!-- <body onload="alarm_access();"> -->
 <body>
@@ -80,17 +107,14 @@
 					<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'"><span>패키지 찾기</span></a></li>
 					<li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
 					<li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-
-					
-	
 					<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'"><span>쪽지</span></a></li>
 					<se:authorize access="isAnonymous()">
 						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
 						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
 					</se:authorize>
 					<se:authorize access="isAuthenticated()">
-						<li><a href="#" onclick="location='<c:url value="/j_spring_security_logout" />'"><span>로그아웃(<se:authentication property='principal.username' />)</span></a></li>
-					<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
+						<li><a href="#" onclick="disconnectUser()"><span>로그아웃(<se:authentication property='principal.username' />)</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
 					</se:authorize>
 					<se:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'"><span>관리자</span></a></li>
