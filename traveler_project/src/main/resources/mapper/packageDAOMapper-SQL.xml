@@ -34,7 +34,8 @@
     <select id="searchPackage" resultType="com.traveler.model.PackageVO">
     	SELECT *
     	FROM PACKAGE
-    	WHERE PACKAGE_PLACE1 = #{package_place1}
+    	WHERE PACKAGE_PLACE1 = #{package_place1} AND
+   			PACKAGE_STATUS=1
     </select>
 
      <!-- 특정 게시글 불러오기 -->
@@ -74,6 +75,9 @@
 			</if>
 			<if test="package_hit != null and package_hit !=''">
 				PACKAGE_HIT = #{package_hit}
+			</if>
+			<if test="package_status != null and package_status !=''">
+				PACKAGE_STATUS = #{package_status}
 			</if>
 		</set>
 		WHERE PACKAGE_PK = #{package_pk}

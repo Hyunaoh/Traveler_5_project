@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
 import com.traveler.dao.MemberDAO;
+import com.traveler.dao.PackageDAO;
 import com.traveler.model.FindVO;
 import com.traveler.model.MemberVO;
+import com.traveler.model.PackageVO;
 import com.traveler.model.PagingVO;
 
 @Controller
@@ -122,9 +124,29 @@ public class AdminController {
 	}
 
 	@RequestMapping("/adminPackageForm.go")
-	public String adminPackageForm(){
+	public String adminPackageForm(Model model) throws Exception{
 		System.out.println("[system] access adminPackageForm!");
+		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
+		
+		List<PackageVO> upapprovedList = packageDAO.getUnapprovedPackage();
+		model.addAttribute("upapprovedlist", upapprovedList);
+		
 		return "admin/adminPackageForm";
+	}
+	
+	//상품 게시글 승인 하는 Controller
+	@RequestMapping("/adminPackagePro.go")
+	public String adminPackagePro(Model model, PackageVO packageVO_in) throws Exception{
+		System.out.println("[system] access adminPackagePro!");
+		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
+		
+		PackageVO packageVO_out = new PackageVO();
+		
+		packageVO_out.setPackage_pk(packageVO_in.getPackage_pk());
+		packageVO_out.setPackage_status(1);
+		packageDAO.updatePackage(packageVO_out);
+		
+		return "redirect:adminPackageForm.go";
 	}
 	
 	@RequestMapping("/adminMemberListForm.go")

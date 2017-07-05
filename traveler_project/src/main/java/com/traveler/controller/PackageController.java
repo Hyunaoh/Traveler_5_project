@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +42,7 @@ public class PackageController {
 		//패키지 전체 갯수
 		int countPackage = packageDAO.countTotalPackage();
 		
-		model.addAttribute("listAll", list);
+		model.addAttribute("list", list);
 		model.addAttribute("count", countPackage);
 		
 		
@@ -59,14 +61,21 @@ public class PackageController {
 	public String insertPackage(HttpServletRequest request,PackageVO packageVO, @RequestParam("imgFile") MultipartFile imgFile, Model model) throws Exception{
 		System.out.println("package 인서트 컨트롤러 진입");
 		
+		//이미지 rename시 붙일 업로드 날짜 정보
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        String now = (new SimpleDateFormat("yyMMdd-HH-mm-ss").format(date));
+
+		
 		// 서버에 이미지 저장
 	    String savePath = request.getRealPath("/resources/images/package_img"); // 파일이 저장될 프로젝트 안의 폴더 경로
 	   System.out.println("savePath"+savePath);
 	    String originalFilename = imgFile.getOriginalFilename(); // fileName.jpg
 	    String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
 	    String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg
-	    String rename = onlyFileName +"_"+extension; // fileName_20150721-14-07-50.jpg
-	    String fullPath = savePath + "\\" + rename;
+	    
+	    String rename = onlyFileName +"_"+now+extension; // fileName_20150721-14-07-50.jpg
+	    String fullPath = savePath + "/" + rename;
 	    if (!imgFile.isEmpty()) {
 	        try {
 	            byte[] bytes = imgFile.getBytes();
@@ -101,10 +110,13 @@ public class PackageController {
 		//전체 패키지 목록
 		List<PackageVO> searchList = packageDAO.searchPackage(packageVO);
 		
+		PackageVO what = searchList.get(0);
+		System.out.println("투스트링"+what.toString());
+		
 		//패키지 전체 갯수
 		int countPackage = packageDAO.countTotalPackage();
 		
-		model.addAttribute("searchList", searchList);
+		model.addAttribute("list", searchList);
 		model.addAttribute("count", countPackage);
 		
 		return "/package/getListForm";
@@ -183,7 +195,7 @@ public class PackageController {
 	// 이미지 복사
 		public void imgCopy(String inputFullPath ,String outputImgPath, String img_name) throws Exception{
 			
-			String fullPath = outputImgPath + "\\" + img_name;
+			String fullPath = outputImgPath + "/" + img_name;
 			
 			FileInputStream fis = null;
 			FileOutputStream fos = null;
