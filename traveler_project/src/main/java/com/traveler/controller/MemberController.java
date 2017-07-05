@@ -175,7 +175,7 @@ public class MemberController {
 		String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
 		String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg
 		String rename = onlyFileName + "_" + getCurrentDayTime() + extension; // fileName_20150721-14-07-50.jpg
-		String fullPath = savePath + "\\" + rename;
+		String fullPath = savePath + "/" + rename;
 		if (!imgFile.isEmpty()) {
 	        try {
 	        	
@@ -188,8 +188,8 @@ public class MemberController {
 		}
 	     // 이미지 복사
 	
-		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
-		 imgCopy(fullPath, saveLocalPath, rename);
+//		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
+//		 imgCopy(fullPath, saveLocalPath, rename);
 		 
 		 // 이미지 이름 셋팅
 		 memberVO.setMember_profile(rename);
