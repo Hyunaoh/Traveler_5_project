@@ -619,7 +619,8 @@
 	<script src="<c:url value="/resources/js/bootstrap/magnific-popup-options.js"/>"></script>
 
 	<!-- Google Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<!-- 오현아 : 0705 Google Map 오류로 인해 주석처리 -->
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
 	<script src="<c:url value="/resources/js/bootstrap/google_map.js"/>"></script>
 
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
