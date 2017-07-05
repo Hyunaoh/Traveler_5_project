@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+<mapper namespace="com.traveler.dao.ReviewDAO">
+	<select id="getReviewList" resultType="com.traveler.model.ReviewVO">
+		SELECT * 
+		FROM REVIEW
+		WHERE PACKAGE_PK = #{package_pk}
+		ORDER BY REVIEW_PK DESC
+	</select>
+	
+	<insert id="insertReview" parameterType="com.traveler.model.ReviewVO">
+		INSERT INTO REVIEW(REVIEW_DATE, REVIEW_COMMENT, MEMBER_ID, PACKAGE_PK, REVIEW_SCORE)
+		VALUES(now(), #{review_comment}, #{member_id}, #{package_pk}, #{review_score})
+	</insert>
+	
+	<delete id="deleteReview">
+		DELETE 
+		FROM REVIEW
+		WHERE REVIEW_PK = #{review_pk}
+	</delete>
+	
+	<update id="updateReady">
+		UPDATE REVIEW
+		SET UPDATE_CHECK = 1
+		WHERE REVIEW_PK = #{review_pk}
+	</update>
+	
+	<select id="checkReview" resultType="Integer">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE MEMBER_ID = #{user}
+		AND UPDATE_CHECK = 1
+	</select>
+	
+	<update id="reviewUpdateInit">
+		UPDATE REVIEW
+		SET UPDATE_CHECK = 0
+		WHERE MEMBER_ID = #{user}
+		AND UPDATE_CHECK = 1
+	</update>
+	
+	<update id="updateReview">
+		UPDATE REVIEW
+		SET REVIEW_COMMENT = #{review_comment}
+		WHERE REVIEW_PK = #{review_pk}
+	</update>
+</mapper>

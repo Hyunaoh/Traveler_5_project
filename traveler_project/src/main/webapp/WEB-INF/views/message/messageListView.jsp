@@ -11,21 +11,33 @@
 	#message_tb {display: table; width: 100%;}
 	.message_row {display: table-row;}
 	.cell {display: table-cell; border-bottom: 1px solid #DDD;}
-	.col1 {width: 5%;}
+	.col1 {width: 3%;}
 	.col2 {width: 5%;}
 	.col3 {width: 5%;}
 	.col4 {width: 55%;}
 	.col5 {width: 30%;}
+	.col6 {width: 2%;}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <script type="text/javascript">
+
+	/* 버튼 삭제 이벤트 */
+	function delete_event(){
+		if (confirm("삭제하시겠습니까?\n(해당 메세지를 삭제하여도 상대의 메세지는 삭제되지 않습니다.") == true){    //확인
+		    return true;
+		}else{   //취소
+		    return;
+		}
+	}
+	
 
 	/* 쪽지함 Ajax */
 	$(document).ready(function(){
 	
-	/* 받은 메세지함 */
-	$("#messageGet").click(function() { 
+		/* 받은 메세지함 */
+		$("#messageGet").click(function() { 
 
 				var dataForm = {
 					message_get: $("#username").val()
@@ -46,15 +58,16 @@
 								+"<span class='cell col2'>보낸 아이디</span> "
 								+"<span class='cell col3'>받은 아이디</span>"
 								+"<span class='cell col4'>메세지</span>"
-								+"<span class='cell col5'>날짜</span></div>");
+								+"<span class='cell col5'>날짜</span></div>"
+								+"<span class='cell col6'>삭제</span></div>");
 						
 								for(var i = 0; i<=arr.length; i++){
-									
+										
 									$("#messageView").append(
 											+"<div class='message_row'>"
 											+"<span class='cell col1'>"
 											+arr[i].message_seq  
-											+"</span>"
+											+"<input type='hidden' id='message_seq' value='"+arr[i].message_seq+"'></span>"
 											+"<span class='cell col2'>"
 											+arr[i].message_send 
 											+"</span>"
@@ -66,14 +79,46 @@
 											+"</span>"
 											+"<span class='cell col5'>"
 											+arr[i].message_date
-											+"</span></div></div>"); 
+											+"</span>"
+											+"<span class='cell col6'>"
+											+"<input type='button' id='deleteGetBtn' value='삭제'></span></div></div>"); 
+									
+									// 해당 컬럼 삭제하기
+									
+									$("#deleteGetBtn").click(function() { 
+										alert(message_seq);
+										
+										var dataForm = {
+											message_seq:  $("#message_seq").val()
+										};
+										
+										delete_event();
+										$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+											url : "messageGetDeleteAjax.go",
+											method : 'POST',
+											type : 'json',
+											data : JSON.stringify(dataForm),
+											contentType : "application/json",
+											success : function(result) {
+												if(result > 0){
+													$("#messageView").append("<br/><br/>쪽지 삭제에 성공하였습니다."); 
+												} else {
+													$("#messageView").append("<br/><br/>쪽지 삭제에 실패하였습니다. 다시 시도해주세요."); 
+												}
+											},
+											error : function(result, status, er) {
+												$("#messageView").text(er);
+											}
+										});
+									}); 	// 해당 컬럼 삭제 괄호 닫기
+									
 								}
-								
 						},
 					error : function(result, status, er) {
 						$("#messageView").text(er);
 					}
 				});
+				
 			});
 	
 		/* 보낸메세지함 */
@@ -98,7 +143,8 @@
 						+"<span class='cell col2'>보낸 아이디</span> "
 						+"<span class='cell col3'>받은 아이디</span>"
 						+"<span class='cell col4'>메세지</span>"
-						+"<span class='cell col5'>날짜</span></div>");
+						+"<span class='cell col5'>날짜</span></div>"
+						+"<span class='cell col6'>삭제</span></div>");
 						
 						for(var i = 0; i<=arr.length; i++){
 							
@@ -106,7 +152,7 @@
 									+"<div class='message_row'>"
 									+"<span class='cell col1'>"
 									+arr[i].message_seq 
-									+"</span>"
+									+"<input type='hidden' id='message_seq' value='"+arr[i].message_seq+"'></span>"
 									+"<span class='cell col2'>"
 									+arr[i].message_send 
 									+"</span>"
@@ -118,10 +164,39 @@
 									+"</span>"
 									+"<span class='cell col5'>"
 									+arr[i].message_date
-									+"</span></div></div>"); 
-						}
+									+"<span class='cell col6'>"
+									+"<input type='button' id='deleteSendBtn' value='삭제'></span></div></div>"); 
 						
-					},
+							
+							$("#deleteSendBtn").click(function() { 
+								
+								var dataForm = {
+									message_seq:  $("#message_seq").val()
+								};
+								
+								alert(message_seq);
+								delete_event();
+								
+								$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+									url : "messageSendDeleteAjax.go",
+									method : 'POST',
+									type : 'json',
+									data : JSON.stringify(dataForm),
+									contentType : "application/json",
+									success : function(result) {
+										if(result > 0){
+											$("#messageView").append("<br/><br/>쪽지 삭제에 성공하였습니다."); 
+										} else {
+											$("#messageView").append("<br/><br/>쪽지 삭제에 실패하였습니다. 다시 시도해주세요."); 
+										}
+									},
+									error : function(result, status, er) {
+										$("#messageView").text(er);
+									}
+								});
+							}); 	// 해당 컬럼 삭제 괄호 닫기
+					}
+				},
 					error : function(result, status, er) {
 						$("#messageView").text(er);
 					}
@@ -154,10 +229,7 @@
 						contentType : "application/json",
 						success : function(result) {
 							if(result > 0){
-								$("#messageView").append("<br/><br/>쪽지 발송에 성공하였습니다."); 
-									if($("#message_get").val() == $("#username").val()){
-										
-									}
+								$("#messageView").append("<br/><br/>쪽지 발송에 성공하였습니다.");
 							} else {
 								$("#messageView").append("<br/><br/>쪽지 발송에 실패하였습니다. 다시 시도해주세요."); 
 							}
@@ -168,10 +240,8 @@
 					});
 				});
 			});
-		
-			
-			
 		});
+		
 </script>
 </head>
 <body>

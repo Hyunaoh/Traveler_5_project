@@ -15,7 +15,10 @@ public interface MessageDAO {
 	// 메세지 Insert
 	public int insertMessage(MessageVO vo) throws Exception;
 	
-	// 메세지 삭제
-	public int deleteMessage(MessageVO vo) throws Exception;
+	// 받은메세지 삭제
+	public int deleteGetMessage(MessageVO vo) throws Exception;
+
+	// 보낸메세지 삭제
+	public int deleteSendMessage(MessageVO vo) throws Exception;
 	
 }

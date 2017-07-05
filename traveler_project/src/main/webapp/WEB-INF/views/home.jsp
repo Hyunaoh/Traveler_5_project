@@ -137,7 +137,6 @@
 		<div class="slant"></div>
 	</section>
 	
-
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
@@ -174,8 +173,7 @@
 			</div>
 			<div class="row watch-video text-center to-animate">
 				<span>Watch the video</span>
-
-				<a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
+				<a href="https://www.youtube.com/watch?v=5vMKmUkiLeI" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
 			</div>
 		</div>
 	</section>
@@ -390,8 +388,7 @@
 					<i class="icon to-animate-2 icon-monitor"></i>
 					<h3>CMS &amp; eCommerce</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
-				</div>
-				
+				 </div>
 			</div>
 		</div>
 	</section>
@@ -627,15 +624,11 @@
 
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
 	<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
-	
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<h4><a href="package/getAllPackage.go">package</a></h4>
 
 	
-	<h4><a href="message/messageWrite.go">message22</a></h4>
+	<h4><a href="review/logintest.go">logintest</a></h4>
 	
 </body>
-	
 	<script>
 		$(function(){
 			$('#colour-variations ul').styleSwitcher({
@@ -654,7 +647,9 @@
 	<!-- End demo purposes only -->
 
 	</body>
+
 	<h4><a href="find/findListForm.go">find</a></h4>
 	<a href="review/writeform.go">testReview</a>
 </body>
+
 </html>

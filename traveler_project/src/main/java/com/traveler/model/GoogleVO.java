@@ -2,48 +2,46 @@ package com.traveler.model;
 
 public class GoogleVO {
 
-	private String code; 
-	private String client_id;
-	private String client_secret;
-	private String redirect_uri;
-	private String grant_type;
-	
-	// set get method
-	public String getCode() {
-		return code;
+	private String email; // : obj['email'],
+	private String name; // : obj['name'],
+	private String gender; // :  obj['gender'],
+	private String pictureUrl; // : obj['picture'],
+	private String linkUrl; // : obj['link']
+	public String getEmail() {
+		return email;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getClient_id() {
-		return client_id;
+	public String getName() {
+		return name;
 	}
-	public void setClient_id(String client_id) {
-		this.client_id = client_id;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getClient_secret() {
-		return client_secret;
+	public String getGender() {
+		return gender;
 	}
-	public void setClient_secret(String client_secret) {
-		this.client_secret = client_secret;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getRedirect_uri() {
-		return redirect_uri;
+	public String getPictureUrl() {
+		return pictureUrl;
 	}
-	public void setRedirect_uri(String redirect_uri) {
-		this.redirect_uri = redirect_uri;
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
-	public String getGrant_type() {
-		return grant_type;
+	public String getLinkUrl() {
+		return linkUrl;
 	}
-	public void setGrant_type(String grant_type) {
-		this.grant_type = grant_type;
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
 	}
-	
-	// toString
 	@Override
 	public String toString() {
-		return "GoogleVO [code=" + code + ", client_id=" + client_id + ", client_secret=" + client_secret
-				+ ", redirect_uri=" + redirect_uri + ", grant_type=" + grant_type + "]";
+		return "GoogleVO [email=" + email + ", name=" + name + ", gender=" + gender + ", pictureUrl=" + pictureUrl
+				+ ", linkUrl=" + linkUrl + "]";
 	}
+	
+	
 }

@@ -14,10 +14,12 @@
 		where 
 		<choose>
 			<when test="message_get != null">
-			message_get=#{message_get}
+			message_get=#{message_get} and
+			message_get_flag=0
 			</when>
 			<when test="message_send != null">
-			message_send=#{message_send}
+			message_send=#{message_send} and
+			message_send_flag=0
 			</when>
 		</choose>
 		
@@ -32,8 +34,12 @@
 		values(#{message_send},#{message_get},#{message_message}, now());
 	</insert>
 	
-	<delete id="deleteMessage" parameterType="com.traveler.model.MessageVO">
-		delete from message where message_seq = #{ message_seq }
-	</delete>
+	<update id="deleteGetMessage" parameterType="com.traveler.model.MessageVO">
+		update message set message_get_flag=1 where message_seq=#{message_seq}
+	</update>
+	
+	<update id="deleteSendMessage" parameterType="com.traveler.model.MessageVO">
+		update message set message_send_flag=1 where message_seq=#{message_seq}
+	</update>
 
 </mapper>

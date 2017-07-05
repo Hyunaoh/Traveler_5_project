@@ -36,7 +36,8 @@
 						var alarm_msg = '3초마다 통신중입니다.';
 						
 						if (alarm_msg != '') {
-							view_msg(alarm_msg);
+							//view_msg(alarm_msg);
+							out.println(alarm_msg);
 						}
 					} else {
 						//alert("Error loading "+url+", "+xmlhttp.status+"("+xmlhttp.statusText+")");  

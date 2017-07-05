@@ -121,5 +121,34 @@ public class MessageController {
 		
 		return mList;
 	}
+
+	@ResponseBody
+	@RequestMapping("/messageGetDeleteAjax.go")
+	public int deleteGetMessage(Model model, @RequestBody MessageVO mVo, Principal principal) throws Exception{
+		
+		System.out.println("== 받은 메세지 삭제 Ajax실행 ==");
+	    
+	    MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+	    
+		int res = mDao.deleteGetMessage(mVo);
+		
+		return res;
+	}
 	
+	@ResponseBody
+	@RequestMapping("/messageSendDeleteAjax.go")
+	public int deleteSendMessage(Model model,@RequestBody MessageVO mVo, Principal principal) throws Exception{
+		
+		System.out.println("== 보낸 메세지 삭제 Ajax실행 ==");
+	    
+	    MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+	    
+	    System.out.println("시퀀스 넘버 : " + mVo.getMessage_seq());
+	    
+		int res = mDao.deleteSendMessage(mVo);
+		
+		System.out.println("삭제여부 : " + res);
+		
+		return res;
+	}
 }

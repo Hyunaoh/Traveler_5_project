@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+.star-input>.input,
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('/resources/image/review/grade_img.png')no-repeat;}
+.star-input{display:inline-block; white-space:nowrap;width:225px;height:40px;padding:25px;line-height:30px;}
+.star-input>.input{display:inline-block;width:100px;background-size:100px;height:18px;white-space:nowrap;overflow:hidden;position: relative;}
+.star-input>.input>input{position:absolute;width:1px;height:1px;opacity:0;}
+star-input>.input.focus{outline:1px dotted #ddd;}
+.star-input>.input>label{width:10px;height:0;padding:18px 0 0 0;overflow: hidden;float:left;cursor: pointer;position: absolute;top: 0;left: 0;}
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{background-size: 100px;background-position: 0 bottom;}
+.star-input>.input>label:hover~label{background-image: none;}
+.star-input>.input>label[for="p1"]{width:10px;z-index:10;}
+.star-input>.input>label[for="p2"]{width:20px;z-index:9;}
+.star-input>.input>label[for="p3"]{width:30px;z-index:8;}
+.star-input>.input>label[for="p4"]{width:40px;z-index:7;}
+.star-input>.input>label[for="p5"]{width:50px;z-index:6;}
+.star-input>.input>label[for="p6"]{width:60px;z-index:5;}
+.star-input>.input>label[for="p7"]{width:70px;z-index:4;}
+.star-input>.input>label[for="p8"]{width:80px;z-index:3;}
+.star-input>.input>label[for="p9"]{width:90px;z-index:2;}
+.star-input>.input>label[for="p10"]{width:100px;z-index:1;}
+.star-input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
+
+
+.star-view>.view,
+.star-view>.view>label:hover,
+.star-view>.view>input:focus+label,
+.star-view>.view>input+label{display: inline-block;vertical-align:middle;background:url('/resources/image/review/grade_img.png')no-repeat;}
+.star-view{display:inline-block; white-space:nowrap;width:225px;height:40px;padding:25px;line-height:30px;}
+.star-view>.view{display:inline-block;width:100px;background-size:100px;height:18px;white-space:nowrap;overflow:hidden;position: relative;}
+.star-view>.view>input{position:absolute;width:1px;height:1px;opacity:0;}
+/* star-view>.view.focus{outline:1px dotted #ddd;} */
+.star-view>.view>label{width:10px;height:0;padding:18px 0 0 0;overflow: hidden;float:left;cursor: pointer;position: absolute;top: 0;left: 0;}
+.star-view>.view>label:hover,
+.star-view>.view>input:focus+label,
+.star-view>.view>input+label{background-size: 100px;background-position: 0 bottom;}
+.star-view>.view>label:hover~label{background-image: none;}
+.star-view>.view>label[for="pv1"]{width:10px;z-index:10;}
+.star-view>.view>label[for="pv2"]{width:20px;z-index:9;}
+.star-view>.view>label[for="pv3"]{width:30px;z-index:8;}
+.star-view>.view>label[for="pv4"]{width:40px;z-index:7;}
+.star-view>.view>label[for="pv5"]{width:50px;z-index:6;}
+.star-view>.view>label[for="pv6"]{width:60px;z-index:5;}
+.star-view>.view>label[for="pv7"]{width:70px;z-index:4;}
+.star-view>.view>label[for="pv8"]{width:80px;z-index:3;}
+.star-view>.view>label[for="pv9"]{width:90px;z-index:2;}
+.star-view>.view>label[for="pv10"]{width:100px;z-index:1;}
