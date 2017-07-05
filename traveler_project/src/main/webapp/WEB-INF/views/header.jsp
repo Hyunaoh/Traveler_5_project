@@ -78,18 +78,21 @@
 					dataType : 'jsonp',
 					success : function(nullResponse) {
 						// 성공
-						location.href = '/j_spring_security_logout';
+						location.href = $("#logout_uri").val();
 					},
 					error : function(e) {
 					}
 				});
 			} else{
-				location.href = '/j_spring_security_logout'; // 로그아웃 한 페이지로 이동
+				location.href = $("#logout_uri").val(); // 로그아웃 한 페이지로 이동
 			}
 		}
 	</script>
 </head>
-<body> <!-- onload="alarm_access();" -->
+<body>
+	<!-- logout 주소 -->
+	<input type="hidden" id="logout_uri" value="<c:url value="/j_spring_security_logout"/>"/>
+	
 	<header role="banner" id="fh5co-header">
 		<div class="container">
 			<!-- <div class="row"> -->
