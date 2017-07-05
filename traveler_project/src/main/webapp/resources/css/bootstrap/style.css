@@ -202,7 +202,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   opacity: 1;
   top: 0;
-  margin-top: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: black;
 }
 @media screen and (max-width: 768px) {
   #fh5co-header {
@@ -664,11 +666,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 #fh5co-services:before, #fh5co-services:after {
   position: absolute;
-  transform: rotate(-1.7deg);
-  -ms-transform: rotate(-1.7deg);
-  -webkit-transform: rotate(-1.7deg);
-  -o-transform: rotate(-1.7deg);
-  -moz-transform: rotate(-1.7deg);
   background-color: #fff;
   content: "";
   z-index: 3;
@@ -718,7 +715,6 @@ h1, h2, h3, h4, h5, h6 {
   background-attachment: fixed;
   position: relative;
   width: 100%;
-  padding: 9em 0 10em 0;
 }
 @media screen and (max-width: 768px) {
   #fh5co-counters {
@@ -736,11 +732,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 #fh5co-counters:before, #fh5co-counters:after {
   position: absolute;
-  transform: rotate(-1.7deg);
-  -ms-transform: rotate(-1.7deg);
-  -webkit-transform: rotate(-1.7deg);
-  -o-transform: rotate(-1.7deg);
-  -moz-transform: rotate(-1.7deg);
   background-color: #fff;
   content: "";
   z-index: 3;
@@ -901,11 +892,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 #fh5co-work:before, #fh5co-work:after {
   position: absolute;
-  transform: rotate(-1.7deg);
-  -ms-transform: rotate(-1.7deg);
-  -webkit-transform: rotate(-1.7deg);
-  -o-transform: rotate(-1.7deg);
-  -moz-transform: rotate(-1.7deg);
   background-color: #fff;
   content: "";
   z-index: 3;

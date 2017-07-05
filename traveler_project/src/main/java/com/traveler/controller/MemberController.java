@@ -236,11 +236,4 @@ public class MemberController {
 		}
 	}
 
-	@ResponseBody
-	@RequestMapping("/googleLoginPro.go")
-	public String googleLoginPro(@RequestBody GoogleVO googleVO) throws Exception {
-		System.out.println("[system] access googleLoginPro! ");
-		System.out.println(googleVO.toString());
-		return null;
-	}
 }

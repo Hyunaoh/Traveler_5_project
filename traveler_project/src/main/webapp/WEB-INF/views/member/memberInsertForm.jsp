@@ -6,17 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원 가입 Form</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -41,36 +30,39 @@
 			var dataForm = {
 				member_id : $("#member_id").val()
 			};
-			$
-					.ajax({
-						url : 'idConfirmAjax.go',
-						method : 'post',
-						type : 'json',
-						data : JSON.stringify(dataForm),
-						contentType : "application/json",
-						success : function(result) {
-							if (result == true
-									&& $("#member_id").val() != "") {
-								$("#id_check_display")
-										.html(
-												"<font color = 'blue'>사용가능합니다</font>");
-								idCheck = true;
-							} else {
-								$("#id_check_display")
-										.html(
-												"<font color = 'red'>사용 불가능합니다.</font>");
-								idCheck = false;
-							}
-						},
-						error : function(result, status, er) {
-							$("#id_check_display").text(er);
-						}
-					});
+			$.ajax({
+				url : 'idConfirmAjax.go',
+				method : 'post',
+				type : 'json',
+				data : JSON.stringify(dataForm),
+				contentType : "application/json",
+				success : function(result) {
+					if (result == true
+							&& $("#member_id").val() != "") {
+						$("#id_check_display")
+								.html(
+										"<font color = 'blue'>사용가능합니다</font>");
+						idCheck = true;
+					} else {
+						$("#id_check_display")
+								.html(
+										"<font color = 'red'>사용 불가능합니다.</font>");
+						idCheck = false;
+					}
+				},
+				error : function(result, status, er) {
+					$("#id_check_display").text(er);
+				}
+			});
 		});
 	});
 </script>
 </head>
 <body>
+	<!-- header -->
+	<jsp:include page="../header.jsp" />
+
+<section id="fh5co-counters">
 	<div class="container">
 		<div class="page-header">
 			<h1>
@@ -83,17 +75,17 @@
 					<label for="id">ID</label>
 					<div class="input-group">
 						<c:if test="${googleVO.email eq null}">
-							<input type="text" class="form-control" name="member_id" id="member_id">
+							<input type="text" class="form-control" name="member_id" id="member_id" style="height:100%;">
 							<span class="input-group-btn">
-								<button class="btn btn-success" id="id_check" type="button">
+								<button class="btn btn-success btn-lg" id="id_check" type="button" style="height:100%;">
 									중복확인<i class="fa fa-edit spaceLeft"></i>
 								</button>
 							</span>
 						</c:if>
 						<c:if test="${googleVO.email ne null }">
-							<input type="text" class="form-control" name="member_id" id="member_id" value="${googleVO.email}" readonly>
+							<input type="text" class="form-control" name="member_id" id="member_id" value="${googleVO.email}" style="height:100%;" readonly>
 							<span class="input-group-btn">
-								<button class="btn btn-success" type="button" disabled="disabled">
+								<button class="btn btn-success btn-lg" type="button" disabled="disabled" style="height:100%;">
 									확인완료<i class="fa fa-edit spaceLeft"></i>
 								</button>
 							</span>
@@ -160,5 +152,6 @@
 			</form>
 		</div>
 	</div>
+</section>
 </body>
 </html>
