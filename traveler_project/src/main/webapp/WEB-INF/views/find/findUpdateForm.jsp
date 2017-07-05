@@ -132,7 +132,7 @@
 			});
 		}
 	</script>
-</head>
+</head>  
 <body>
 
 	<!-- header -->

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
@@ -260,4 +262,20 @@ public class FindController {
 		model.addAttribute("check", check);
 		return "/find/findDeclarePro";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/findMostViewAjax.go")
+	public List<FindVO> findMostViewAjax() throws Exception{
+		System.out.println("[system] access findMostViewAjax!");
+		
+		FindDAO findDAO = sqlSession.getMapper(FindDAO.class);
+		
+		// 가이드 찾기 전체 List 가져옴
+		List<FindVO> findList = findDAO.selectMostFindListAll();
+		System.out.println("  >> success processing!");
+
+		// 전체 게시판에서 가져옴
+		return findList;
+	}
+	
 }

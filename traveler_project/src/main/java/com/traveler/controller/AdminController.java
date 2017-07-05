@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
+import com.traveler.dao.MemberDAO;
 import com.traveler.model.FindVO;
+import com.traveler.model.MemberVO;
 import com.traveler.model.PagingVO;
 
 @Controller
@@ -123,5 +125,28 @@ public class AdminController {
 	public String adminPackageForm(){
 		System.out.println("[system] access adminPackageForm!");
 		return "admin/adminPackageForm";
+	}
+	
+	@RequestMapping("/adminMemberListForm.go")
+	public String adminMemberListForm(Model model){
+		System.out.println("[system] access adminMemberListForm!");
+		MemberVO memberVO=new MemberVO();
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		
+		List<MemberVO> list= memberDAO.selectAllMember();
+		model.addAttribute("list", list);
+		return "/admin/adminMemberList";
+	}
+	
+	@RequestMapping("/adminMemberIsguide.go")
+	public String adminMemberIsguide(Model model, MemberVO vo){
+		System.out.println("[system] access adminMemberIsguide!");
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		vo.toString();
+		
+		MemberVO memberVO= memberDAO.selectMyPage(vo);
+		memberDAO.adminUpdateGuide(memberVO);
+		
+		return "redirect:adminMemberListForm.go";
 	}
 }

@@ -153,4 +153,11 @@
 		SET FIND_BADSTATE = #{find_badState}
 		WHERE FIND_PK = #{find_pk}
 	</update>
+	
+	<select id="selectMostFindListAll" resultType="com.traveler.model.FindVO">
+		SELECT *
+		FROM FIND
+		ORDER BY FIND_HIT DESC 
+		LIMIT 0, 5
+	</select>
 </mapper>
