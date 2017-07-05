@@ -624,6 +624,10 @@
 
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
 	<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
+
+	
+	<h4><a href="review/logintest.go">logintest</a></h4>
+	
 </body>
 	<script>
 		$(function(){
