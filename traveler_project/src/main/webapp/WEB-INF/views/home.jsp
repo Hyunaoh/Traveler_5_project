@@ -137,6 +137,10 @@
 		<div class="slant"></div>
 	</section>
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> heemang
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
@@ -653,5 +657,4 @@
 	<!-- End demo purposes only -->
 
 	</body>
-
 </html>
