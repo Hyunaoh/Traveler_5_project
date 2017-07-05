@@ -137,7 +137,6 @@
 		<div class="slant"></div>
 	</section>
 	
-<<<<<<< HEAD
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
@@ -174,8 +173,7 @@
 			</div>
 			<div class="row watch-video text-center to-animate">
 				<span>Watch the video</span>
-
-				<a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
+				<a href="https://www.youtube.com/watch?v=5vMKmUkiLeI" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
 			</div>
 		</div>
 	</section>
@@ -628,14 +626,6 @@
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
 	<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
 	
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<h4><a href="package/getAllPackage.go">package</a></h4>
-
-	
-	<h4><a href="message/messageWrite.go">message22</a></h4>
-	
-</body>
-	
 	<script>
 		$(function(){
 			$('#colour-variations ul').styleSwitcher({
@@ -649,14 +639,9 @@
 			$('.option-toggle').click(function() {
 				$('#colour-variations').toggleClass('sleep');
 			});
-		});
+		});ql
 	</script>
 	<!-- End demo purposes only -->
 
 	</body>
-=======
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<a href="review/writeform.go">testReview</a>
-</body>
->>>>>>> jihoon
 </html>
