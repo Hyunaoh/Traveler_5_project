@@ -42,5 +42,4 @@
   		<property name="dataSource" ref="driverManagerDataSource" />
 	</bean>	
 
-
 </beans>

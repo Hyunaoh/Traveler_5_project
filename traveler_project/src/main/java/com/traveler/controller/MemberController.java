@@ -12,7 +12,6 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
-import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +35,12 @@ public class MemberController {
 
 	// DB member Insert
 	@RequestMapping("/memberInsertForm.go")
-	public String memberInsertForm(Model model) throws Exception {
+	public String memberInsertForm(Model model, GoogleVO googleVO) throws Exception {
 		System.out.println("[system] access memberInsertForm! ");
+		if(googleVO != null){
+			// 구글 정보 가져옴
+			model.addAttribute("googleVO", googleVO);
+		}
 		return "/member/memberInsertForm";
 	}
 
@@ -64,27 +67,6 @@ public class MemberController {
 	public String loginForm() throws Exception {
 		System.out.println("[system] access loginForm! ");
 		return "/member/loginForm";
-	}
-
-
-	@RequestMapping("/googleLoginForm.go")
-	public String googleLoginForm(GoogleVO googleVO, Model model) throws Exception{
-		System.out.println("[system] access googleLoginForm!");
-		
-		String client_id, client_secret, redirect_uri, grant_type;
-		client_id = "341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com";
-		client_secret = "gOmSnDVjEUY_FA8haX4GPkH7";
-		redirect_uri = "http://localhost:8080/member/googleLoginForm.go";
-		grant_type = "authorization_code";
-		
-		googleVO.setClient_id(client_id);
-		googleVO.setClient_secret(client_secret);
-		googleVO.setRedirect_uri(redirect_uri);
-		googleVO.setGrant_type(grant_type);
-		
-		System.out.println(googleVO.toString());
-		model.addAttribute("googleVO", googleVO);
-		return "/member/googleLoginForm";
 	}
 	
 	@ResponseBody
@@ -230,4 +212,11 @@ public class MemberController {
 		}
 	}
 
+	@ResponseBody
+	@RequestMapping("/googleLoginPro.go")
+	public String googleLoginPro(@RequestBody GoogleVO googleVO) throws Exception {
+		System.out.println("[system] access googleLoginPro! ");
+		System.out.println(googleVO.toString());
+		return null;
+	}
 }
