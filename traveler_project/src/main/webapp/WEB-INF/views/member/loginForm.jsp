@@ -19,38 +19,78 @@
 	
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
-	<br><br><br><br><br><br>
-	<!-- contents -->
-	<form action="<c:url value="/j_spring_security_check" />" method="post" name="loginForm">
-		<c:if test="${memberVO.member_id eq null }">
-			ID : <input type = "text" name="id" class="form-control"/><br>
-			password : <input type = "password" name="pwd" class="form-control"/><br>
-		</c:if>
-		<c:if test="${memberVO.member_id ne null }">
-			ID : <input type = "text" name="id" value ="${memberVO.member_id}" class="form-control"/><br>
-			password : <input type = "password" name="pwd" value ="${memberVO.member_pwd}" class="form-control"/><br>
-			<input type="hidden" id="howToLogin" value="1"/>
-			<script type="text/javascript">
-				$(function(){
-					if($("#howToLogin").val() == 1){
-						document.loginForm.submit();
-					}
-				})
-			</script>
-		</c:if>
-		<input type = "submit" value="login" class="btn btn-default"/> 
-	</form>
-	<br>
 	
- 	<!-- Container with the Sign-In button. -->
-	<div id="gConnect" class="button">
-		<button class="g-signin"
-			data-scope="email"
-			data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
-			data-callback="onSignInCallback"
-			data-theme="light"
-			data-cookiepolicy="single_host_origin"></button>
-	</div>
+	<section id="fh5co-contact" data-section="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">LOGIN</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>로그인하고 원하는 여행을 하세요!</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-md">
+				<div class="col-md-6 to-animate"
+				style="background-image:url('<c:url value="/resources/images/login-bg.jpg" />'); height:400px;">
+				</div>
+
+				<div class="col-md-6 to-animate">
+					<h3>Login</h3>
+					<form action="<c:url value="/j_spring_security_check" />" method="post" name="loginForm">
+						<c:if test="${memberVO.member_id eq null }">
+							<div class="form-group ">
+								<label for="name">ID</label>
+								<input type = "text" name="id" class="form-control"/>
+							</div>
+							<div class="form-group ">
+								<label for="email">Password</label>
+								<input type = "password" name="pwd" class="form-control"/>
+							</div>
+						</c:if>
+						<c:if test="${memberVO.member_id ne null }">
+							<div class="form-group ">
+								<label for="name" class="sr-only">ID</label>
+								<input type = "text" name="id" value ="${memberVO.member_id}" class="form-control"/>
+							</div>
+							<div class="form-group ">
+								<label for="email" class="sr-only">Password</label>
+								<input type = "password" name="pwd" value ="${memberVO.member_pwd}" class="form-control"/>
+							</div>
+							<input type="hidden" id="howToLogin" value="1"/>
+							<script type="text/javascript">
+								$(function(){
+									if($("#howToLogin").val() == 1){
+										document.loginForm.submit();
+									}
+								})
+							</script>
+						</c:if>
+						<div class="form-group ">
+							<input class="btn btn-primary btn-lg" value="login" type="submit">
+							<input class="btn btn-primary btn-lg" value="Sign-up" type="button" onclick="location='memberInsertForm.go'">
+						</div>
+						<hr>
+						<div class="form-group ">
+							<!-- Container with the Sign-In button. -->
+							<div id="gConnect" class="button">
+								<button
+									class="g-signin"
+									data-scope="email"
+									data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
+									data-callback="onSignInCallback"
+									data-theme="light"
+									data-cookiepolicy="single_host_origin"></button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+	</section>
+	
 	<!-- 회원정보 보내줌 -->
 	<form action="googleLogin.go" name="googleInfo" method="post">
 		<input type="hidden" name="email" value="">
