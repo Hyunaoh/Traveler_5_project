@@ -9,6 +9,11 @@
 	<!-- Include the API client and Google+ client. -->
 	<script src="https://plus.google.com/js/client:platform.js" async defer></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style type="text/css">
+		.inline {
+			display:inline-block;
+		}
+	</style>
 </head>
 <body>
 	<c:if test="${err == true}">
@@ -73,16 +78,23 @@
 							<input class="btn btn-primary btn-lg" value="Sign-up" type="button" onclick="location='memberInsertForm.go'">
 						</div>
 						<hr>
-						<div class="form-group ">
-							<!-- Container with the Sign-In button. -->
-							<div id="gConnect" class="button">
-								<button
-									class="g-signin"
-									data-scope="email"
-									data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
-									data-callback="onSignInCallback"
-									data-theme="light"
-									data-cookiepolicy="single_host_origin"></button>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-3">
+									<!-- Container with the Sign-In button. -->
+									<div id="gConnect" class="button">
+										<button
+											class="g-signin"
+											data-scope="email"
+											data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
+											data-callback="onSignInCallback"
+											data-theme="light"
+											data-cookiepolicy="single_host_origin"></button>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div scope="public_profile, email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -90,8 +102,46 @@
 				</div>
 			</div>
 	</section>
-	
-	<!-- 회원정보 보내줌 -->
+	<!-- facebook 회원정보 보내줌 -->
+	<form action="facebookLogin.go" name="facebookInfo" method="post">
+		<input type="hidden" name="f_email" value="">
+		<input type="hidden" name="f_name" value="">
+		<input type="hidden" name="f_gender" value="">
+	</form>
+	<script>
+		// 로그인 상태
+		function statusChangeCallback(response) {
+			if (response.status === 'connected') {
+				// Logged into your app and Facebook.
+				loginProcess();
+				FB.logout();
+				window.setInterval(function(){
+					if($("[name=f_name]").val() != null && $("[name=f_gender]").val() != null &&$("[name=f_email]").val() != null){
+						document.facebookInfo.submit();
+					}
+				}, 1000)
+			}
+		}
+		
+		function loginProcess() {
+			FB.api('/me', function(response) {
+				$("[name=f_name]").val(response.name);
+			});
+			FB.api('/me', {fields: 'gender'}, function(response) {
+				$("[name=f_gender]").val(response.gender);
+			});
+			FB.api('/me', {fields: 'email'}, function(response) {
+				$("[name=f_email]").val(response.email);
+			});
+		}
+		
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		}
+	</script>
+	<!-- google 회원정보 보내줌 -->
 	<form action="googleLogin.go" name="googleInfo" method="post">
 		<input type="hidden" name="email" value="">
 		<input type="hidden" name="name" value="">
@@ -99,6 +149,7 @@
 		<input type="hidden" name="pictureUrl" value="">
 		<input type="hidden" name="linkUrl" value="">
 	</form>
+	<!-- Google login -->
 	<script>
 		var google_access_token = "";
 		var state ="";
@@ -141,6 +192,30 @@
 				document.googleInfo.submit();
 			}
 		}
+	</script>
+	<!-- Facebook SDK -->
+	<script>
+		// facbook SDK
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '480328379027117', // 내꺼
+				cookie : true,
+				xfbml : true,
+				version : 'v2.8'
+			});
+			FB.AppEvents.logPageView();
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
 	</script>
 </body>
 </html>

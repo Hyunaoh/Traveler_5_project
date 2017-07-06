@@ -74,7 +74,7 @@
 				<div class="form-group">
 					<label for="id">ID</label>
 					<div class="input-group">
-						<c:if test="${googleVO.email eq null}">
+						<c:if test="${googleVO.email eq null and facebookVO.f_email eq null}">
 							<input type="text" class="form-control" name="member_id" id="member_id" style="height:100%;">
 							<span class="input-group-btn">
 								<button class="btn btn-success btn-lg" id="id_check" type="button" style="height:100%;">
@@ -84,6 +84,14 @@
 						</c:if>
 						<c:if test="${googleVO.email ne null }">
 							<input type="text" class="form-control" name="member_id" id="member_id" value="${googleVO.email}" style="height:100%;" readonly>
+							<span class="input-group-btn">
+								<button class="btn btn-success btn-lg" type="button" disabled="disabled" style="height:100%;">
+									확인완료<i class="fa fa-edit spaceLeft"></i>
+								</button>
+							</span>
+						</c:if>
+						<c:if test="${facebookVO.f_email ne null }">
+							<input type="text" class="form-control" name="member_id" id="member_id" value="${facebookVO.f_email}" style="height:100%;" readonly>
 							<span class="input-group-btn">
 								<button class="btn btn-success btn-lg" type="button" disabled="disabled" style="height:100%;">
 									확인완료<i class="fa fa-edit spaceLeft"></i>
@@ -104,11 +112,14 @@
 				</div>
 				<div class="form-group">
 					<label for="name">이름</label>
-					<c:if test="${googleVO.name eq null }">
+					<c:if test="${googleVO.name eq null and facebookVO.f_name eq null}">
 						<input type="text" name="member_name" class="form-control" required>
 					</c:if>
 					<c:if test="${googleVO.name ne null }">
 						<input type="text" name="member_name" class="form-control" value="${googleVO.name}" readonly required>
+					</c:if>
+					<c:if test="${facebookVO.f_name ne null }">
+						<input type="text" name="member_name" class="form-control" value="${facebookVO.f_name}" readonly required>
 					</c:if>
 				</div>
 				<div class="form-group">
@@ -116,17 +127,16 @@
 				</div>
 				<div class="form-group">
 					<label for="gender">성별</label> <br>
-					<c:if test="${googleVO.gender eq null }">
+					<c:if test="${googleVO.gender eq null and facebookVO.f_gender eq null}">
 						<input type="radio" name="member_gender" value="man" required> man 
 						<input type="radio" name="member_gender" value="woman" required> woman
 					</c:if>
-					<c:if test="${googleVO.gender ne null }">
-						<c:if test="${googleVO.gender eq 'male' }">
+					<c:if test="${googleVO.gender ne null or facebookVO.f_gender ne null}">
+						<c:if test="${googleVO.gender eq 'male' or facebookVO.f_gender eq 'male'}">
 							<input type="hidden" name="member_gender" value="man" readonly> man
 						</c:if>
-						<c:if test="${googleVO.gender eq 'female' }">
-							<input type="hidden" name="member_gender" value="woman" readonly>
-							woman
+						<c:if test="${googleVO.gender eq 'female' or facebookVO.f_gender eq 'female'}">
+							<input type="hidden" name="member_gender" value="woman" readonly> woman
 						</c:if>
 					</c:if>
 				</div>
@@ -135,9 +145,17 @@
 				</div>
 				<div class="form-group">
 					<label for="tel">이메일</label>
-					<input type="email" name="member_email" value="${googleVO.email}" class="form-control" required>
+					<c:if test="${googleVO.email ne null and facebookVO.f_email ne null}">
+						<input type="email" name="member_email" class="form-control" required>
+					</c:if>
+					<c:if test="${googleVO.email ne null}">
+						<input type="email" name="member_email" value="${googleVO.email}" class="form-control" required>
+					</c:if>
+					<c:if test="${facebookVO.f_email ne null}">
+						<input type="email" name="member_email" value="${facebookVO.f_email}" class="form-control" required>
+					</c:if>
 					<br>
-					<c:if test="${googleVO.email ne null }">
+					<c:if test="${googleVO.email ne null or facebookVO.f_email ne null}">
 						<font color="green">원하시면 이메일을 바꾸실 수 있습니다.</font>
 					</c:if>
 				</div>
