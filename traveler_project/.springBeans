@@ -9,9 +9,10 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/traveler-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/message-context.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/security-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
