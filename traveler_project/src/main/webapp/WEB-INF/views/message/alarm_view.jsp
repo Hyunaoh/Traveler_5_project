@@ -1,84 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
-<title>Alram</title>
+<title>알람 View</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style type="text/css">
-a {
-	text-decoration: none;
-	color: black;
-	font-size: 12px;
-}
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
-a:Visited {
-	
-}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-a:Active {
-	
-}
-
-a:Hover {
-	text-decoration: none;
-	color: black;
-	font-size: 12px;
-}
-
-body, table, td {
-	font-family: "";
-	font-size: 10px;
-}
-
-.button_normal {
-	font-family: "";
-	font-size: 12px;
-}
-</style>
 <script type="text/javascript">
-
-	function _CloseOnEsc() {
-		if (event.keyCode == 27) {
-			window.close();
-			return;
-		}
+	function exit(){
+		 window.close();
+		 self.close();
 	}
-	function Init() {
-		document.body.onkeypress = _CloseOnEsc;
-	}
-	function Set(url) {
-		if (opener != null) {
-			opener.location.href = url;
-		} else {
-			var opener_win = dialogArguments;
-			opener_win.location.href = url;
-		}
-		window.close();
-	}
-	function popupResize() {
-		var pop_width = document.body.scrollWidth + 30;
-		var pop_height = document.body.scrollHeight + 60;
-		if (pop_width > 800)
-			pop_width = 800;
-		if (pop_height > 500)
-			pop_height = 500;
-		window.resizeTo(pop_width, pop_height);
-	}
-</script>
-
-</head>
-<body bgcolor="buttonface" onload="popupResize();Init();window.focus();">
-
-		<table style="border: 0; width: 95%">
-			<tr height="10">
-				<td align=center></td>
-			</tr>
-			<tr height="30">
-				<td align=center>${ msg }</td>
-			</tr>
-		</table>
 	
+	function goMessage(){
+		exit();
+		window.opener.location.href="/message/messageListView.go";
+	}
+
+</script>
+</head>
+<body>
+	<div class="modal-body">${ msg }</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return goMessage()">쪽지함 이동</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return exit()">창닫기</button>
+	</div>
+
 </body>
 </html>
-
-

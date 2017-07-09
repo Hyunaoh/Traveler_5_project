@@ -46,37 +46,6 @@ public class MessageController {
 		return "/message/messageListView";
 	}
 
-	// 받은 메세지함
-	@RequestMapping("/messageGet.go")
-	public String messageGet() {
-		return "/message/messageGet";
-	}
-
-	// 보낸 메세지함
-	@RequestMapping("/messageSend.go")
-	public String messageSend() {
-		return "/message/messageSend";
-	}
-
-	// 메세지 쓰는 함
-	@RequestMapping("/messageWrite.go")
-	public String messageWrite() {
-		return "/message/messageWrite";
-	}
-
-	// 메세지 3초마다 보는 폼
-	@RequestMapping("/alarm_conn.go")
-	public String alarm_conn() {
-		return "/message/alarm_conn";
-	}
-
-	// 메세지 접속 폼 (+ id List로 뽑아내기)
-	@RequestMapping("/alarm_access.go")
-	public String alarm_access(Principal principal) {
-
-		return "/message/alarm_access";
-	}
-
 	// 메세지 alert 창
 	@RequestMapping("/alarm_view.go")
 	public String alarm_view(Model model, HttpServletRequest request) {
@@ -107,44 +76,50 @@ public class MessageController {
 
 	// 알람을 위한 메세지 alarm
 	@ResponseBody
-	@RequestMapping(value="/messageAlarmAjax.go", method = RequestMethod.GET)
-	public boolean messageAlarmAjax(Principal pr) {
+	@RequestMapping(value = "/messageAlarmAjax.go", method = RequestMethod.GET)
+	public MessageVO messageAlarmAjax(Principal pr, Model model) {
 
-		Boolean flag = false;
 		// 초기 flag는 false로 초기화 한다.
-		
+
 		MessageVO mVo = new MessageVO();
-		System.out.println("현재 아이디 : " + pr.getName());
 		mVo.setMessage_get(pr.getName());
-		
+
 		// 현재 쪽지 개수
 		int count;
 
+		System.out.println("================");
 		System.out.println("메세지 알람 Ajax실행");
 
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 
 		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
 
-		System.out.println(mList);
-
 		// 받은 메세지함일 경우
 		if (mVo.getMessage_get() != null) {
-			System.out.println(" <== 받은 메세지함 ==> ");
 			// 받은 메세지의 크기만큼을 count에 저장한 후,
 			count = mList.size();
 			// 저장한 count 값이 증가하게 되면 alert 창을 띄운다.
 			System.out.println("현재 메세지 개수 : " + count);
-			if (this.count < count) {
-				System.out.println("메세지 함의 변화로, 알람 창이 띄워집니다.");
-				this.count = count;
-				flag = true;
-			}
+			// this.count 가 0일 경우, 현재 count값을 넣어준다.
 			
-		} 
-		
-		System.out.println("결과값 : " + flag);
-		return flag;
+			if (this.count == 0) {
+				this.count = count;
+			} else if (this.count < count) {
+				System.out.println(this.count +"개의 메세지가 " + count + "개로 변화하였습니다.");
+				
+				String send = mList.get(mList.size()-1).getMessage_send();
+				String msg = mList.get(mList.size()-1).getMessage_message();
+				
+				System.out.println("보낸아이디 : " + send + " / 메세지 내용 : " + msg);
+				
+				this.count = count;
+
+				return mList.get(mList.size()-1);
+			}
+
+		}
+
+		return null;
 	}
 
 	// 메세지 리스트의 Ajax

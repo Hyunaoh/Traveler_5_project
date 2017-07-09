@@ -67,8 +67,10 @@ public class MessageVO {
 
 	@Override
 	public String toString() {
-		return "MessageVO [message_seq=" + message_seq + ", message_send=" + message_send + ", message_get="
-				+ message_get + ", message_message=" + message_message + ", message_date=" + message_date + "]";
+		return "[ 받은 메세지 ]"
+				+ "보낸아이디 : " + message_send
+				+ "\n메세지 : " + message_message
+				+ "\n날짜 : " + message_date;
 	}
 
 }
