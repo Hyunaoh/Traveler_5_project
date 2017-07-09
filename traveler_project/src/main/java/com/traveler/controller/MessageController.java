@@ -114,8 +114,6 @@ public class MessageController {
 				
 				this.count = count;
 
-//				return "보낸 아이디 : " + mList.get(mList.size()-1).getMessage_send() 
-//					 + "\n 메세지 : " + mList.get(mList.size()-1).getMessage_message();
 				return mList.get(mList.size()-1);
 			}
 

@@ -1,15 +1,10 @@
-
 // 크롬 인코딩을 위한 function
 
 function urlencode(str) {
-    str = (str + '').toString();
-    return encodeURIComponent(str)
-        .replace(/!/g, '%21')
-        .replace(/'/g, '%27')
-        .replace(/\(/g, '%28')
-        .replace(/\)/g, '%29')
-        .replace(/\*/g, '%2A')
-        .replace(/%20/g, '+');
+	str = (str + '').toString();
+	return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27')
+			.replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A')
+			.replace(/%20/g, '+');
 }
 
 function getXMLHttpRequest() {
@@ -39,16 +34,16 @@ function alarm_access() {
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
-					var alarm_msg = '3초마다 통신중입니다.';
-					alarm_msg = urlencode(xmlhttp.responseText);
-					
+
+					var alarm_msg = JSON.parse(xmlhttp.responseText);
+
 					if (alarm_msg != 'null' && alarm_msg != null && alarm_msg != '' && alarm_msg != ' ') {
-						alert(alarm_msg);
-						view_msg("[ 쪽지가 도착하였습니다 ]<br/>"+ alarm_msg + "<br/><input type='button' id='goViewMessageList' value='쪽지함으로 이동'/>");
-						
-					} else {
-												
+						   view_msg("[ 쪽지가 도착하였습니다 ]<br/>보낸사람 : "
+						 + alarm_msg.message_send 
+						 + "<br/>메세지 내용 : "
+						 + alarm_msg.message_message);
 					}
+
 				} else {
 					// alert("Error loading "+url+",
 					// "+xmlhttp.status+"("+xmlhttp.statusText+")");
@@ -63,12 +58,14 @@ function alarm_access() {
 }
 
 function view_msg(msg) {
-//	var width = 450;
-//	var height = 400;
-//	var left = (document.body.clientWidth - width) / 2;
-//	var top = (document.body.clientHeight - height) / 2;
-	location.href="/message/alarm_view.go?msg="+msg;
-//	var alarm_win = window.open(
-//					
-//					);
+	// var width = 450;
+	// var height = 400;
+	// var left = (document.body.clientWidth - width) / 2;
+	// var top = (document.body.clientHeight - height) / 2;
+	var alarm_win = window
+			.open('/message/alarm_view.go?msg=' + msg, "쪽지도착",
+					"width=700, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+	// var alarm_win = window.open(
+	//					
+	// );
 }

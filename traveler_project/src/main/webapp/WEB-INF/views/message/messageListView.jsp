@@ -11,12 +11,11 @@
 	#message_tb {display: table; width: 100%;}
 	.message_row {display: table-row;}
 	.cell {display: table-cell; border-bottom: 1px solid #DDD;}
-	.col1 {width: 3%;}
-	.col2 {width: 5%;}
-	.col3 {width: 5%;}
-	.col4 {width: 55%;}
-	.col5 {width: 30%;}
-	.col6 {width: 2%;}
+	.col2 {width: 140px; position: static;} 	<!-- 보낸 아이디 -->
+	.col3 {width: 140px; position: static;} 	<!-- 받은 아이디 -->
+	.col4 {display: inline-block; width: 200px; position: static;}	<!-- 메세지 -->
+	.col5 {width: 40px; position: static;}	<!-- 날짜 -->
+	.col6 {width: 10px; position: static;} 	<!-- 삭제 -->
 </style>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -51,37 +50,32 @@
 					contentType : "application/json",
 					success : function(result) {
 						
-						var arr = jQuery.makeArray( result );
-						
 						$("#messageView").html("<font color = 'green'>받은 메세지함</font><br/>"
-								+"<div id='message_tb'><div class='message_row'><span class='cell col1'>번호 </span>"
+								+"<div id='message_tb'>"
 								+"<span class='cell col2'>보낸 아이디</span> "
 								+"<span class='cell col3'>받은 아이디</span>"
 								+"<span class='cell col4'>메세지</span>"
-								+"<span class='cell col5'>날짜</span></div>"
+								+"<span class='cell col5'>날짜</span>"
 								+"<span class='cell col6'>삭제</span></div>");
 						
-								for(var i = 0; i<=arr.length; i++){
+								for(var i = 0; i <= Object.keys(result).length; i++){
 										
 									$("#messageView").append(
-											+"<div class='message_row'>"
-											+"<span class='cell col1'>"
-											+arr[i].message_seq  
-											+"<input type='hidden' id='message_seq' value='"+arr[i].message_seq+"'></span>"
+											"<div id='message_tb'>"
 											+"<span class='cell col2'>"
-											+arr[i].message_send 
+											+result[i].message_send
 											+"</span>"
 											+"<span class='cell col3'>"
-											+arr[i].message_get
+											+result[i].message_get
 											+"</span>"
 											+"<span class='cell col4'>"
-											+arr[i].message_message
+											+result[i].message_message
 											+"</span>"
 											+"<span class='cell col5'>"
-											+arr[i].message_date
+											+result[i].message_date
 											+"</span>"
-											+"<span class='cell col6'>"
-											+"<input type='button' id='deleteGetBtn' value='삭제'></span></div></div>"); 
+											+"<span class='cell col6'><input type='hidden' id='message_seq' value='"+result[i].message_seq+"'>"
+											+"<input type='button' id='deleteSendBtn' value='삭제'></span></div>"); 
 									
 									// 해당 컬럼 삭제하기
 									
@@ -136,36 +130,34 @@
 					contentType : "application/json",
 					success : function(result) {
 						
-						var arr = jQuery.makeArray( result );
+						var arr = result;
 						
 						$("#messageView").html("<font color = 'green'>보낸 메세지함</font><br/>"
-						+"<div id='message_tb'><div class='message_row'><span class='cell col1'>번호 </span>"
+						+"<div id='message_tb'>"
 						+"<span class='cell col2'>보낸 아이디</span> "
 						+"<span class='cell col3'>받은 아이디</span>"
 						+"<span class='cell col4'>메세지</span>"
-						+"<span class='cell col5'>날짜</span></div>"
+						+"<span class='cell col5'>날짜</span>"
 						+"<span class='cell col6'>삭제</span></div>");
 						
-						for(var i = 0; i<=arr.length; i++){
+						for(var i = 0; i <= Object.keys(result).length; i++){
 							
 							$("#messageView").append(
-									+"<div class='message_row'>"
-									+"<span class='cell col1'>"
-									+arr[i].message_seq 
-									+"<input type='hidden' id='message_seq' value='"+arr[i].message_seq+"'></span>"
+									"<div id='message_tb'>"
 									+"<span class='cell col2'>"
-									+arr[i].message_send 
+									+result[i].message_send
 									+"</span>"
 									+"<span class='cell col3'>"
-									+arr[i].message_get
+									+result[i].message_get
 									+"</span>"
 									+"<span class='cell col4'>"
-									+arr[i].message_message
+									+result[i].message_message
 									+"</span>"
 									+"<span class='cell col5'>"
-									+arr[i].message_date
-									+"<span class='cell col6'>"
-									+"<input type='button' id='deleteSendBtn' value='삭제'></span></div></div>"); 
+									+result[i].message_date
+									+"</span>"
+									+"<span class='cell col6'><input type='hidden' id='message_seq' value='"+result[i].message_seq+"'>"
+									+"<input type='button' id='deleteSendBtn' value='삭제'></span></div>"); 
 						
 							
 							$("#deleteSendBtn").click(function() { 
@@ -252,7 +244,7 @@
 	<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
 		<div class="fh5co-overlay"></div>
 	
-	 	<div class="container">
+	 	<div class="container" style="width: 80%;" align="center">
      		
      			<div class="col-md-12 section-heading text-center to-animate">
      				쪽지함
