@@ -82,13 +82,11 @@ public class MessageController {
 		// 초기 flag는 false로 초기화 한다.
 
 		MessageVO mVo = new MessageVO();
+		if(pr != null){
 		mVo.setMessage_get(pr.getName());
 
 		// 현재 쪽지 개수
 		int count;
-
-		System.out.println("================");
-		System.out.println("메세지 알람 Ajax실행");
 
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 
@@ -99,12 +97,13 @@ public class MessageController {
 			// 받은 메세지의 크기만큼을 count에 저장한 후,
 			count = mList.size();
 			// 저장한 count 값이 증가하게 되면 alert 창을 띄운다.
-			System.out.println("현재 메세지 개수 : " + count);
+			
 			// this.count 가 0일 경우, 현재 count값을 넣어준다.
 			
 			if (this.count == 0) {
 				this.count = count;
 			} else if (this.count < count) {
+				System.out.println("=====================================");
 				System.out.println(this.count +"개의 메세지가 " + count + "개로 변화하였습니다.");
 				
 				String send = mList.get(mList.size()-1).getMessage_send();
@@ -117,6 +116,7 @@ public class MessageController {
 				return mList.get(mList.size()-1);
 			}
 
+			}
 		}
 
 		return null;

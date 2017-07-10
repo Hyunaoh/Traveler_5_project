@@ -1,8 +1,9 @@
 package com.traveler.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * @author OHHYUNA
@@ -14,7 +15,9 @@ public class MessageVO {
 	private String message_send;
 	private String message_get;
 	private String message_message;
-	private Timestamp message_date;
+	private String message_date;
+	private String message_read;
+	// 0 : 안읽음 / 1 : 읽음
 
 	public MessageVO() {
 
@@ -55,14 +58,44 @@ public class MessageVO {
 
 	public String getMessage_date() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
-		String date = sdf.format(message_date);
-		
-		return date;
+		return message_date;
 	}
 
-	public void setMessage_date(Timestamp message_date) {
-		this.message_date = message_date;
+	public void setMessage_date(Date message_date) throws ParseException {
+		
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        
+        // 현재 날짜 및 시간
+        String today = (new SimpleDateFormat("yyyy-MM-dd").format(date));
+		
+        // 데이터 형태
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// 받아온 날짜 및 시간
+		String mDate = sdf.format(message_date);
+		
+		// 받아온 날짜가 오늘 날짜라면,
+		if(mDate.equals(today)){
+			sdf = new SimpleDateFormat("a hh:mm");
+			
+		// 받아온 날짜가 다른 날이라면,
+		} else {
+			sdf = new SimpleDateFormat("MM/dd");
+		}
+		
+		mDate = sdf.format(message_date);
+		
+		this.message_date = mDate;
+	}
+	
+	
+	public String getMessage_read() {
+		return message_read;
+	}
+
+	public void setMessage_read(String message_read) {
+		this.message_read = message_read;
 	}
 
 	@Override
