@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -566,38 +567,14 @@
 	<!-- For demo purposes Only ( You may delete this anytime :-) -->
 	<div id="colour-variations">
 		<a class="option-toggle"><i class="icon-gear"></i></a>
-		<h3>Preset Colors</h3>
-		<ul>
-			<li>
-				<a href="javascript: void(0);" data-theme="style">
-					<span style="background: #3f95ea;"></span>
-					<span style="background: #52d3aa;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style2">
-					<span style="background: #329998;"></span>
-					<span style="background: #6cc99c;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style3">
-					<span style="background: #9f466e;"></span>
-					<span style="background: #c24d67;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style4">
-					<span style="background: #21825C;"></span>
-					<span style="background: #A4D792;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			
-		</ul>
+		<h3>언어</h3>
+		<div id="google_translate_element"></div>
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+			  new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+			}
+		</script>
+		<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	</div>
 	<!-- End demo purposes only -->
 
@@ -629,7 +606,6 @@
 	
 	<h4><a href="review/logintest.go">logintest</a></h4>
 	
-</body>
 	<script>
 		$(function(){
 			$('#colour-variations ul').styleSwitcher({
@@ -647,10 +623,6 @@
 	</script>
 	<!-- End demo purposes only -->
 
-	</body>
-
-	<h4><a href="find/findListForm.go">find</a></h4>
-	<a href="review/writeform.go">testReview</a>
 </body>
 
 </html>

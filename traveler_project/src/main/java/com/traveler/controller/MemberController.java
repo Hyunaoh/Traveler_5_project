@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.traveler.dao.MemberDAO;
+import com.traveler.model.FacebookVO;
 import com.traveler.model.GoogleVO;
 import com.traveler.model.MemberVO;
 
@@ -33,6 +34,33 @@ public class MemberController {
 	@Autowired
 	SqlSession sqlSession;
 
+	// Facebook Login
+	@RequestMapping("/facebookLogin.go")
+	public String facebookLogin(Model model, FacebookVO facebookVO) throws Exception {
+		System.out.println("[system] access facebookLogin! ");
+		String view = "";
+		if(facebookVO != null){
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMember_id(facebookVO.getF_email());
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			memberVO = memberDAO.selectMemberList(memberVO);
+			try{
+				if(memberVO.getMember_id().equals(facebookVO.getF_email())){
+					// 이미 가입한 회원!
+					// 로그인을 한다.
+					model.addAttribute("memberVO", memberVO);
+					view = "/member/loginForm";
+				}
+			} catch(Exception e){
+				// 회원이 아님 (회원가입을 함)
+				// 구글 정보 가져옴
+				model.addAttribute("facebookVO", facebookVO);
+				view = "/member/memberInsertForm";
+			}
+		}
+		return view;
+	}
+	
 	// Google Login
 	@RequestMapping("/googleLogin.go")
 	public String googleLogin(Model model, GoogleVO googleVO) throws Exception {
@@ -175,7 +203,7 @@ public class MemberController {
 		String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
 		String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg
 		String rename = onlyFileName + "_" + getCurrentDayTime() + extension; // fileName_20150721-14-07-50.jpg
-		String fullPath = savePath + "\\" + rename;
+		String fullPath = savePath + "/" + rename;
 		if (!imgFile.isEmpty()) {
 	        try {
 	        	
@@ -188,8 +216,8 @@ public class MemberController {
 		}
 	     // 이미지 복사
 	
-		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
-		 imgCopy(fullPath, saveLocalPath, rename);
+//		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
+//		 imgCopy(fullPath, saveLocalPath, rename);
 		 
 		 // 이미지 이름 셋팅
 		 memberVO.setMember_profile(rename);
