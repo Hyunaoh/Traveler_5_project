@@ -9,19 +9,24 @@
 		select * from message
 	</select>
 	
+	<select id="searchMessage" resultType="com.traveler.model.MessageVO">
+		select * from message where message_message like '#{message_message}'
+	</select>
+	
 	<select id="selectByIdMessage" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
 		select * from message 
 		where 
 		<choose>
 			<when test="message_get != null">
 			message_get=#{message_get} and
-			message_get_flag=0
+			message_get_flag=0 
 			</when>
 			<when test="message_send != null">
 			message_send=#{message_send} and
-			message_send_flag=0
+			message_send_flag=0 
 			</when>
 		</choose>
+		order by message_date desc
 		
 	</select>
 	
