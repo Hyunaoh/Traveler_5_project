@@ -5,6 +5,17 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<!-- 유효성 검사 -->
+<script type="text/javascript">
+	function checkNull(){
+		
+		
+	}
+
+
+</script>
+
+
 <script>
 
 	$(function() {
@@ -137,12 +148,20 @@
 	});
 </script>
 
+<script type="text/javascript">
+	function add_tag(){
+		
+		
+	}
+
+</script>
+
 </head>
 <body>
-	<h4>상품 등록하기</h4>
-	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요">
-		<select name="package_place1" id="place1" >
+	<!-- <h4>상품 등록하기</h4>
+	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data"> -->
+		<input type="text" name="package_title" placeholder="제목을 입력해주세요" required="required">
+		<select name="package_place1" id="place1" required="required" >
 			<option>나라 선택</option>
 			<option value="대한민국">대한민국</option>
 			<option value="미국">미국</option>
@@ -155,23 +174,30 @@
 			<option value="일본">일본</option>
 		</select>
 		
-		<select name="package_place2"  id="place2" >
+		<select name="package_place2"  id="place2" required="required">
 		</select>
 		
 		<p id="area_text2">상세사항 : </p>
-		<textarea name="package_place3" id="detail_info" rows="5" cols="50" class="form-control"></textarea><br>
+		<textarea name="package_place3" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
 		<br>
 		
-		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요"></textarea><br>
-		<input type="text" name="package_leadTime" placeholder="소요시간을 입력해주세요">
-		<input type ="file" name="imgFile">
+		<form action="testHashTag.go" method="get">
+			<p id="area_text3">해시태그 : </p>
+			<input type="text" id="package_tag" name="package_tag" placeholder="#기호로 구분해 입력해주세요">
+			<br><font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font>
+			<input type="submit">
+		</form>
+		
+		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
+		<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
+		<input type ="file" name="imgFile" required="required">
 		
 		<input type="hidden" name="member_id"  value="test">
 		
 		
-		<input type = "submit" value="등록">
+		<input type = "submit" value="등록" >
 	
-	</form>
+	<!-- </form> -->
 
 </body>
 </html>

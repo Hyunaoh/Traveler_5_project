@@ -4,7 +4,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.traveler.dao.HashTagDAO;
 import com.traveler.dao.PackageDAO;
+import com.traveler.model.HashTagVO;
 import com.traveler.model.PackageVO;
 
 @Controller
@@ -28,6 +33,14 @@ public class PackageController {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@RequestMapping("testHashTag.go")
+	public String testHashTag(PackageVO packageVO, HashTagVO hashTagVO) throws Exception{
+
+		splitHashTag(packageVO.getPackage_tag());
+		
+		return "/package/getListForm";
+	}
 	
 	//패키지 전체 목록 띄워주기
 	@RequestMapping("getAllPackage.go")
@@ -51,8 +64,9 @@ public class PackageController {
 	
 	//패키지 등록하기 폼
 	@RequestMapping("insertPackageForm.go")
-	public String insertPackageForm() throws Exception{
+	public String insertPackageForm(Model model, Principal principal) throws Exception{
 		System.out.println("insertPackageForm 컨트롤러 진입");
+	//	model.addAttribute("sessionId", principal.getName());
 		
 		return "/package/insertPackageForm";
 	}
@@ -139,7 +153,10 @@ public class PackageController {
 			if((int)session.getAttribute("view_check") == packageVO.getPackage_pk()){
 				// 새로고침 했을때는 그대로 값유지
 				packageVO_hit.setPackage_hit(detailPackage.getPackage_hit());
-			} else{
+			}else if(packageVO.getPackage_status()==0){
+				// admin단에서 접속했을 때도 그대로 값 유지
+				packageVO_hit.setPackage_hit(detailPackage.getPackage_hit());
+			}else{
 			packageVO_hit.setPackage_hit(detailPackage.getPackage_hit()+1);
 			}
 		} catch (Exception e) {
@@ -216,6 +233,55 @@ public class PackageController {
 				fis.close();
 				fos.close();
 			}
+		}
+		
+		//해시태그 토크나이저 해서 리스트로 정리해서 나누기
+		public void splitHashTag(String in_hashTag) throws Exception{
+			HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
+			
+			//이미 해시태그로 등록되어있는 태그 담아놓기
+			List<HashTagVO> searchResult = hashTagDAO.getHashTag();
+			
+			/////////////테스트용 시스아웃//////////////
+			System.out.println("----서치리스트 아웃 테스트------");
+			for(int i = 0 ; i<searchResult.size() ; i++){
+				
+				System.out.println(searchResult.get(i).getHashTag_tag());
+			}
+			
+			//스플릿로 끊어서 배열로 담기
+			String[] tagList ;
+			
+			tagList = in_hashTag.split("#");
+			
+			System.out.println("------------스플릿 잘 되는지 테스트----------");
+			for(int i = 0 ; i <tagList.length ; i++){
+				System.out.println(tagList[i]);
+			}
+			
+			
+			//이미 있는 해시태그인지 비교
+				for(int j = 0 ; j <tagList.length ; j++){
+					for(int i = 0 ; i < searchResult.size(); i++){
+					if (tagList[j].equals(searchResult.get(i).getHashTag_tag())){
+						break;
+					}else if(!tagList[j].equals(searchResult.get(i).getHashTag_tag())){
+						hashTagDAO.insertHashTag(tagList[j]);
+						break;
+					}
+				}
+				
+			}
+			
+			/*/////////////테스트용 시스아웃//////////////
+			System.out.println("----아웃 테스트------");
+			for(int i = 0 ; i<list.size() ; i++){
+				
+				System.out.println(list.get(i));
+			}
+				*/
+			
+			
 		}
 	
 }

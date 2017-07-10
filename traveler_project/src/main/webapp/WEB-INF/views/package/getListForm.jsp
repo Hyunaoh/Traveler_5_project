@@ -6,6 +6,14 @@
 <html>
 <head>
 	<title>여행을 더하다</title>
+	
+	<style type="text/css">
+		#searchTable{
+			border: "1px solid black";
+			background-color: "white";
+		}
+	
+	</style>
 </head>
 <body>
 	<!-- header -->
@@ -15,6 +23,33 @@
 		<div class="fh5co-overlay"></div>
 		
 		<!-- Page Content -->
+		<div class="searchTable">
+				<!-- Write Well -->
+				<table id=searchTable>
+					<tr>
+					여행 국가 : <a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">대한민국 </font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">미국 </font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">영국</font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">프랑스</font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">이탈리아 </font></a>
+							<a href="insertPackageForm.go"><font color="#55d9ad">체코 </font></a><br>
+							<a href="insertPackageForm.go"><font color="#55d9ad">캐나다 </font></a><br>
+							<a href="insertPackageForm.go"><font color="#55d9ad"> </font></a><br>
+							<a href="insertPackageForm.go"><font color="#55d9ad"> </font></a><br>
+							
+					</tr>
+					<tr>
+					여행 기간 : <input type="radio" name="package_leadTime" value="">하루  ||
+							<input type="radio" name="package_leadTime" value="">1박 이상  ||
+							<input type="radio" name="package_leadTime" value="">기간 무관
+					</tr>
+					<tr>
+					<a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
+					</tr>
+			</table>
+		</div>
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
@@ -41,7 +76,7 @@
 									<img src="<c:url value="/resources/images/package_img/default_image.jpg" />" alt="Image" class="img-responsive" style="height: 270px; width: 359.98px;">
 									<div class="fh5co-text">
 										<h2>${list.package_title}</h2>
-										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+										<span>작성자 : ${list.member_id} / 소요시간 : ${list.package_leadTime}</span>
 									</div>
 								</a>
 							</c:if>

@@ -127,7 +127,7 @@
 				<div class="text-inner">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
-							<h1 class="to-animate">쉽게 가이드 받고, 편하게 여행하자!</h1>
+							<h1 class="to-animate">쉽게 가이드 받고,<br> 편하게 여행하자!</h1>
 							<h2 class="to-animate">여행을 하면서 길을 잃거나, 자세한 정보를 얻고 싶지는 않았나요?<br><a href="find/findListForm.go" target="_blank">가이드를 찾아보거나</a> <a href="find/findListForm.go" target="_blank">도움을 요청하세요!</a></h2>
 						</div>
 					</div>

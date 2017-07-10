@@ -15,9 +15,18 @@ public class PackageVO {
 	private String package_image;
 	private Date package_regDate;
 	private int package_status;
+	private String package_tag;
 	
 	
 	
+	public String getPackage_tag() {
+		return package_tag;
+	}
+
+	public void setPackage_tag(String package_tag) {
+		this.package_tag = package_tag;
+	}
+
 	public void setPackage_title(String package_title){
 		this.package_title = package_title;
 	}
