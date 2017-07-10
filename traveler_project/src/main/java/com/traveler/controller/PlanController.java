@@ -119,23 +119,84 @@ public class PlanController {
 		// session ID 가져오기
 		String sessionID = principal.getName();
 		planVO_in.setPlan_writer(sessionID);
-
+		
 		// 특정한 정보 가져오기
 		PlanDAO planDAO = sqlSession.getMapper(PlanDAO.class);
 		PlanVO planVO = planDAO.getDetailInfo(planVO_in);
-
+		
+		PlanVO planVO_result; // 리스트에 담을 VO
+		List<PlanVO> planList = new ArrayList<PlanVO>(); // 전체 리스트 VO
+		StringTokenizer tokenizer_subTitle = new StringTokenizer(planVO.getPlan_subTitle(), ",");
+		StringTokenizer tokenizer_img = new StringTokenizer(planVO.getPlan_img(), ",");
+		StringTokenizer tokenizer_content = new StringTokenizer(planVO.getPlan_content(), ",");
+		StringTokenizer tokenizer_place = new StringTokenizer(planVO.getPlan_place(), ",");
+		StringTokenizer tokenizer_date = new StringTokenizer(planVO.getPlan_date(), ",");
+		
+		for(int i =0; i < planVO.getPlan_count(); i++){
+			System.out.println(planVO.toString());
+			String subTitle = tokenizer_subTitle.nextToken();
+			String img = tokenizer_img.nextToken();
+			String content = tokenizer_content.nextToken();
+			String place = tokenizer_place.nextToken();
+			String date = tokenizer_date.nextToken();
+			
+			planVO_result = new PlanVO();
+			planVO_result.setPlan_subTitle(subTitle);
+			planVO_result.setPlan_img(img);
+			planVO_result.setPlan_content(content);
+			planVO_result.setPlan_place(place);
+			planVO_result.setPlan_date(date);
+			
+			planList.add(planVO_result);
+		}
+		
+		model.addAttribute("planList", planList);
 		model.addAttribute("planVO", planVO);
-		return "/plan/myPlanList";
+		return "/plan/myPlanUpdateForm";
 	}
 
 	@RequestMapping("/myPlanUpdatePro.go")
-	public String myPlanUpdatePro(PlanVO planVO_in, Principal principal) throws Exception {
+	public String myPlanUpdatePro(MultipartHttpServletRequest mhsq, PlanVO planVO_in, Principal principal) throws Exception {
 		System.out.println("[system] access myPlanUpdatePro!");
+
+		// 넘어온 파일을 리스트로 저장
+        List<MultipartFile> mf = mhsq.getFiles("imgFile");
+        if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+             
+        } else {
+            for (int i = 0; i < mf.size(); i++) {
+            	// 서버에 이미지 저장 경로
+        		String savePath = mhsq.getRealPath("/resources/images/plan_img");
+        		// 이미지 rename시 붙일 업로드 날짜 정보
+        		Calendar calendar = Calendar.getInstance();
+        		Date date = calendar.getTime();
+        		String now = (new SimpleDateFormat("yyMMdd-HH-mm-ss").format(date));
+        		// 이미지 이름 rename
+        		String originalFilename = mf.get(i).getOriginalFilename(); // fileName.jpg
+        		String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
+        		String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg
+        		String rename = onlyFileName + "_" + now + extension; // fileName_20150721-14-07-50.jpg
+        		String fullPath = savePath + "/" + rename;
+        		
+        		// 이미지 저장
+        		mf.get(i).transferTo(new File(fullPath)); // 파일 저장
+        		try {
+	        		if(planVO_in.getPlan_img() == null || planVO_in.getPlan_img().equals("")){
+	        			planVO_in.setPlan_img(rename);
+	        		} else{
+	        			planVO_in.setPlan_img(planVO_in.getPlan_img() + "," + rename);
+	        		}
+        		} catch (Exception e) {
+        			planVO_in.setPlan_img(rename);
+				}
+            }
+        }
 
 		// session ID 가져오기
 		String sessionID = principal.getName();
 		planVO_in.setPlan_writer(sessionID);
 
+		System.out.println(planVO_in.toString());
 		// update
 		boolean check = false;
 		PlanDAO planDAO = sqlSession.getMapper(PlanDAO.class);

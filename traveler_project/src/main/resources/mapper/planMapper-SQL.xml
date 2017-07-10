@@ -34,28 +34,25 @@
 		UPDATE PLAN
 		<set>
 			<if test="plan_title != null and plan_title != ''">
-				PLAN_TITLE = #{plan_title}
+				PLAN_TITLE = #{plan_title},
 			</if>
 			<if test="plan_subTitle != null and plan_subTitle != ''">
-				PLAN_SUBTITLE = #{plan_subTitle}
+				PLAN_SUBTITLE = #{plan_subTitle},
 			</if>
 			<if test="plan_img != null and plan_img != ''">
-				PLAN_IMG = #{plan_img}
+				PLAN_IMG = #{plan_img},
 			</if>
 			<if test="plan_content != null and plan_content != ''">
-				PLAN_CONTENT = #{plan_content}
+				PLAN_CONTENT = #{plan_content},
 			</if>
 			<if test="plan_place != null and plan_place != ''">
-				PLAN_PLACE = #{plan_place}
+				PLAN_PLACE = #{plan_place},
 			</if>
 			<if test="plan_date != null and plan_date != ''">
-				PLAN_DATE = #{plan_date}
+				PLAN_DATE = #{plan_date},
 			</if>
 			<if test="plan_count != null and plan_count != ''">
 				PLAN_COUNT = #{plan_count}
-			</if>
-			<if test="plan_regDate != null and plan_regDate != ''">
-				PLAN_REGDATE = #{plan_regDate}
 			</if>
 		</set>
 		WHERE PLAN_PK = #{plan_pk} AND PLAN_WRITER = #{plan_writer}
