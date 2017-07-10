@@ -32,6 +32,12 @@ public interface MemberDAO {
 
 	public String selectMemberPwd(MemberVO vo);
 
+	public void insertGuide(MemberVO memberVO);
+
+	public void deleteGuide(MemberVO memberVO);
+
+	public void updateIsGuide(MemberVO vo);
+
 	
 
 	

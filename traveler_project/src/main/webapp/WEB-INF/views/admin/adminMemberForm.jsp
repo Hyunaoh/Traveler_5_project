@@ -7,9 +7,9 @@
 <title>여행가 - 관리자 (회원관리)</title>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp" />
-	<button onclick="location='adminMemberListForm.go'">회원리스트</button>
+ 	<!-- header -->
+	<jsp:include page="../header.jsp" /> 
+	
 	
 	
 </body>

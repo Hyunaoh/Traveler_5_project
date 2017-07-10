@@ -24,7 +24,7 @@
 	<article class="container">
 	<div class="page-header">
 		<h1>
-			세부사항<small>폼</small>
+			세부사항
 		</h1>
 		<p style="font-style: italic;">세부 사항을 입력하고 가이드가 되어보세요!</p>
 	</div>
@@ -62,29 +62,16 @@
 				<input type="text"  class="form-control"  name="member_certification"
 					placeholder="자격증이 없다면 '없음'을 입력하세요">
 			</div>
-			<div class="form-group">
-				<label for="adrress">주소</label>
-				 <div class="input-group">
-				<input type="text" class="form-control" name="member_post" readonly="readonly"
-					placeholder="검색버튼을 눌러주세요" class="postcodify_postcode5 form-control" />
-				<span class="input-group-btn">
-				<p id="postcodify_search_button" class="btn btn-success">검색<i class="fa fa-edit spaceLeft"></i></button></p>
-				<!-- <p id="postcodify_search_button" class="btn btn-custom btn-md">검색</p> -->
-				</span>
-			</div>
-			<div class="form-group">
-				<input type="text" class="form-control" name="member_adrr" readonly="readonly"
-					class="postcodify_address form-control"/>
-				<p class="help-block">상세주소를 입력하세요</p>
-				 <input type="text" class="form-control" name="member_addrDetail">
-			</div>
-			</div>
+			
+			
+			
+	
 
 			<input type="hidden" name="member_isGuide" value="0"> <input
 				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
  		<div class="form-group text-center">
-		 <button type="reset" class="btn btn-warning">입력취소<i class="fa fa-times spaceLeft"></i></button>
-		 <button type="submit" class="btn btn-info"  id="btn_join">회원가입<i class="fa fa-check spaceLeft"></i></button>
+		 <button type="reset" class="btn btn-warning">취소<i class="fa fa-times spaceLeft"></i></button>
+		 <button type="submit" class="btn btn-info"  id="btn_join">완료<i class="fa fa-check spaceLeft"></i></button>
 			</div>
 		</form>
 	</div>

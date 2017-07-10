@@ -60,6 +60,21 @@ public class MemberController {
 		return view;
 	}
 	
+	
+	@RequestMapping("/guideForm.go")
+	public String guideForm(MemberVO memberVO, Model model, Principal pincipal) throws Exception {
+		
+		MemberDAO memberDAO=sqlSession.getMapper(MemberDAO.class);
+		//ID 저장
+		memberVO.setMember_id(pincipal.getName());
+		MemberVO list= memberDAO.selectMyPage(memberVO);
+		
+		model.addAttribute("list", list);
+		return "/member/guideForm";
+	}
+
+
+	
 	// DB member Insert
 	@RequestMapping("/memberInsertForm.go")
 	public String memberInsertForm(Model model, GoogleVO googleVO) throws Exception {
@@ -68,8 +83,24 @@ public class MemberController {
 		return "/member/memberInsertForm";
 	}
 
-	
+	//가이드 신청 - isGuide 
+	@RequestMapping("/memberGuideUp.go")
+	public String memberGuideUp(Principal pincipal) throws Exception {
+		System.out.println("[system] access memberGuideUp! ");
+		
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		MemberVO memberVO=new MemberVO();
+		
+		memberVO.setMember_id(pincipal.getName());
+		MemberVO vo= memberDAO.selectMyPage(memberVO);
+		
+		memberDAO.updateIsGuide(vo);
+		
+		
+		return "home";
+	}
 
+	
 	@Transactional
 	@RequestMapping("/memberInsertPro.go")
 	public String memberInsertPro(Model model, MemberVO memberVO) throws Exception {

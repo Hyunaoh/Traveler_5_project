@@ -1,0 +1,19 @@
+
+7월 10, 2017 11:56:40.14 NEW SESSION
+7월 10, 2017 11:56:40.15 [2684:3868:0710/115640.121:ERROR:CONSOLE(355)] "Uncaught (in promise) TypeError: Cannot read property 'isXMLMimeType' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (355)
+7월 10, 2017 11:58:43.11 [2684:3868:0710/115843.115:ERROR:CONSOLE(1073)] "Uncaught TypeError: Cannot read property 'index' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1073)
+7월 10, 2017 11:58:43.63 [2684:3868:0710/115843.629:ERROR:CONSOLE(1073)] "Uncaught TypeError: Cannot read property 'index' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1073)
+7월 10, 2017 11:58:43.99 [2684:3868:0710/115843.992:ERROR:CONSOLE(1073)] "Uncaught TypeError: Cannot read property 'index' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1073)
+7월 10, 2017 11:58:45.47 [2684:3868:0710/115845.472:ERROR:CONSOLE(1100)] "Uncaught TypeError: Cannot read property 'propertyText' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1100)
+7월 10, 2017 11:58:49.07 [2684:3868:0710/115849.074:ERROR:CONSOLE(1073)] "Uncaught TypeError: Cannot read property 'index' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1073)
+7월 10, 2017 11:58:50.18 [2684:3868:0710/115850.188:ERROR:CONSOLE(1100)] "Uncaught TypeError: Cannot read property 'propertyText' of null", source: chrome-devtools://devtools/bundled/elements/elements_module.js (1100)
+7월 10, 2017 12:23:37.38 
+7월 10, 2017 12:23:37.38 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 14:16:10.40 
+7월 10, 2017 14:16:10.40 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 14:52:48.29 
+7월 10, 2017 14:52:48.30 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 15:18:16.01 
+7월 10, 2017 15:18:16.02 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 15:43:59.90 
+7월 10, 2017 15:43:59.91 KLIB_SelfTest return : KLR_OK

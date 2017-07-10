@@ -114,6 +114,7 @@
 					<se:authorize access="isAuthenticated()">
 						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'"><span>쪽지</span></a></li>
 						<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/guideForm.go" />'"><span>가이드신청</span></a></li>
 						<se:authorize access="hasRole('ROLE_ADMIN')">
 							<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'"><span>관리자</span></a></li>
 						</se:authorize>

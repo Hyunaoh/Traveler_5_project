@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>CSS Tutorial | Layout</title>
+    <style>
+      #jb-container {
+        width: 940px;
+        margin: 0px auto;
+        padding: 20px;
+      }
+      #jb-header {
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-sidebar-left {
+   		width: 30%;
+        padding: 10px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-content {
+        width: 30%;
+        padding: 10px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-sidebar-right {
+     	width: 30%;
+        padding: 20px;
+        margin-bottom: 10px;
+        float: right;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-footer {
+        clear: both;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="jb-container">
+    	<div>마이페이지<div></div>
+    	<div align="right">상품관리 | 청구내역 | 구매내역 | 상담내역 | 회원정보 | 비밀번호변경 | 결제정보</div>
+      <div id="jb-header">
+        <h1>3-Column Layout</h1>
+        
+      </div>
+    </div>
+  </body>
+</html>

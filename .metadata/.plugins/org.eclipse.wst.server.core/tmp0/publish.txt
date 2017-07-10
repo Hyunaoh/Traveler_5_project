@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Mon Jul 10 16:54:42 KST 2017
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\HeeMang\\.m2\\repository\\org\\springframework\\spring-web\\4.2.9.RELEASE\\spring-web-4.2.9.RELEASE.jar=C\:\\app\\sts-bundle\\pivotal-tc-server-developer-3.2.4.SR1\\base-instance\\wtpwebapps\\traveler_project\\WEB-INF\\lib\\spring-web-4.2.9.RELEASE.jar
+org.eclipse.jst.jee.server\:traveler_project=C\:\\app\\sts-bundle\\pivotal-tc-server-developer-3.2.4.SR1\\base-instance\\wtpwebapps\\traveler_project

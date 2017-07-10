@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -160,14 +161,21 @@ public class AdminController {
 		return "/admin/adminMemberList";
 	}
 	
+	@Transactional
 	@RequestMapping("/adminMemberIsguide.go")
 	public String adminMemberIsguide(Model model, MemberVO vo){
 		System.out.println("[system] access adminMemberIsguide!");
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		vo.toString();
+		
 		
 		MemberVO memberVO= memberDAO.selectMyPage(vo);
 		memberDAO.adminUpdateGuide(memberVO);
+		
+		if(memberVO.getMember_isGuide() == 0){
+		memberDAO.insertGuide(memberVO); 
+		}else if(memberVO.getMember_isGuide() == 1){
+		memberDAO.deleteGuide(memberVO);
+		}
 		
 		return "redirect:adminMemberListForm.go";
 	}

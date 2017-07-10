@@ -7,7 +7,11 @@
 <title>여행가 - 관리자 (가이드신청)</title>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp" />
+
+<%-- 	<!-- header -->
+	<jsp:include page="../header.jsp" /> --%>
+	
+	<button onclick="location='adminMemberListForm.go'">회원리스트</button>
+	
 </body>
 </html>
