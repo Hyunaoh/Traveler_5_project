@@ -82,6 +82,7 @@ public class MessageController {
 		// 초기 flag는 false로 초기화 한다.
 
 		MessageVO mVo = new MessageVO();
+		if(pr != null){
 		mVo.setMessage_get(pr.getName());
 
 		// 현재 쪽지 개수
@@ -115,6 +116,7 @@ public class MessageController {
 				return mList.get(mList.size()-1);
 			}
 
+			}
 		}
 
 		return null;
