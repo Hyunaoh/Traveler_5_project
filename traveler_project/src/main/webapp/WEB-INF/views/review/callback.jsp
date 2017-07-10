@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("DqftzUBEom_HWFvpmKTh", "http://localhost:8080/home.go");
+  var naver_id_login = new naver_id_login("DqftzUBEom_HWFvpmKTh");
   // 접근 토큰 값 출력
   alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
@@ -20,7 +20,27 @@
     alert(naver_id_login.getProfileData('nickname'));
     alert(naver_id_login.getProfileData('age'));
     alert(naver_id_login.getProfileData('name'));
+    alert(naver_id_login.getProfileData('gender'));
+    
+    document.getElementById('nemail').value = naver_id_login.getProfileData('email');
+    document.getElementById('nnickname').value = naver_id_login.getProfileData('nickname');
+    document.getElementById('nage').value = naver_id_login.getProfileData('age');
+    document.getElementById('nname').value = naver_id_login.getProfileData('name');
+    document.getElementById('ntoken').value = naver_id_login.oauthParams.access_token;
+    document.getElementById('ngender').value = naver_id_login.getProfileData('gender');
+    
+    document.naverlogin.submit();
   }
 </script>
+
+<form action="loginvalue.go" method="post" name="naverlogin">
+	<input type="hidden" id="ntoken" name="n_token" value="">
+	<input type="hidden" id="nemail" name="n_email" value="">
+	<input type="hidden" id="nnickname" name="n_nickname" value="">
+	<input type="hidden" id="nage" name="n_age" value="">
+	<input type="hidden" id="ngender" name="n_gender" value="">
+	<input type="hidden" id="nname" name="n_name" value="">
+</form>
+
 </body>
 </html>
