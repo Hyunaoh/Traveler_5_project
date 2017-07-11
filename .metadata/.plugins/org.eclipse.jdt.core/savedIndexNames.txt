@@ -77,7 +77,6 @@ INDEX VERSION 1.130+C:\git\.metadata\.plugins\org.eclipse.jdt.core
 98112491.index
 1270384373.index
 648612256.index
-2245257658.index
 30726576.index
 4094205557.index
 922380862.index

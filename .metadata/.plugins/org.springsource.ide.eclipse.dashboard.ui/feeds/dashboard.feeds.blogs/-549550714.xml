@@ -5,7 +5,33 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-07-06T19:30:00Z</updated>
+  <updated>2017-07-10T07:58:59Z</updated>
+  <entry>
+    <title>Spring Tool Suite 3.9.0 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/07/10/spring-tool-suite-3-9-0-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Martin Lippert</name>
+    </author>
+    <id>tag:spring.io,2017-07-10:2967</id>
+    <updated>2017-07-10T07:58:59Z</updated>
+    <content type="html">&lt;p&gt;Dear Spring Community,&lt;/p&gt;
+&lt;p&gt;I am happy to announce the 3.9.0 release of the Spring Tool Suite, our Eclipse-based tooling.&lt;/p&gt;
+&lt;p&gt;Highlights from this release include:&lt;/p&gt;
+&lt;ul&gt;&#xD;
+&lt;li&gt;updated to Eclipse Oxygen release (&lt;a href="https://www.eclipse.org/oxygen/noteworthy/"&gt;Oxygen New and Noteworthy&lt;/a&gt;)&lt;/li&gt;&#xD;
+&lt;li&gt;improved support for editing cloud foundry manifest files&lt;/li&gt;&#xD;
+&lt;li&gt;improved support for using Spring Cloud CLI services (incl. log streaming to console view)&lt;/li&gt;&#xD;
+&lt;/ul&gt;
+&lt;p&gt;To download the distributions, please go visit:&lt;/p&gt;
+&lt;ul&gt;&#xD;
+&lt;li&gt;Spring Tool Suite: &lt;a href="https://spring.io/tools/sts/all"&gt;https://spring.io/tools/sts/all&lt;/a&gt;&lt;/li&gt;&#xD;
+&lt;/ul&gt;
+&lt;p&gt;Detailed new and noteworthy notes can be found here: &lt;a href="http://docs.spring.io/sts/nan/v390/NewAndNoteworthy.html"&gt;STS 3.9.0 New &amp;amp; Noteworthy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There is also an early access version of JDT available that includes support for Java9. You can&lt;br/&gt;install that from the Eclipse Marketplace. More details can be found in the&lt;br/&gt;&lt;a href="https://www.eclipse.org/oxygen/noteworthy/#jdt-java-java9"&gt;Java9 section of the Eclipse Oxygen New and Noteworthy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;STS 3.9.1 is scheduled to be released on top of Eclipse Oxygen.1 (4.7.1) in early October 2017.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;</content>
+  </entry>
   <entry>
     <title>Spring Cloud Finchley M1 is available.</title>
     <link rel="alternate" href="https://spring.io/blog/2017/07/06/spring-cloud-finchley-m1-is-available" />
@@ -1560,21 +1586,5 @@ mockRest
   &lt;li&gt;St?phane Nicoll &lt;em&gt;also&lt;/em&gt; &lt;a href="https://spring.io/blog/2017/06/07/spring-framework-4-3-9-available-now"&gt;announced Spring Framework 4.3.9&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Marcin Grzejszczak just &lt;a href="https://spring.io/blog/2017/06/07/spring-cloud-pipelines-1-0-0-m5-released"&gt;announced Spring Cloud Pipelines 1.0.0.M5&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Boot 1.5.4 Available Now</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/06/08/spring-boot-1-5-4-available-now" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>St?phane Nicoll</name>
-    </author>
-    <id>tag:spring.io,2017-06-08:2944</id>
-    <updated>2017-06-08T15:04:08Z</updated>
-    <content type="html">&lt;p&gt;On behalf of the team, I am pleased to announce that Spring Boot &lt;code&gt;1.5.4&lt;/code&gt; has been released and is available now from &lt;a href="http://repo.spring.io/release"&gt;repo.spring.io&lt;/a&gt; and &lt;a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.springframework.boot%22"&gt;Maven Central&lt;/a&gt;. &lt;/p&gt;
-&lt;p&gt;Spring Boot 1.5.4 adds &lt;a href="https://github.com/spring-projects/spring-boot/milestone/86?closed=1"&gt;over 60 fixes, improvements and 3rd party dependency updates&lt;/a&gt; to the 30 issues &lt;a href="https://spring.io/blog/2017/06/08/spring-boot-1-4-7-available-now"&gt;fixed in Spring Boot 1.4.7&lt;/a&gt;. Thanks to all that have contributed!&lt;/p&gt;
-&lt;p&gt;This release is a recommended upgrade for all users, in a particular due to &lt;a href="https://spring.io/blog/2017/06/08/cve-2017-4995-spring-security-4-2-3-released"&gt;CVE-2017-4995&lt;/a&gt; that was recently fixed in Spring Security 4.2.3.&lt;/p&gt;&lt;h3&gt;&lt;a href="#what-rsquo-s-next" class="anchor" name="what-rsquo-s-next"&gt;&lt;/a&gt;What&amp;rsquo;s next?&lt;/h3&gt;
-&lt;p&gt;We are ramping down with a second release candidate of Spring Framework 5 next week and we will follow as expected with a second milestone of Spring Boot 2. If you want to try what we have for Spring Boot 2 already, and we¡¯d love to hear your feedback if you do, please go to &lt;a href="https://start.spring.io"&gt;start.spring.io&lt;/a&gt; and select Spring Boot &lt;code&gt;2.0.0.BUILD-SNAPSHOT&lt;/code&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a href="#how-can-you-help" class="anchor" name="how-can-you-help"&gt;&lt;/a&gt;How can you help?&lt;/h3&gt;
-&lt;p&gt;If you&amp;rsquo;re interested in helping out, check out the &lt;a href="https://github.com/spring-projects/spring-boot/labels/status%3A%20ideal-for-contribution"&gt;&amp;ldquo;ideal for contribution&amp;rdquo; tag&lt;/a&gt; in the issue repository. If you have general questions, please ask at &lt;a href="http://stackoverflow.com"&gt;stackoverflow.com&lt;/a&gt; using the &lt;a href="http://stackoverflow.com/tags/spring-boot"&gt;&lt;code&gt;spring-boot&lt;/code&gt; tag&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-boot/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-boot/issues"&gt;Issues&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-boot/docs/1.5.4.RELEASE/reference/htmlsingle"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-boot"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-boot"&gt;Gitter&lt;/a&gt;&lt;/p&gt;</content>
   </entry>
 </feed>

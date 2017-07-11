@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+<mapper namespace="com.traveler.dao.PlanDAO">
+	<!-- 전체 목록 가져옴 -->
+	<select id="getListAll" resultType="com.traveler.model.PlanVO">
+		SELECT *
+		FROM PLAN
+		WHERE PLAN_WRITER = #{plan_writer}
+		ORDER BY PLAN_REGDATE DESC
+	</select>
+	
+	<!-- detail -->
+	<select id="getDetailInfo" resultType="com.traveler.model.PlanVO">
+		SELECT *
+		FROM PLAN
+		WHERE PLAN_WRITER = #{plan_writer} AND PLAN_PK = #{plan_pk}
+		ORDER BY PLAN_REGDATE DESC
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertList" parameterType="com.traveler.model.PlanVO">
+		INSERT INTO PLAN
+			(plan_title, plan_subTitle, plan_img, plan_content, plan_place,
+				plan_date, plan_count, plan_regDate, plan_writer)
+		VALUES
+			(#{plan_title}, #{plan_subTitle}, #{plan_img}, #{plan_content}, #{plan_place},
+				#{plan_date}, #{plan_count}, date_format(now(),'%Y/%m/%d %H:%i:%s'), #{plan_writer})
+	</insert>
+	
+	<!-- update -->
+	<update id="updateList" parameterType="com.traveler.model.PlanVO">
+		UPDATE PLAN
+		<set>
+			<if test="plan_title != null and plan_title != ''">
+				PLAN_TITLE = #{plan_title}
+			</if>
+			<if test="plan_subTitle != null and plan_subTitle != ''">
+				PLAN_SUBTITLE = #{plan_subTitle}
+			</if>
+			<if test="plan_img != null and plan_img != ''">
+				PLAN_IMG = #{plan_img}
+			</if>
+			<if test="plan_content != null and plan_content != ''">
+				PLAN_CONTENT = #{plan_content}
+			</if>
+			<if test="plan_place != null and plan_place != ''">
+				PLAN_PLACE = #{plan_place}
+			</if>
+			<if test="plan_date != null and plan_date != ''">
+				PLAN_DATE = #{plan_date}
+			</if>
+			<if test="plan_count != null and plan_count != ''">
+				PLAN_COUNT = #{plan_count}
+			</if>
+			<if test="plan_regDate != null and plan_regDate != ''">
+				PLAN_REGDATE = #{plan_regDate}
+			</if>
+		</set>
+		WHERE PLAN_PK = #{plan_pk} AND PLAN_WRITER = #{plan_writer}
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteList" parameterType="com.traveler.model.PlanVO">
+		DELETE FROM PLAN
+		WHERE PLAN_PK = #{plan_pk} AND PLAN_WRITER = #{plan_writer}
+	</delete>
+</mapper>

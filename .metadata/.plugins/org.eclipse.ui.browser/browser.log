@@ -17,3 +17,9 @@
 7월 10, 2017 15:18:16.02 KLIB_SelfTest return : KLR_OK
 7월 10, 2017 15:43:59.90 
 7월 10, 2017 15:43:59.91 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 17:31:08.34 
+7월 10, 2017 17:31:08.35 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 18:07:32.63 
+7월 10, 2017 18:07:32.63 KLIB_SelfTest return : KLR_OK
+7월 10, 2017 21:38:00.75 [8864:12228:0710/213800.750:ERROR:gcm_channel_status_request.cc(127)] GCM channel request failed.
+7월 11, 2017 10:33:21.80 [8864:12228:0711/103321.804:ERROR:gcm_channel_status_request.cc(127)] GCM channel request failed.
