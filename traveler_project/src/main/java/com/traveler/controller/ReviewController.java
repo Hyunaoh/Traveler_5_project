@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.traveler.dao.MemberDAO;
 import com.traveler.dao.ReviewDAO;
+import com.traveler.model.GoogleVO;
 import com.traveler.model.MemberVO;
+import com.traveler.model.NaverVO;
 import com.traveler.model.ReviewVO;
 
 @Controller
@@ -31,6 +34,36 @@ public class ReviewController {
 	@RequestMapping("/logintest2.go")
 	public String logintest2() throws Exception{
 		return "review/callback";
+	}
+	@RequestMapping("/loginvalue.go")
+	public String loginvalue(Model model, NaverVO naverVO) throws Exception{
+		System.out.println("email = " + naverVO.getN_email());
+		System.out.println("nickname = " + naverVO.getN_nickname());
+		System.out.println("age = " + naverVO.getN_name());
+		System.out.println("name = " + naverVO.getN_name());
+		System.out.println("token = " + naverVO.getN_token());
+		String view = "";
+		
+		if(naverVO != null){
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMember_id(naverVO.getN_email());
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			memberVO = memberDAO.selectMemberList(memberVO);
+			try {
+				if(memberVO.getMember_id().equals(naverVO.getN_email()));
+				// 이미 가입한 회원!
+				// 로그인을 한다.
+				model.addAttribute("memberVO", memberVO);
+				view = "/member/loginForm";
+				
+			} catch (Exception e) {
+				// 회원이 아님 (회원가입을 함)
+				// 네이버 정보 가져옴
+				model.addAttribute("naverVO", naverVO);
+				view = "/member/TmemberInsertForm";
+			}
+		}
+		return view;
 	}
 	@RequestMapping("/writeform.go")
 	public String formgo(Model model) throws Exception{
