@@ -166,7 +166,7 @@
 		<input type="text" name="package_leadTime" placeholder="소요시간을 입력해주세요">
 		<input type ="file" name="imgFile">
 		
-		<input type="hidden" name="member_id"  value="test">
+		<input type="hidden" name="member_id"  value="${ member_id }">
 		
 		
 		<input type = "submit" value="등록">

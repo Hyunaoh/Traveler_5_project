@@ -63,33 +63,12 @@
       
       #jb-footer {
         float: none;
-        height: 250px;
+        height: 270px;
         margin-top: 375px;
         padding: 10px;
         background-color: #E3F6CE;
       }
         #jb-footer1 {
-        float: left;
-        width: 180px;
-        margin-left: 15px;
-        height: 180px;
-        background-color: #D0F5A9;
-      }
-         #jb-footer2 {
-        float: left;
-        width: 180px;
-        margin-left: 15px;
-        height: 180px;
-        background-color: #D0F5A9;
-      }
-         #jb-footer3 {
-        float: left;
-        width: 180px;
-        margin-left: 15px;
-        height: 180px;
-        background-color: #D0F5A9;
-      }
-         #jb-footer4 {
         float: left;
         width: 180px;
         margin-left: 15px;
@@ -136,15 +115,20 @@
  
     	<h2>&nbsp;&nbsp;마이페이지</h2>
       	
-      	<ul class="nav nav-tabs">
- 		<li class="active"><a href="#">마이페이지</a></li>
-  		<li><a href="#">구매내역</a></li>
-  		<li><a href="#">상담내역</a></li>
-  		<li><a href="#">회원정보</a></li>
-  		<li><a href="#">비밀번호변경</a></li>
-  		<li><a href="#">결제정보</a></li>
+      	<div role="tabpanel">
+      	<ul class="nav nav-tabs" role="tablist">
+ 		<li role="presentation" class="active"><a href="#myPage" role="tab" data-toggle="tab">마이페이지</a></li>
+  		<li role="presentation"><a href="#purchase" role="tab" data-toggle="tab">구매내역</a></li>
+  		<li role="presentation"><a href="#QnA" role="tab" data-toggle="tab" >Q&A</a></li>
+  		<li role="presentation"><a href="#change" role="tab" data-toggle="tab" >비밀번호변경</a></li>
+  		<li role="presentation" ><a href="#pay" role="tab" data-toggle="tab" >결제정보</a></li>
 		</ul>
      
+     <!-- 탭내용 -->
+     <div class="tab-content">
+     
+     <!-- 마이페이지 -->
+     <div role="tabpanel" class="tab-pane fade in active" id="myPage">
       <div id="jb-header">	
       		안녕하세요! ${ list.member_name } 님<br> 여행가를 이용해 주셔서 항상 감사합니다.
       <div>
@@ -189,20 +173,59 @@
    		    내용
       </div>
     	</div>
-    	 <div id="jb-footer">
-        	나의 상품 내역(가이드일때만)
-        	
+    	
+    	
+    	<!-- 탭 기능 -->
+    	<div id="jb-footer">
+    	<div role="tabpanel">
+    	 <ul class="nav nav-pills" role="tablist">
+			  <li role="presentation" class="active"><a href="#private" role="tab" data-toggle="tab">개인패키지</a></li>
+			  <li role="presentation"><a href="#group" role="tab" data-toggle="tab">그룹패키지</a></li>
+		</ul>
+			<!--  탭 내용  -->
+			<div class="tab-content">
+			
+			<!-- 개인패키지 -->
+			<div role="tabpanel" class="tab-pane fade in active" id="private">
         	<div style="margin-left: 20px; margin-top: 10px;">
-        	<div id="jb-footer1" class="hover1">1</div>
-        	<div id="jb-footer2" class="hover2">2</div>
-        	<div id="jb-footer3" class="hover3">3</div>
-        	<div id="jb-footer4" class="hover4">4</div>
+        	<c:forEach items="${ list2 }" var="list2">
+        	<div id="jb-footer1" class="hover1">
+        	<img style="width: 180px; height: 180px;" src="<c:url value='/resources/images/package_img/123.jpg' />" alt=""></div>
+        	</c:forEach>
+        	</div>
+        	</div>
+        	
+        	
+        	<!-- 단체패키지 -->
+        	<div role="tabpanel" class="tab-pane fade in" id="group">
+        	되나?
+        	</div>
+        	
         	</div>
         </div>
-      
-        </div>
+      	</div>
+      	</div>
+      	
+      	</div>
+      	<!-- 구매내역 -->
+      	<div role="tabpanel" class="tab-pane fade in active" id="purchase"></div>
+      	
+      	<!-- Q&A -->
+      	<div role="tabpanel" class="tab-pane fade in active" id="QnA"></div>
+      	
+      	<!-- 비밀번호변경 -->
+      	<div role="tabpanel" class="tab-pane fade in active" id="change"></div>
+      	
+      	<!-- 결제 -->
+      	<div role="tabpanel" class="tab-pane fade in active" id="pay"></div>
+    
+    
+    
+    
+       
        </div>
-       </font>
       
+       </div> 
+       </font>   
   </body>
 </html>

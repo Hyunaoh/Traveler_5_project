@@ -90,4 +90,11 @@
 		WHERE PACKAGE_STATUS=0
 		ORDER BY PACKAGE_REGDATE DESC;
     </select>
+    
+    <!-- ID당 패키지 불러오기 -->
+    <select id="selectPackage_id" resultType="com.traveler.model.MemberVO">
+    	SELECT *
+    	FROM PACKAGE
+    	WHERE member_id = #{member_id}
+    </select>
 </mapper>

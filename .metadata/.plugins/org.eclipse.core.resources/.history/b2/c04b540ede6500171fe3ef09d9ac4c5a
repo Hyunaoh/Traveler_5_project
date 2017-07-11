@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+    
+<mapper namespace="com.traveler.dao.PackageDAO">
+	
+     <!--승인 완료 된 게시글 불러오기(Client에게 노출될 리스트) -->
+	<select id="getAllPackage" resultType="com.traveler.model.PackageVO">
+		SELECT *
+		FROM PACKAGE
+		WHERE PACKAGE_STATUS=1
+		ORDER BY PACKAGE_REGDATE DESC;
+    </select>
+    
+     <!-- 추가 -->
+    <insert id="insertPackage" parameterType="com.traveler.model.PackageVO">
+    	INSERT INTO PACKAGE (
+    		PACKAGE_TITLE, PACKAGE_CONTENT, PACKAGE_PLACE1,
+    		PACKAGE_PLACE2, PACKAGE_PLACE3, PACKAGE_LEADTIME,
+    		MEMBER_ID, PACKAGE_REGDATE, PACKAGE_IMAGE)
+         VALUES ( #{package_title}, #{package_content}, #{package_place1},
+         		  #{package_place2},#{package_place3},#{package_leadTime},
+         		  #{member_id},now(), #{package_image})
+    </insert>
+    
+     <!-- 전체 게시물 수 -->
+    <select id="countTotalPackage" resultType="Integer">
+    	SELECT COUNT (*)
+    	FROM PACKAGE    
+    </select>
+  
+     <!-- 국가로 게시글 찾기 -->
+    <select id="searchPackage" resultType="com.traveler.model.PackageVO">
+    	SELECT *
+    	FROM PACKAGE
+    	WHERE PACKAGE_PLACE1 = #{package_place1} AND
+   			PACKAGE_STATUS=1
+    </select>
+
+     <!-- 특정 게시글 불러오기 -->
+    <select id="selectPackage" resultType="com.traveler.model.PackageVO">
+    	SELECT *
+    	FROM PACKAGE
+    	WHERE PACKAGE_PK = #{package_pk}
+    </select>
+    
+     <!-- 삭제 -->
+    <delete id ="deletePackage" parameterType="com.traveler.model.PackageVO">
+    	DELETE FROM PACKAGE
+    	WHERE PACKAGE_PK = #{package_pk}
+    </delete>
+    
+     <!-- 수정 -->
+    <update id ="updatePackage" parameterType="com.traveler.model.PackageVO">
+    	UPDATE PACKAGE
+    	<set>
+			<if test="package_title != null and package_title !=''">
+				PACKAGE_TITLE = #{package_title},
+			</if>
+			<if test="package_content != null and package_content !=''">
+				PACKAGE_CONTENT = #{package_content},
+			</if>
+			<if test="package_place1 != null and package_place1 !=''">
+				PACKAGE_PLACE1 = #{package_place1},
+			</if>
+			<if test="package_place2 != null and package_place2 !=''">
+				PACKAGE_PLACE2 = #{package_place2},
+			</if>
+			<if test="package_place3 != null and package_place3 !=''">
+				PACKAGE_PLACE3 = #{package_place3},
+			</if>
+			<if test="package_leadTime != null and package_leadTime !=''">
+				PACKAGE_LEADTIME = #{package_leadTime},
+			</if>
+			<if test="package_hit != null and package_hit !=''">
+				PACKAGE_HIT = #{package_hit}
+			</if>
+			<if test="package_status != null and package_status !=''">
+				PACKAGE_STATUS = #{package_status}
+			</if>
+		</set>
+		WHERE PACKAGE_PK = #{package_pk}
+    </update>
+    
+    <!-- 미승인 상태의 게시물 불러오기 -->
+    <select id="getUnapprovedPackage" resultType="com.traveler.model.PackageVO">
+		SELECT *
+		FROM PACKAGE
+		WHERE PACKAGE_STATUS=0
+		ORDER BY PACKAGE_REGDATE DESC;
+    </select>
+</mapper>
