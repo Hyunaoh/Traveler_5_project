@@ -113,7 +113,7 @@
 										<label for="email">내용</label>
 										<input type="text" value="${list.plan_content}" name="plan_content" class="form-control"/>
 									</div>
-										<input type="text" value="${list.plan_img}" name="plan_img" class="form-control"/>
+										<input type="hidden" value="${list.plan_img}" name="plan_img" class="form-control"/>
 								</div>
 							</div>
 						<br><hr><br><br>
