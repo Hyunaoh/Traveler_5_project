@@ -99,7 +99,6 @@ public class PlanController {
 		String sessionID = principal.getName();
 		planVO_in.setPlan_writer(sessionID);
 
-		System.out.println(planVO_in.toString());
 		// insert
 		boolean check = false;
 		PlanDAO planDAO = sqlSession.getMapper(PlanDAO.class);
@@ -196,7 +195,6 @@ public class PlanController {
 		String sessionID = principal.getName();
 		planVO_in.setPlan_writer(sessionID);
 
-		System.out.println(planVO_in.toString());
 		// update
 		boolean check = false;
 		PlanDAO planDAO = sqlSession.getMapper(PlanDAO.class);
