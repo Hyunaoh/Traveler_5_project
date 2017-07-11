@@ -179,7 +179,7 @@
                 		<h4><font color="red">회원만 글을 작성 할 수 있습니다.</font></h4>
                 	</se:authorize>
                 	<se:authorize access="hasRole('ROLE_MEMBER')">
-                		<a href="">추가정보 입력하기</a>
+                		<a href="<c:url value="../member/mypageForm.go" />">추가정보 입력하기</a>
                 		<h4><font color="red">추가 정보 입력 후 글을 작성 할 수 있습니다.</font></h4>
                 	</se:authorize>
                 	<se:authorize access="hasAnyRole('ROLE_VIP', 'ROLE_GUIDE', 'ROLE_ADMIN')">
