@@ -834,21 +834,8 @@ a:hover {
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
-
-
-<!-- <style type="text/css">
-	#message_tb {display: table; width: 100%;}
-	.message_row {display: table-row;}
-	.cell {display: table-cell; border-bottom: 1px solid #DDD;}
-	.col2 {width: 140px; position: absolute;} 	
-	.col3 {width: 140px; position: absolute;} 	
-	.col4 {display: inline-block; width: 200px; position: absolute;}	
-	.col5 {width: 40px; position: absolute;}	
-	.col6 {width: 10px; position: absolute;} 	
-</style> -->
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <script type="text/javascript">
 
 	/* 버튼 삭제 이벤트 */
@@ -859,241 +846,29 @@ a:hover {
 		    return;
 		}
 	}
-	
 
-	/* 쪽지함 Ajax */
-	$(document).ready(function(){
-	
-		/* 받은 메세지함 */
-		$("#messageGet").click(function() { 
-
-				var dataForm = {
-					message_get: $("#username").val()
-				};
-				
-				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-					url : "messageViewAjax.go",
-					method : 'POST',
-					type : 'json',
-					data : JSON.stringify(dataForm),
-					contentType : "application/json",
-					success : function(result) {
-						
-						$("#messageView").html("<li class='unread'>"
-								+"<div class='col col-1'>"
-								+"<p class='title'> 받은사람 </p></div>"
-								+"<div class='col col-2'>"
-								+"<div class='subject'>제목 </div>"
-								+"<div class='date'>받은시간</div></div></li>");
-						
-								for(var i = 0; i <= Object.keys(result).length; i++){
-										
-									$("#messageView").append(
-											
-											"<li class='unread'>"
-											+"<div class='col col-1'><span class='dot'></span>"
-											+"<div class='checkbox-wrapper'> "
-											+"<input type='checkbox' id='chk1'>"
-											+"<label for='chk1' class='toggle'></label></div>"
-											+"<p class='title'>" + result[i].message_send + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
-											+"<div class='col col-2'>"
-											+"<div class='subject'>" + result[i].message_message + "</div>"
-											+"<div class='date'>" + result[i].message_date +"</div></div></li>"
-										); 
-									
-									// 해당 컬럼 삭제하기
-									
-									$("#deleteGetBtn").click(function() { 
-										alert(message_seq);
-										
-										var dataForm = {
-											message_seq:  $("#message_seq").val()
-										};
-										
-										delete_event();
-										$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-											url : "messageGetDeleteAjax.go",
-											method : 'POST',
-											type : 'json',
-											data : JSON.stringify(dataForm),
-											contentType : "application/json",
-											success : function(result) {
-												if(result > 0){
-													$("#messageView").append("<br/><br/>쪽지 삭제에 성공하였습니다."); 
-												} else {
-													$("#messageView").append("<br/><br/>쪽지 삭제에 실패하였습니다. 다시 시도해주세요."); 
-												}
-											},
-											error : function(result, status, er) {
-												$("#messageView").text(er);
-											}
-										});
-									}); 	// 해당 컬럼 삭제 괄호 닫기
-									
-								}
-						},
-					error : function(result, status, er) {
-						$("#messageView").text(er);
-					}
-				});
-				
-			});
-	
-		/* 보낸메세지함 */
-		$("#messageSend").click(function() { 
-			
-				var dataForm = {
-					message_send: $("#username").val()
-				};
-				
-				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-					url : "messageViewAjax.go",
-					method : 'POST',
-					type : 'json',
-					data : JSON.stringify(dataForm),
-					contentType : "application/json",
-					success : function(result) {
-						
-						$("#messageView").html("<li class='unread'>"
-								+"<div class='col col-1'>"
-								+"<p class='title'> 보낸사람 </p></div>"
-								+"<div class='col col-2'>"
-								+"<div class='subject'>제목 </div>"
-								+"<div class='date'>보낸시간</div></div></li>");
-						
-								for(var i = 0; i <= Object.keys(result).length; i++){
-										
-									$("#messageView").append(
-											
-											"<li class='unread'>"
-											+"<div class='col col-1'><span class='dot'></span>"
-											+"<div class='checkbox-wrapper'> "
-											+"<input type='checkbox' id='chk1'>"
-											+"<label for='chk1' class='toggle'></label></div>"
-											+"<p class='title'>" + result[i].message_get + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
-											+"<div class='col col-2'>"
-											+"<div class='subject'>" + result[i].message_message + "</div>"
-											+"<div class='date'>" + result[i].message_date +"</div></div></li>"
-										); 
-							
-							$("#deleteSendBtn").click(function() { 
-								
-								var dataForm = {
-									message_seq:  $("#message_seq").val()
-								};
-								
-								alert(message_seq);
-								delete_event();
-								
-								$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-									url : "messageSendDeleteAjax.go",
-									method : 'POST',
-									type : 'json',
-									data : JSON.stringify(dataForm),
-									contentType : "application/json",
-									success : function(result) {
-										if(result > 0){
-											$("#messageView").append("<br/><br/>쪽지 삭제에 성공하였습니다."); 
-										} else {
-											$("#messageView").append("<br/><br/>쪽지 삭제에 실패하였습니다. 다시 시도해주세요."); 
-										}
-									},
-									error : function(result, status, er) {
-										$("#messageView").text(er);
-									}
-								});
-							}); 	// 해당 컬럼 삭제 괄호 닫기
-					}
-				},
-					error : function(result, status, er) {
-						$("#messageView").text(er);
-					}
-				});
-			});
-	
-			/* 메세지 보내기  폼*/
-			$("#messageWrite").click(function() { 
-				
-				$("#messageView").html(
-						 "보내는 사람 : <input type='text' id='message_send' name='message_send' value='<se:authentication property='principal.username' />' readonly/>"
-						+"<br/>받는 사람    : <input type='text' id='message_get' name='message_get' />"
-						+"<br/>메세지 내용 : <br/><textarea rows='10' cols='40' id='message_message' name='message_message' ></textarea>"
-						+"<br/><input type='button' id='submitWriteForm' value='보내기' />");
-				
-				/* 메세지 보내기 */
-				$("#submitWriteForm").click(function() { 
-					
-					var dataForm = {
-						message_send: $("#message_send").val(),
-						message_get: $("#message_get").val(),
-						message_message: $("#message_message").val()
-					};
-					
-					$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-						url : "messageWriteAjax.go",
-						method : 'POST',
-						type : 'json',
-						data : JSON.stringify(dataForm),
-						contentType : "application/json",
-						success : function(result) {
-							if(result > 0){
-								$("#messageView").append("<br/><br/>쪽지 발송에 성공하였습니다.");
-							} else {
-								$("#messageView").append("<br/><br/>쪽지 발송에 실패하였습니다. 다시 시도해주세요."); 
-							}
-						},
-						error : function(result, status, er) {
-							$("#messageView").text(er);
-						}
-					});
-				});
-			});
-		});
-		
 </script>
 </head>
+
 <body>
 	<div style="margin-top: 0px">
 		<jsp:include page="../header.jsp" />
 	</div>
-	<%-- 
-	<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
-		<div class="fh5co-overlay"></div>
 	
-	 	<div class="container" style="width: 80%;" align="center">
-     		
-     			<div class="col-md-12 section-heading text-center to-animate">
-     				쪽지함
-				</div>
-				
-				<div class="fh5co-counter col-lg-8">
-					<p>현재 접속자 아이디 : <se:authentication property='principal.username' /></p>
-					<span class="input-group-btn" style="height:100%;">
-						<input class="btn btn-default"  type="button" id="messageGet" name="messageGet" value="받은쪽지함">
-						<input class="btn btn-default"  type="button" id="messageSend" name="messageSend" value="보낸쪽지함">
-						<input class="btn btn-default"  type="button" id="messageWrite" name="messageWrite" value="쪽지작성화면">
-					</span>
-				</div>
-
-				 <div class="fh5co-counter col-lg-10">
-					<input type="hidden" id="username" name="username" value="<se:authentication property='principal.username' />" />
-					<p id="messageView">상단의 메뉴를 선택해주세요.</p>
-				</div>
-			
-		</div>
-	</section> --%>
 	
   <aside id="sidebar" class="nano">
-  <div class="nano-content">
-    <div class="logo-container"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">Compose</a>
-    <menu class="menu-segment">
+  <div class="nano-content" style="margin-top: 50px">
+    <div class="logo-container" style="font-size: 40px;"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">Compose</a>
+
+    <!-- 왼쪽 메뉴바 -->
+    <menu class="menu-segment" id="list_message">
       <ul>
-        <li class="active"><a class="btn_list" href="#">쪽지함<span id="totalMessage">(43)</span></a></li>
-        <li><a href="#" id="messageGet" >받은메세지함</a></li>
-        <li><a href="#" id="messageSend">보낸메세지함</a></li>
+        <li><a href="#" id="messageGet" >받은메세지함<span>
+        <input type="hidden" id="messageGet_total"  value="${ messageGet_total }" />(${ messageGet_total })</span></a></li>
+        <li><a href="#" id="messageSend">보낸메세지함<span>
+        <input type="hidden" id="messageSend_total" value="${ messageSend_total }" />(${ messageSend_total })</span></a></li>
         <li><a href="#" id="messageWrite">메세지보내기</a></li>
         <li><a href="#">쓰레기통</a></li>
-        <li><input type="hidden" id="username" name="username" value="<se:authentication property='principal.username' />" /></li>
       </ul>
     </menu>
     <div class="separator"></div>
@@ -1101,6 +876,7 @@ a:hover {
       <ul class="labels">
         <li class="title">현재 아이디 <span class="icon">+</span></li>
         <li><a href="#"><se:authentication property='principal.username' /><span class="ball pink"></span></a></li>
+     	<li><input type="hidden" id="username" name="username" value="<se:authentication property='principal.username' />" /></li>
       </ul>
     </div>
     <div class="separator"></div>
@@ -1108,9 +884,6 @@ a:hover {
       <ul class="chat">
         <li class="title">Chat <span class="icon">+</span></li>
         <li><a href="#"><span class="ball green"></span>Laura Turner</a></li>
-        <li><a href="#"><span class="ball green"></span>Kevin Jones</a></li>
-        <li><a href="#"><span class="ball blue"></span>John King</a></li>
-        <li><a href="#"><span class="ball blue"></span>Jenny Parker</a></li>
         <li><a href="#"><span class="ball blue"></span>Paul Green</a></li>
         <li><a href="#" class="italic-link">See offline list</a></li>
       </ul>
@@ -1137,6 +910,8 @@ a:hover {
   </div>
   <div id="main-nano-wrapper" class="nano">
     <div class="nano-content">
+    
+    <!-- 메세지 뷰 부분 -->
       <ul class="message-list" id="messageView">
         <li class="unread">
           <div class="col col-1"><span class="dot"></span>
@@ -1273,6 +1048,8 @@ a:hover {
     </div>
   </div>
 </main>
+
+<!-- 오른쪽 메일 상세보기 -->
 <div id="message">
   <div class="header">
     <h1 class="page-title"><a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>Process<span class="grey">(6)</span></h1>
@@ -1411,8 +1188,11 @@ a:hover {
     </div>
   </div>
 </div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="resources/js/message/message_view.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="../../../resources/js/message/message_view.js"></script>
+<script src="../../../resources/js/message/message_ajax.js"></script>
+	
 	
 </body>
 </html>
