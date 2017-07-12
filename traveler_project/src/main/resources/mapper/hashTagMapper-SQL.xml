@@ -4,6 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
 <mapper namespace="com.traveler.dao.HashTagDAO">
 
+	<!--  해시태그 테이블에서 특정 단어 있는지 검색 -->
+   <select id="getHashTag" resultType="com.traveler.model.HashTagVO">
+ 		SELECT * FROM 
+ 			HASHTAG
+   </select>
+
 	<!-- 해시태그 테이블에 insert 하기 -->
     <insert id="insertHashTag" parameterType="String">
     	INSERT INTO HASHTAG(HASHTAG_TAG) 
@@ -11,9 +17,12 @@
     </insert>
     
    <!--  해시태그 테이블에서 특정 단어 있는지 검색 -->
-   <select id="getHashTag" resultType="com.traveler.model.HashTagVO">
- 		SELECT * FROM 
- 			HASHTAG
+   <select id="getSpecificHashTag" parameterType="com.traveler.model.HashTagVO" resultType="Integer">
+ 		SELECT COUNT(*) 
+ 			FROM HASHTAG
+ 			WHERE HASHTAG_TAG=#{hashTag_tag}
+ 			
    </select>
+
 	
 </mapper>

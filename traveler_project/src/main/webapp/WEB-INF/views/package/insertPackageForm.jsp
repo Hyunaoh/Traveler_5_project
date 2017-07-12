@@ -3,22 +3,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html>
 <head>
 <title>Insert title here</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- 유효성 검사 -->
-<script type="text/javascript">
-	function checkNull(){
-		
-		
-	}
-
-
-</script>
 
 
 <script>
 
-	$(function() {
+	$(document).ready(function() {
+		
+		 /* 해시태그 자동완성 */
+		var availableTags = new Array();
+		var taglist = document.getElementsByName("tag");
+		for(var i = 0 ; i < taglist.length; i++){
+			availableTags.push(taglist[i].value);
+		}
+		$('[name="package_tag"').autocomplete({
+		      source: availableTags
+		      });
+		
+		/*해시태그 칸 추가했을 시*/
+		$("#add_div").click(function add_div(){
+		    var div = document.createElement('div');
+		    div.innerHTML = document.getElementById('tagdiv').innerHTML;
+		    document.getElementById('field').appendChild(div);
+		    $('[name="package_tag"').autocomplete({
+			      source: availableTags
+			      });
+		});
+		
+		
+	    /* 국가 셀렉박스 */
 		$("#place2").hide();
 		$("#place1").change(function() {
 			$("#place2").show();
@@ -149,17 +166,29 @@
 </script>
 
 <script type="text/javascript">
-	function add_tag(){
-		
-		
+	
+	function remove_div(obj){
+	document.getElementById('field').removeChild(obj.parentNode);
 	}
 
 </script>
 
+
+
+
 </head>
 <body>
-	<!-- <h4>상품 등록하기</h4>
-	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data"> -->
+
+	 <!--헤더 넣으니까 왜 안돼지.....????????????이상하다......-->
+	<%--  <!-- header -->
+	<jsp:include page="../header.jsp" />   --%>
+	
+			<br>
+			<br>
+			<br>
+	
+	<h1>상품 등록하기</h1>
+	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
 		<input type="text" name="package_title" placeholder="제목을 입력해주세요" required="required">
 		<select name="package_place1" id="place1" required="required" >
 			<option>나라 선택</option>
@@ -181,12 +210,16 @@
 		<textarea name="package_place3" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
 		<br>
 		
-		<form action="testHashTag.go" method="get">
-			<p id="area_text3">해시태그 : </p>
-			<input type="text" id="package_tag" name="package_tag" placeholder="#기호로 구분해 입력해주세요">
-			<br><font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font>
-			<input type="submit">
-		</form>
+		<p id="area_text3">해시태그 : </p>
+			<input type="button" id="add_div" value="해시태그 추가"><br/>
+			<div id="tagdiv">
+				<input type="text" name="package_tag" placeholder="해시태그" required="required">
+				<input type="button" value="삭제" onclick="remove_div(this)">
+			</div>
+
+			<div id="field">
+			</div>
+			<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
 		
 		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
 		<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
@@ -197,7 +230,12 @@
 		
 		<input type = "submit" value="등록" >
 	
-	<!-- </form> -->
+	</form>
+	
+		<!-- 해시태그 리스트 Jquery로 전달하기 위한.. -->
+		<c:forEach items="${tagList}" var="list">
+			<input type="hidden" name="tag" value="${list}">		
+		</c:forEach>
 
 </body>
 </html>

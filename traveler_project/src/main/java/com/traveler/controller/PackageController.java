@@ -34,14 +34,16 @@ public class PackageController {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping("testHashTag.go")
+	/*@RequestMapping("testHashTag.go")
 	public String testHashTag(PackageVO packageVO, HashTagVO hashTagVO) throws Exception{
+		
+		System.out.println("어떻게 받아오나"+packageVO.getPackage_tag());
 
 		splitHashTag(packageVO.getPackage_tag());
 		
 		return "/package/getListForm";
 	}
-	
+	*/
 	//패키지 전체 목록 띄워주기
 	@RequestMapping("getAllPackage.go")
 	public String getAllpackage(Model model) throws Exception{
@@ -66,7 +68,19 @@ public class PackageController {
 	@RequestMapping("insertPackageForm.go")
 	public String insertPackageForm(Model model, Principal principal) throws Exception{
 		System.out.println("insertPackageForm 컨트롤러 진입");
+		
+		HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
+		
+		//DB에 등록되어있는 해시태그들 담아서 넘기기
+		List<String> list = new ArrayList<>();
+		
+		for(int i = 0 ; i <hashTagDAO.getHashTag().size(); i++){
+			list.add(hashTagDAO.getHashTag().get(i).getHashTag_tag());
+		}
+		
+		model.addAttribute("tagList", list);
 	//	model.addAttribute("sessionId", principal.getName());
+		
 		
 		return "/package/insertPackageForm";
 	}
@@ -112,6 +126,9 @@ public class PackageController {
 		if(packageDAO.insertPackage(packageVO) > 0){
 			check=true;
 		}
+		
+		//해시태그
+		splitHashTag(packageVO.getPackage_tag());
 		
 		return "redirect:getAllPackage.go";
 	}
@@ -239,49 +256,31 @@ public class PackageController {
 		public void splitHashTag(String in_hashTag) throws Exception{
 			HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
 			
-			//이미 해시태그로 등록되어있는 태그 담아놓기
-			List<HashTagVO> searchResult = hashTagDAO.getHashTag();
-			
-			/////////////테스트용 시스아웃//////////////
-			System.out.println("----서치리스트 아웃 테스트------");
-			for(int i = 0 ; i<searchResult.size() ; i++){
-				
-				System.out.println(searchResult.get(i).getHashTag_tag());
-			}
-			
 			//스플릿로 끊어서 배열로 담기
 			String[] tagList ;
 			
-			tagList = in_hashTag.split("#");
-			
+			tagList = in_hashTag.split(",");
+			/*
 			System.out.println("------------스플릿 잘 되는지 테스트----------");
 			for(int i = 0 ; i <tagList.length ; i++){
 				System.out.println(tagList[i]);
 			}
-			
+			*/
 			
 			//이미 있는 해시태그인지 비교
-				for(int j = 0 ; j <tagList.length ; j++){
-					for(int i = 0 ; i < searchResult.size(); i++){
-					if (tagList[j].equals(searchResult.get(i).getHashTag_tag())){
-						break;
-					}else if(!tagList[j].equals(searchResult.get(i).getHashTag_tag())){
-						hashTagDAO.insertHashTag(tagList[j]);
-						break;
-					}
+			HashTagVO vo = new HashTagVO();
+			
+			for(int i =0 ; i <tagList.length ; i++){
+				vo.setHashTag_tag(tagList[i]);
+				int result = hashTagDAO.getSpecificHashTag(vo);
+				if(result==0){//db에 없는 값이라면
+					System.out.println("없는 값="+tagList[i]);
+					hashTagDAO.insertHashTag(tagList[i]);
 				}
-				
 			}
-			
-			/*/////////////테스트용 시스아웃//////////////
-			System.out.println("----아웃 테스트------");
-			for(int i = 0 ; i<list.size() ; i++){
-				
-				System.out.println(list.get(i));
-			}
-				*/
-			
+					
 			
 		}
 	
 }
+		

@@ -66,22 +66,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
-					<h2 class="to-animate">Testimonials</h2>
+				
+					<h2 class="to-animate">패키지 게시글 승인하기</h2>
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 subtext to-animate">
-							<h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
+							<h3>게시물 확인 후 승인바랍니다</h3>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 subtext to-animate">
-							<table>
-								<button id="blackList" onclick="blackList()">블랙리스트만 보기</button>								
-							
-							</table>
-						</div>
-						
-					
-					</div>
+				
 				</div>
 			</div>
 			<div class=" fh5co-intro container">
