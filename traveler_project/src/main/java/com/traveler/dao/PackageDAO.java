@@ -35,4 +35,6 @@ public interface PackageDAO {
 	//미승인 게시글 불러오기
 	public List<PackageVO> getUnapprovedPackage() throws Exception;
 	
+	
+	
 }

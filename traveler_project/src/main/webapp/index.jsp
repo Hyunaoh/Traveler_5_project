@@ -9,4 +9,5 @@
 	<body onload = "location='home.go'">
 	please wait, loading...
 </body>
+
 </html>
