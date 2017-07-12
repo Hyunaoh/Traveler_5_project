@@ -42,7 +42,24 @@ public class MessageController {
 	static int count;
 
 	@RequestMapping("/messageListView.go")
-	public String messageListView() {
+	public String messageListView(Model model, Principal pr) throws Exception {
+		
+		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+		MessageVO mVo = new MessageVO();
+		
+		// 해당 아이디 보낸사람 개수 
+		mVo.setMessage_send(pr.getName());
+		int messageSend_total = mDao.countMessage(mVo);
+		
+		// 해당 아이디 받은사람 개수
+		mVo.setMessage_send(null);
+		mVo.setMessage_get(pr.getName());
+		
+		int messageGet_total = mDao.countMessage(mVo);
+		
+		model.addAttribute("messageGet_total", messageGet_total);
+		model.addAttribute("messageSend_total", messageSend_total);
+		
 		return "/message/messageListView";
 	}
 
@@ -125,16 +142,14 @@ public class MessageController {
 	// 메세지 리스트의 Ajax
 	@ResponseBody
 	@RequestMapping("/messageViewAjax.go")
-	public List<MessageVO> messageGetViewAjax(Model model, @RequestBody MessageVO mVo, Principal principal) {
+	public List<MessageVO> messageGetViewAjax(Model model, @RequestBody MessageVO mVo, Principal principal) throws Exception {
 
 		System.out.println("보낸/받은 메세지함 Ajax실행");
 
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 
 		List<MessageVO> mList = mDao.selectByIdMessage(mVo);
-
-		System.out.println(mList);
-
+		
 		return mList;
 	}
 

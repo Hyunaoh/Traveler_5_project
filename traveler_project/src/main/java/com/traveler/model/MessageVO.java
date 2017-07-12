@@ -17,8 +17,7 @@ public class MessageVO {
 	private String message_message;
 	private String message_date;
 	private String message_read;
-	// 0 : 안읽음 / 1 : 읽음
-
+	
 	public MessageVO() {
 
 	}
@@ -77,16 +76,16 @@ public class MessageVO {
 		
 		// 받아온 날짜가 오늘 날짜라면,
 		if(mDate.equals(today)){
-			sdf = new SimpleDateFormat("a hh:mm");
+			sdf = new SimpleDateFormat("a HH:mm");
 			
 		// 받아온 날짜가 다른 날이라면,
 		} else {
 			sdf = new SimpleDateFormat("MM/dd");
 		}
 		
-		mDate = sdf.format(message_date);
+		String res = sdf.format(message_date);
 		
-		this.message_date = mDate;
+		this.message_date = res;
 	}
 	
 	
@@ -98,12 +97,12 @@ public class MessageVO {
 		this.message_read = message_read;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "[ 받은 메세지 ]"
-				+ "보낸아이디 : " + message_send
-				+ "\n메세지 : " + message_message
-				+ "\n날짜 : " + message_date;
+		return "MessageVO [message_seq=" + message_seq + ", message_send=" + message_send + ", message_get="
+				+ message_get + ", message_message=" + message_message + ", message_date=" + message_date
+				+ ", message_read=" + message_read +  "]";
 	}
 
 }

@@ -21,4 +21,7 @@ public interface MessageDAO {
 	// 보낸메세지 삭제
 	public int deleteSendMessage(MessageVO vo) throws Exception;
 	
+	// 받은 메세지 / 보낸메시지 개수 세기
+	public int countMessage(MessageVO vo) throws Exception;
+	
 }
