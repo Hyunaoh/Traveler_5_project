@@ -2,6 +2,8 @@ package com.traveler.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.traveler.model.MemberVO;
 
 public interface MemberDAO {
@@ -37,6 +39,14 @@ public interface MemberDAO {
 	public void deleteGuide(MemberVO memberVO);
 
 	public void updateIsGuide(MemberVO vo);
+
+	//페이징
+	public int getTotalCountOfNotice(MemberVO memberVO);
+
+	public List getPagePerList(MemberVO memberVO);
+
+
+
 
 	
 

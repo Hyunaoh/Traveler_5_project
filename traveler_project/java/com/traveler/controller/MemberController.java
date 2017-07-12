@@ -7,8 +7,11 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -210,24 +213,43 @@ public class MemberController {
 	}
 	
 	
+	//마이페이지
 	@RequestMapping("/mypageForm.go")
-	public String myPageForm(Model model, Principal principal)throws Exception{
+	public String myPageForm(MemberVO memberVO,Model model, Principal principal, HttpServletRequest request)throws Exception{
 		System.out.println("[system] access myPageForm! ");
 		
-		MemberVO memberVO=new MemberVO();
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		PackageDAO packageDAO=sqlSession.getMapper(PackageDAO.class);
 		
 		memberVO.setMember_id(principal.getName());
 		MemberVO list = memberDAO.selectMemberList(memberVO);
+
 		
-		List list2=packageDAO.selectPackage_id(memberVO);
+		// 페이징 처리
+		int totalCount = memberDAO.getTotalCountOfNotice(memberVO); //전체글수
+		final int page_size = 4;
+		if(memberVO.getPageNum() == 0){
+			memberVO.setPageNum(1); // default 값
+		}
+		memberVO.setStartNum(page_size * (memberVO.getPageNum() - 1));
+		memberVO.setEndNum(page_size * memberVO.getPageNum());
+		// 전체 페이지  개수
+		if(totalCount % page_size == 0){
+			memberVO.setPageTotalNum(totalCount / page_size);
+		} else {
+			memberVO.setPageTotalNum(1 + totalCount / page_size);
+		}
 		
+		List packageVO_result = memberDAO.getPagePerList(memberVO);
+		System.out.println(packageVO_result.toString());
+		//그룹패키지
 		model.addAttribute("list", list);
-		model.addAttribute("list2", list2);
+		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("page", memberVO);
+		model.addAttribute("currentPageNum", memberVO.getPageNum());
 		return "/member/mypage";	
 	}
-	
+
 	
 	//세부사항 insert
 	@RequestMapping("/memberInsertDetail.go")
@@ -236,23 +258,8 @@ public class MemberController {
 	return "/member/memberInsertDetail";
 	}
 
-	
-	@RequestMapping("/memberPurchase.go")
-	public String memberPurchase()throws Exception{
-		System.out.println("[system] access memberInsertDetail! ");
-	return "/member/memberPurchase";
-	}
-	
-	@RequestMapping("/memberAdvice.go")
-	public String memberAdvice()throws Exception{
-		System.out.println("[system] access memberInsertDetail! ");
-	return "/member/memberAdvice";
-	}
-	
-	
-	
-	
-	
+
+
 	
 //---------------------------------------------------------------------
 	@RequestMapping("/memberInsertDetailPro.go")

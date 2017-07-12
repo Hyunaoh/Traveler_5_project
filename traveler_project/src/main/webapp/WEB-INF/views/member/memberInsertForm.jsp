@@ -63,10 +63,11 @@
 	<jsp:include page="../header.jsp" />
 
 <section id="fh5co-counters">
-	<div class="container">
+	<font size="2">
+	<div class="container" style="width: 80%;">
 		<div class="page-header">
 			<h1>
-				회원가입 <small>폼</small>
+				회원가입
 			</h1>
 		</div>
 		<div class="col-md-6 col-md-offset-3">
@@ -170,6 +171,7 @@
 			</form>
 		</div>
 	</div>
+	</font>
 </section>
 </body>
 </html>

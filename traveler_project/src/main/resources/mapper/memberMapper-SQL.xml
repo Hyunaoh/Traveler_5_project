@@ -107,5 +107,27 @@
  	FROM GUIDE
  	WHERE MEMBER_ID=#{member_id}
  	</delete>
+ 	
+ 	<!-- 전체 리스트 개수 가져옴 -->
+	<select id = "getTotalCountOfNotice" resultType = "Integer" parameterType = "com.traveler.model.MessageVO">
+		SELECT COUNT(*)
+		FROM package
+		<where>
+			<if test="member_id != null and member_id != ''">
+				member_id = #{member_id}
+			</if>
+		</where>
+	</select>
+
+	<select id = "getPagePerList" resultType = "com.traveler.model.PackageVO" parameterType="com.traveler.model.MemberVO">
+		SELECT *
+		FROM Package
+		WHERE member_id=#{member_id}
+		and package_status = 1
+		ORDER BY package_regDate DESC
+		LIMIT #{startNum}, #{endNum}
+	</select>
+	
+	
  </mapper>
  

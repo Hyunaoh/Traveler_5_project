@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.traveler.dao.MemberDAO">
+ 	<insert id="insertMember" parameterType="com.traveler.model.MemberVO">
+ 	INSERT INTO MEMBER
+ 		(MEMBER_ID, MEMBER_PWD, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_GENDER, MEMBER_NATIONALITY, MEMBER_LANGUAGE, MEMBER_CERTIFICATION, MEMBER_TEL, MEMBER_EMAIL, MEMBER_POST, MEMBER_ADRR, MEMBER_ADDRDETAIL, MEMBER_PROFILE, MEMBER_ISGUIDE, MEMBER_JOINDATE)
+ 		VALUES
+ 		(#{member_id}, #{member_pwd}, #{member_name}, #{member_nickName}, #{member_gender}, #{member_nationality}, #{member_language}, #{member_certification}, #{member_tel}, #{member_email}, #{member_post}, #{member_adrr}, #{member_addrDetail}, #{member_profile}, #{member_isGuide}, now())
+ 	</insert>
+ 	
+ 	<insert id="insertRole" parameterType="com.traveler.model.MemberVO">
+ 	INSERT INTO ROLE
+ 		(MEMBER_ID, ROLE)
+ 		VALUES
+ 		(#{member_id}, 'ROLE_MEMBER')
+ 	</insert>
+ 	
+ 	<select id="selectMemberList" resultType="com.traveler.model.MemberVO">
+ 	SELECT * 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
+ 	
+ 	<select id ="selectMyPage" resultType="com.traveler.model.MemberVO">
+ 	SELECT * 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
+ 
+ 	<update id="updateMember" parameterType="com.traveler.model.MemberVO" >
+ 	 UPDATE member
+	    <set>
+	    	<if test="member_nationality != null and member_nationality != ''">
+	    		member_nationality = #{member_nationality}
+	    	</if>
+	    	<if test="member_language != null and member_language != ''">
+	    		,member_language = #{member_language}
+	    	</if>
+	    	<if test="member_certification != null and member_certification != ''">
+	    		,member_certification = #{member_certification}
+	    	</if>
+	    	<if test="member_post != null and member_post != ''">
+	    		,member_post = #{member_post}
+	    	</if>
+	    	<if test="member_adrr != null and member_adrr != ''">
+	    		,member_adrr = #{member_adrr}
+	    	</if>
+	    	<if test="member_addrDetail != null and member_addrDetail != ''">
+	    		,member_addrDetail = #{member_addrDetail}
+	    	</if>
+	    	<if test="member_profile != null and member_profile != ''">
+	    		,member_profile = #{member_profile}
+	    	</if>
+	    </set>
+	    WHERE member_id = #{member_id}
+ 	</update>
+ 	
+ 	<select id="selectAllMember" resultType="com.traveler.model.MemberVO">
+ 		SELECT *
+ 		FROM MEMBER
+ 		where member_isGuide = 2
+ 	</select>
+ 	
+ 	<update id="adminUpdateGuide" parameterType="com.traveler.model.MemberVO">
+ 		update member
+ 		<set>
+ 		<if test ="member_isGuide==2">
+ 			member_isGuide = 1
+ 		</if>
+ 		<if test="member_isGuide==1">
+ 			member_isGuide = 0
+ 		</if>
+ 		</set> 
+ 		where member_id = #{member_id}
+ 	</update>
+ 	
+ 	<update id="updateIsGuide" parameterType="com.traveler.model.MemberVO">
+ 		UPDATE MEMBER
+ 		SET MEMBER_ISGUIDE = 2
+ 		WHERE MEMBER_ID=#{member_id}
+ 	
+ 	</update>
+ 	<select id="selectMemberPwd" resultType="String">
+ 	SELECT MEMBER_PWD 
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</select>
+ 	
+ 	<delete id="memberDelete" parameterType="com.traveler.model.MemberVO">
+ 	DELETE
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{member_id}
+ 	</delete>
+ 	
+ 	<insert id="insertGuide" parameterType="com.traveler.model.MemberVO">
+ 	INSERT INTO GUIDE
+ 	(MEMBER_ID, GUIDE_REGDATE)
+ 	VALUES
+ 	(#{member_id}, now())
+ 	</insert>
+ 	
+ 	<delete id="deleteGuide" parameterType="com.traveler.model.MemberVO">
+ 	DELETE 
+ 	FROM GUIDE
+ 	WHERE MEMBER_ID=#{member_id}
+ 	</delete>
+ 	
+ 	<!-- 전체 리스트 개수 가져옴 -->
+	<select id = "getTotalCountOfNotice" resultType = "Integer" parameterType = "com.traveler.model.MessageVO">
+		SELECT COUNT(*)
+		FROM package
+		<where>
+			<if test="member_id != null and member_id != ''">
+				member_id = #{member_id}
+			</if>
+		</where>
+	</select>
+
+	<select id = "getPagePerList" resultType = "com.traveler.model.PackageVO" parameterType="com.traveler.model.MemberVO">
+		SELECT *
+		FROM Package
+		WHERE member_id=#{member_id}
+		ORDER BY package_regDate DESC
+		LIMIT #{startNum}, #{endNum}
+	</select>
+	
+	
+ </mapper>
+ 

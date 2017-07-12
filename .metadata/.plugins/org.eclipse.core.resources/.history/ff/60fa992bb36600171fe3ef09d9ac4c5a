@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.traveler.dao.MessageDAO">
+
+	<select id="selectAllMessage" resultType="com.traveler.model.MessageVO">
+		select * from message
+	</select>
+	
+	<select id="searchMessage" resultType="com.traveler.model.MessageVO">
+		select * from message where message_message like '#{message_message}'
+	</select>
+	
+	<select id="selectByIdMessage" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
+		select * from message 
+		where 
+		<choose>
+			<when test="message_get != null">
+			message_get=#{message_get} and
+			message_get_flag=0 
+			</when>
+			<when test="message_send != null">
+			message_send=#{message_send} and
+			message_send_flag=0 
+			</when>
+		</choose>
+		order by message_date desc
+		
+	</select>
+	
+	<insert id="insertMessage" parameterType="com.traveler.model.MessageVO">
+		insert into message ( 
+		  message_send
+	  	, message_get
+	  	, message_message
+	  	, message_date) 
+		values(#{message_send},#{message_get},#{message_message}, now());
+	</insert>
+	
+	<update id="deleteGetMessage" parameterType="com.traveler.model.MessageVO">
+		update message set message_get_flag=1 where message_seq=#{message_seq}
+	</update>
+	
+	<update id="deleteSendMessage" parameterType="com.traveler.model.MessageVO">
+		update message set message_send_flag=1 where message_seq=#{message_seq}
+	</update>
+	
+	<!-- 전체 리스트 개수 가져옴 -->
+	<select id = "getTotalCountOfNotice" resultType = "Integer" parameterType = "com.traveler.model.MessageVO">
+		SELECT COUNT(*)
+		FROM package
+		<where>
+			<if test="store_code != null and store_code != ''">
+				member_id = #{member_id}
+			</if>
+		</where>
+	</select>
+</mapper>
