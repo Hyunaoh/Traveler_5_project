@@ -479,6 +479,7 @@ h1, h2, h3, h4, h5, h6 {
   vertical-align: middle;
   padding: 40px;
   background: #fff;
+  
   -webkit-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
   -moz-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
   -ms-box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.4);
