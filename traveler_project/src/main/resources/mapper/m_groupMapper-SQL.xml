@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.traveler.dao.M_groupDAO">
+	<!-- 전체 리스트 -->
+	<insert id="insert" parameterType="com.traveler.model.M_groupVO">
+		INSERT INTO GROUP_MEM
+			(GROUP_MEM_PACKAGE_PK, GROUP_MEM_RESERVE_ID, GROUP_MEM_ID, GROUP_MEM_NAME, GROUP_MEM_AGE,
+				GROUP_MEM_GENDER, GROUP_MEM_STATUS)
+		VALUES(#{group_mem_package_pk}, #{group_mem_reserve_id}, #{group_mem_id}, #{group_mem_name}, #{group_mem_age},
+				#{group_mem_gender}, 0)
+	</insert>
+	<select id="countAll" parameterType="com.traveler.model.M_groupVO" resultType="Integer">
+		SELECT COUNT(*)
+		FROM GROUP_MEM
+		WHERE group_mem_package_pk = #{group_mem_package_pk}
+	</select>
+</mapper>
