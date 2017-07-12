@@ -45,6 +45,8 @@ function alarm_access() {
 						 + alarm_msg.message_message);
 						   
 					}
+				} else {
+					
 				}
 			} else {
 					// alert("Error loading "+url+",
