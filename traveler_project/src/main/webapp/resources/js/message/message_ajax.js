@@ -217,13 +217,13 @@
 								+"<input id='message_send' class='form-control' type='text' value='<se:authentication property='principal.username' />' readonly /></div>"					
 								+"<div class='form-group'><label for='message_get' class='sr-only'>message_get</label>"
 								+"<input id='message_get' class='form-control' placeholder='받는 사람' type='text'></div>"
-								+"<div class='form-group'><label for='message' class='sr-only'>Message</label>"
+								+"<div class='form-group'><label for='message_message' class='sr-only'>Message</label>"
 								+"<textarea name='message' id='message_message' cols='10' rows='10' class='form-control' placeholder='Message'></textarea></div>"
 								+"<div class='form-group'>"
-								+"<input class='btn btn-primary btn-lg' value='Send Message' type='submit'></div>");
+								+"<input class='btn btn-primary btn-lg' id='submitWriteForm' value='Send Message' type='submit'></div>");
 						
 				/* 메세지 보내기 */
-				$("#submitWriteForm").click(function() { 
+				$("#submitWriteForm").click(function() {
 					
 					var dataForm = {
 						message_send: $("#message_send").val(),
