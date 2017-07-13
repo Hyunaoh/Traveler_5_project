@@ -34,6 +34,7 @@ function alarm_access() {
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
+					if(xmlhttp.responseText != ''){
 
 					var alarm_msg = JSON.parse(xmlhttp.responseText);
 
@@ -42,9 +43,12 @@ function alarm_access() {
 						 + alarm_msg.message_send 
 						 + "<br/>메세지 내용 : "
 						 + alarm_msg.message_message);
+						   
 					}
-
 				} else {
+					
+				}
+			} else {
 					// alert("Error loading "+url+",
 					// "+xmlhttp.status+"("+xmlhttp.statusText+")");
 				}

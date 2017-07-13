@@ -123,14 +123,14 @@ public class MessageController {
 				System.out.println("=====================================");
 				System.out.println(this.count +"개의 메세지가 " + count + "개로 변화하였습니다.");
 				
-				String send = mList.get(mList.size()-1).getMessage_send();
-				String msg = mList.get(mList.size()-1).getMessage_message();
+				String send = mList.get(0).getMessage_send();
+				String msg = mList.get(0).getMessage_message();
 				
 				System.out.println("보낸아이디 : " + send + " / 메세지 내용 : " + msg);
 				
 				this.count = count;
 
-				return mList.get(mList.size()-1);
+				return mList.get(0);
 			}
 
 			}
