@@ -10,22 +10,9 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$("[name=group_pak_min]").change(function(){
-				if($("[name=group_pak_min]").val() > $("[name=group_pak_max]").val()){
-					$("#result_text").html("<font color='red'>"
-							+ "최대인원이 최소인원보다 크거나 같아야 합니다."
-							+ "</font>");
-				}else{
-					$("#result_text").html("");
-				}
-			});
 			$("[name=group_pak_max]").change(function(){
 				if($("[name=group_pak_min]").val() > $("[name=group_pak_max]").val()){
-					$("#result_text").html("<font color='red'>"
-							+ "최대인원이 최소인원보다 크거나 같아야 합니다."
-							+ "</font>");
-				}else{
-					$("#result_text").html("");
+					alert("최대인원이 최소인원보다 크거나 같아야 합니다.");
 				}
 			});
 			
@@ -76,42 +63,107 @@
 		});
 	</script>
 </head>
-<body>
+<body style="background-image: url('<c:url value="/resources/images/group-package-bg.jpg" />');">
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	<br><br><br><br><br><br>
+	
 	<!-- content -->
-	<form action="groupInsertPro.go" method="post" enctype="multipart/form-data">
-		제목 : <input type="text" name="group_pak_title" class="form-control"/><br>
-		내용 : <textarea name="group_pak_content" class="form-control"></textarea><br>
-		사진 : <input type="file" name="imgFile" class="form-control"/><br>
-		나라 :
-			<select name="group_pak_place1" id="country" class="form-control">
-				<option>선택</option>
-				<option value="대한민국">대한민국</option>
-				<option value="미국">미국</option>
-				<option value="영국">영국</option>
-				<option value="프랑스">프랑스</option>
-				<option value="이탈리아">이탈리아</option>
-				<option value="체코">체코</option>
-				<option value="캐나다">캐나다</option>
-				<option value="중국">중국</option>
-				<option value="일본">일본</option>
-			</select>
-		<label id="area_text1"> 도시</label>
-			<select name="group_pak_place2" id="area" class="form-control">
-			</select><br>
-		<label id="area_text2">상세장소<br></label>
-			<textarea name="group_pak_place3" id="detail_info" rows="5" cols="30"
-				class="form-control" placeholder="가고 싶은 장소 등 상세정보를 입력해주세요"></textarea><br>
-		가격(인당) : <input type="number" name="group_pak_cost" class="form-control"/> 명<br>
-		최소 인원 : <input type="number" min="1" value="1" name="group_pak_min" class="form-control"/><br>
-		최대 인원 : <input type="number" min="1" value="1" name="group_pak_max" class="form-control"/><br>
-		<div id="result_text"></div>
-		<input type="hidden" name="group_pak_status" value="0" class="form-control"/><br>
-		<input type="hidden" name="group_pak_flag1" value="0" class="form-control"/><br>
-		<input type="hidden" name="group_pak_flag2" value="0" class="form-control"/><br>
-		<input type="submit" value="등록" class="btn btn-default btn-md"/>
-	</form>
+	<div class="container">
+		<div class="row">
+			<h1 style="color: rgba(255, 255, 255, 0.8); font-style:italic; border-bottom: 1px dotted rgba(255, 255, 255, 0.5);">단체 상품 등록</h1>
+		</div>
+		<div class="row">
+			<!-- 왼쪽 -->
+			<div class="col-md-8">
+				<div class="well" style="background-color: rgba(255,255,255,0.9); margin-right:1rem;">
+				<form action="groupInsertPro.go" method="post" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-md-6">
+							<label>제목</label>
+							<input type="text" name="group_pak_title" class="form-control"/><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<label>내용</label>
+							<textarea name="group_pak_content" class="form-control" rows="12"></textarea><br>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<label>사진</label>
+							<input type="file" name="imgFile"/>
+						</div>
+					</div>
+					
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<label>나라</label>
+							<select name="group_pak_place1" id="country" class="form-control">
+								<option>선택</option>
+								<option value="대한민국">대한민국</option>
+								<option value="미국">미국</option>
+								<option value="영국">영국</option>
+								<option value="프랑스">프랑스</option>
+								<option value="이탈리아">이탈리아</option>
+								<option value="체코">체코</option>
+								<option value="캐나다">캐나다</option>
+								<option value="중국">중국</option>
+								<option value="일본">일본</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label id="area_text1">도시</label>
+							<select name="group_pak_place2" id="area" class="form-control">
+							</select>
+						</div>
+						<div class="col-md-12">
+							<label id="area_text2">상세장소</label>
+							<input type="text" name="group_pak_place3" id="detail_info" class="form-control" placeholder="상세정보를 입력해주세요"/><br>
+						</div>
+					</div>	
+					
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<label>최소 인원</label>
+							<input type="number" min="1" value="1" name="group_pak_min" class="form-control"/><br>
+						</div>
+						<div class="col-md-6">
+							<label>최대 인원</label>
+							<input type="number" min="1" value="1" name="group_pak_max" class="form-control"/><br>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<label>가격(인당)</label>
+							<input type="number" name="group_pak_cost" min="0" class="form-control"/>
+						</div>
+					</div>
+					
+					<input type="hidden" name="group_pak_status" value="0"/>
+					<input type="hidden" name="group_pak_pk" value="0"/>
+					<input type="hidden" name="group_pak_flag1" value="0"/>
+					<input type="hidden" name="group_pak_flag2" value="0"/>
+					
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="submit" value="등록" class="btn btn-primary btn-md"/>
+						</div>
+					</div>
+				</form>
+				</div>
+			</div>
+			<!-- side bar -->
+			<div class="col-md-4 well" style="background-color: rgba(255,255,255,0.9);">
+				뭘 넣을까..
+			</div>
+		</div>
+	</div>
 </body>
 </html>
