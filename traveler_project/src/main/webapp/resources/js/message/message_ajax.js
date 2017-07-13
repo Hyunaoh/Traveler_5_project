@@ -60,6 +60,10 @@
 										
 									} // for end
 									
+									$(".unread").click(function() {
+										
+									});
+									
 									// 체크된 컬럼 삭제하기
 									$("#deleteBtn").click(function() { 
 										var j = 1;
@@ -80,7 +84,7 @@
 													contentType : "application/json",
 													success : function(result) {
 														if(result > 0){
-															alert(j+'번째 쪽지 삭제 완료!');
+															
 															result = 0;
 															
 														} else {
@@ -113,7 +117,7 @@
 	function send_message_function(){
 		$(document).ready(function(){
 		
-		$("#messageSend").click(function() {
+		$("#messageSend").click(function sendMethod() {
 			
 			var dataForm = {
 				message_send: $("#username").val()
@@ -153,43 +157,57 @@
 										+"<div class='checkbox-wrapper'> "
 										+"<input type='checkbox' id='chk" + (i+1) + "'>"
 										+"<label for='chk" + (i+1) + "' class='toggle'></label></div>"
-										+"<p class='title'>" + result[i].message_get + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
+										+"<p class='title'><input type='hidden' id='chk_seq" + (i+1) + "' value='"+ result[i].message_seq +"'/>" + result[i].message_get + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
 										+"<div class='col col-2'>"
 										+"<div class='subject'>" + result[i].message_message + "</div>"
 										+"<div class='date'>" + result[i].message_date +"</div></div></li>"
 									); 
-						
-						$("#deleteSendBtn").click(function() { 
-							
-							var dataForm = {
-								message_seq:  $("#message_seq").val()
-							};
-							
-							alert(message_seq);
-							delete_event();
-							
-							$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-								url : "messageSendDeleteAjax.go",
-								method : 'POST',
-								type : 'json',
-								data : JSON.stringify(dataForm),
-								contentType : "application/json",
-								success : function(result) {
-									if(result > 0){
-										$("#messageView").append("<br/><br/>쪽지 삭제에 성공하였습니다."); 
-									} else {
-										$("#messageView").append("<br/><br/>쪽지 삭제에 실패하였습니다. 다시 시도해주세요."); 
-									}
-								},
-								error : function(result, status, er) {
-									$("#messageView").text(er);
-								}
-							});
-						}); 	// 해당 컬럼 삭제 괄호 닫기
-							message_total();
-					} // for end
+								
+								message_total();
+							} // for end
 					
-			}, // success end
+							// 체크된 컬럼 삭제하기
+							$("#deleteBtn").click(function() { 
+								var j = 1;
+								
+								while(j <= result_size){
+									
+									var dataForm = {
+										message_seq: $("#chk_seq"+ j).val()
+									};
+									
+									if($("#chk"+ j).is(":checked")) {
+										
+										$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+											url : "messageSendDeleteAjax.go",
+											method : 'POST',
+											type : 'json',
+											data : JSON.stringify(dataForm),
+											contentType : "application/json",
+											success : function(result) {
+												if(result > 0){
+													
+													result = 0;
+													
+												} else {
+													
+												}
+											},
+											error : function(result, status, er) {
+												$("#messageView").text(er);
+											}
+										});	// ajax end
+										
+									}	// 체크 end 
+									
+									j = j+1;
+									
+								}	// while end
+								
+								sendMethod();
+							}); 	// 해당 컬럼 삭제 괄호 닫기		
+							
+				}, // success end
 				error : function(result, status, er) {
 					$("#messageView").text(er);
 					}

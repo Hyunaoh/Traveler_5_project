@@ -1051,7 +1051,8 @@ a:hover {
 
 <!-- 오른쪽 메일 상세보기 -->
 <div id="message">
-  <div class="header">
+
+  <!-- <div class="header">
     <h1 class="page-title"><a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>Process<span class="grey">(6)</span></h1>
     <p>From <a href="#">You</a> to <a href="#">Scott Waite</a>, started on <a href="#">March 2, 2014</a> at 2:14 pm est.</p>
   </div>
@@ -1186,7 +1187,7 @@ a:hover {
         </li>
       </ul>
     </div>
-  </div>
+  </div> -->
 </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
