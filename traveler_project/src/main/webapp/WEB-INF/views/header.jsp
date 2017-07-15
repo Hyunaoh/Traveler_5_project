@@ -113,6 +113,7 @@
 						<span><i class="icon-home"></i>Home</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'"><span>가이드 찾기</span></a></li>
 					<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'"><span>패키지 찾기</span></a></li>
+					<li><a href="#" onclick="location='<c:url value="/group/groupListForm.go" />'"><span>단체 패키지</span></a></li>
 					<se:authorize access="isAnonymous()">
 						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
 						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
