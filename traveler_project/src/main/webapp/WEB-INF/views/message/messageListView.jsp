@@ -836,18 +836,6 @@ a:hover {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script type="text/javascript">
-
-	/* 버튼 삭제 이벤트 */
-	function delete_event(){
-		if (confirm("삭제하시겠습니까?\n(해당 메세지를 삭제하여도 상대의 메세지는 삭제되지 않습니다.") == true){    //확인
-		    return true;
-		}else{   //취소
-		    return;
-		}
-	}
-
-</script>
 </head>
 
 <body>
@@ -858,7 +846,7 @@ a:hover {
 	
   <aside id="sidebar" class="nano">
   <div class="nano-content" style="margin-top: 50px">
-    <div class="logo-container" style="font-size: 40px;"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">Compose</a>
+    <div class="logo-container" style="font-size: 40px;"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">전체메일함</a>
 
     <!-- 왼쪽 메뉴바 -->
     <menu class="menu-segment" id="list_message">
@@ -1044,7 +1032,7 @@ a:hover {
             <div class="date">Mar. 6</div>
           </div>
         </li>
-      </ul><a href="#" class="load-more-link">Show more messages</a>
+      </ul>
     </div>
   </div>
 </main>

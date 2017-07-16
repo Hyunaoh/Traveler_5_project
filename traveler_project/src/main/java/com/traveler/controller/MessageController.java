@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sun.glass.ui.Application;
+import com.traveler.dao.MemberDAO;
 import com.traveler.dao.MessageDAO;
+import com.traveler.model.MemberVO;
 import com.traveler.model.MessageVO;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
@@ -79,18 +81,34 @@ public class MessageController {
 	// 메세지 쓰는 함 프로세스
 	@ResponseBody
 	@RequestMapping(value = "/messageWriteAjax.go", method = RequestMethod.POST)
-	public int messageWritePro(@RequestBody MessageVO mVo, Principal principal) throws Exception {
+	public int messageWritePro(@RequestBody MessageVO mVo, Principal principal, boolean chk_all ) throws Exception {
 
-		System.out.println("메세지 쓰는 Ajax실행");
+		System.out.println("메세지 작성 Ajax실행");
+		
+		System.out.println("전체 쪽지 여부 : " + chk_all);
 
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
-
+		
 		int insertRes = mDao.insertMessage(mVo);
 		System.out.println("메세지 insert 여부 : " + insertRes);
 
 		return insertRes;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/messageWriteView.go", method = RequestMethod.POST)
+	public List<MemberVO> messageWritePro() throws Exception {
+		
+		System.out.println("memer List 뽑아오는 ajax 실행");
+		
+		MemberDAO memDao = sqlSession.getMapper(MemberDAO.class);
+		
+		List<MemberVO> mList = memDao.selectAllMember();
+		
+		return mList;
+		
+	}
+	
 	// 알람을 위한 메세지 alarm
 	@ResponseBody
 	@RequestMapping(value = "/messageAlarmAjax.go", method = RequestMethod.GET)
@@ -182,4 +200,19 @@ public class MessageController {
 
 		return res;
 	}
+	
+	@RequestMapping("/messageGetModal.go")
+	public String messageGetModal(Model model, HttpServletRequest request){
+		
+		String message_message = request.getParameter("message_message");
+		String message_date = request.getParameter("message_date");
+		String message_get = request.getParameter("message_get");
+		
+		model.addAttribute("msg", message_message);
+		model.addAttribute("date", message_date);
+		model.addAttribute("get", message_get);
+		
+		return "message/messageGetModal";
+	}
+	
 }

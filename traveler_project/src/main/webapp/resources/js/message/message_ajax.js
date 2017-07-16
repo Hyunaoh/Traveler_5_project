@@ -10,6 +10,16 @@
 		
 	}
 	
+	function delete_yes_or_no() {
+	    confirm("삭제하시겠습니까? (삭제 하여도 상대방 쪽지함에는 받은 쪽지가 그대로 남아있습니다.)");
+	    if(confirm){
+	    	return true;
+	    } else {
+	    	return false;
+	    }
+	}
+	
+	// 받은 메세지함
 	function get_message_function(){
 		$(document).ready(function(){
 			$("#messageGet").click(function getMethod() {
@@ -34,6 +44,9 @@
 							        +"<li><a href='#' id='messageSend'>보낸메세지함 <input type='hidden' id='messageSend_total' value=" + messageSend_total +" /><span>(" + messageSend_total + ")</span></a></li>"
 							        +"<li><a href='#' id='messageWrite'>메세지보내기</a></li>"
 							        +"<li><a href='#'>쓰레기통</a></li></ul>");
+							
+							send_message_function();
+							write_message_function();
 	
 							$("#messageView").html(
 									 "<li class='unread'>"
@@ -43,68 +56,64 @@
 									+"<div class='subject'>제목 </div>"
 									+"<div class='date'>받은시간</div></div></li>");
 							
-									for(var i = 0; i < result_size; i++){
-											
-										$("#messageView").append(
-												"<li class='unread'>"
-												+"<div class='col col-1'><span class='dot'></span>"
-												+"<div class='checkbox-wrapper'> "
-												+"<input type='checkbox' id='chk" + (i+1) + "' class='chkBox'>"
-												+"<label for='chk" + (i+1) + "' class='toggle'></label></div>"
-												+"<p class='title'><input type='hidden' id='chk_seq" + (i+1) + "' value='"+ result[i].message_seq +"'/>" + result[i].message_send + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
-												+"<div class='col col-2'>"
-												+"<div class='subject button' id='six'>" + result[i].message_message + "</div>"
-												+"<div class='date'>" + result[i].message_date +"</div></div></li>"); 
-										
-										message_total();
-										
-									} // for end
+							for(var i = 0; i < result_size; i++){
 									
-									$(".unread").click(function() {
-										
-									});
+								$("#messageView").append(
+										"<li class='unread'>"
+										+"<div class='col col-1'><span class='dot'></span>"
+										+"<div class='checkbox-wrapper'> "
+										+"<input type='checkbox' id='chk" + (i+1) + "' class='chkBox'>"
+										+"<label for='chk" + (i+1) + "' class='toggle'></label></div>"
+										+"<p class='title'><input type='hidden' id='chk_seq" + (i+1) + "' value='"+ result[i].message_seq +"'/>" + result[i].message_send + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
+										+"<div class='col col-2'>"
+										+"<div class='subject button' id='six'>" + result[i].message_message + "</div>"
+										+"<div class='date'>" + result[i].message_date +"</div></div></li>"); 
+								
+							} // for end
 									
 									// 체크된 컬럼 삭제하기
 									$("#deleteBtn").click(function() { 
-										var j = 1;
 										
-										while(j <= result_size){
+										if(delete_yes_or_no() == true){
+										
+											var j = 1;
 											
-											var dataForm = {
-												message_seq: $("#chk_seq"+ j).val()
-											};
-											
-											if($("#chk"+ j).is(":checked")) {
+											while(j <= result_size){
 												
-												$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
-													url : "messageGetDeleteAjax.go",
-													method : 'POST',
-													type : 'json',
-													data : JSON.stringify(dataForm),
-													contentType : "application/json",
-													success : function(result) {
-														if(result > 0){
-															
-															result = 0;
-															
-														} else {
-															
+												var dataForm = {
+													message_seq: $("#chk_seq"+ j).val()
+												};
+												
+												if($("#chk"+ j).is(":checked")) {
+													
+													$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+														url : "messageGetDeleteAjax.go",
+														method : 'POST',
+														type : 'json',
+														data : JSON.stringify(dataForm),
+														contentType : "application/json",
+														success : function(result) {
+															if(result > 0){
+																
+																result = 0;
+																
+															} else {
+																
+															}
+														},
+														error : function(result, status, er) {
+															$("#messageView").text(er);
 														}
-													},
-													error : function(result, status, er) {
-														$("#messageView").text(er);
-													}
-												});	// ajax end
+													});	// ajax end
+													
+												}	// 체크 end 
 												
-											}	// 체크 end 
+												j = j+1;
+												
+											}	// while end
 											
-											j = j+1;
-											
-										}	// while end
-										
-										getMethod();
+										} 	//  return이 true 일 경우,
 									}); 	// 해당 컬럼 삭제 괄호 닫기
-									
 							}, // success end
 						error : function(result, status, er) {
 							$("#messageView").text(er);
@@ -141,6 +150,9 @@
 					        +"<li><a href='#' id='messageWrite'>메세지보내기</a></li>"
 					        +"<li><a href='#'>쓰레기통</a></li></ul>");
 					
+					get_message_function();
+					write_message_function();
+					
 					$("#messageView").html("<li class='unread'>"
 							+"<div class='col col-1'>"
 							+"<p class='title'> 받은사람 </p></div>"
@@ -151,21 +163,27 @@
 							for(var i = 0; i < result_size; i++){
 								
 								$("#messageView").append(
-										
 										"<li class='unread'>"
 										+"<div class='col col-1'><span class='dot'></span>"
 										+"<div class='checkbox-wrapper'> "
-										+"<input type='checkbox' id='chk" + (i+1) + "'>"
+										+"<input type='checkbox' id='chk" + (i+1) + "' class='chkBox'>"
 										+"<label for='chk" + (i+1) + "' class='toggle'></label></div>"
 										+"<p class='title'><input type='hidden' id='chk_seq" + (i+1) + "' value='"+ result[i].message_seq +"'/>" + result[i].message_get + "</p><span class='star-toggle glyphicon glyphicon-star-empty'></span></div>"
 										+"<div class='col col-2'>"
-										+"<div class='subject'>" + result[i].message_message + "</div>"
-										+"<div class='date'>" + result[i].message_date +"</div></div></li>"
-									); 
+										+"<div class='subject button' id='six'>" + result[i].message_message + "</div>"
+										+"<div class='date'>" + result[i].message_date +"</div></div></li>"); 
 								
-								message_total();
+								$(".unread").click(function() {
+									
+									alert('클릭!');
+									alert( result[i].message_message );
+									alert( result[i].message_date);
+									window.open("/message/messageGetModal.go?message_message="+result[i].message_message + "&message_date=" + result[i].message_date + "&message_get=" + result[i].message_get , "쪽지도착~");
+								
+								});
+								
 							} // for end
-					
+								
 							// 체크된 컬럼 삭제하기
 							$("#deleteBtn").click(function() { 
 								var j = 1;
@@ -232,25 +250,73 @@
 				        +"<li class='active'><a href='#' id='messageWrite'>메세지보내기</a></li>"
 				        +"<li><a href='#'>쓰레기통</a></li></ul>");
 				
+				get_message_function();
+				send_message_function();
+				
 				$("#messageView").html(
-								 "<div class='form-group'>"
-								+"<div class='form-group' style='width: 300px'><label for='message_send' class='sr-only'>message_send</label>"				
-								+"<input id='message_send' class='form-control' type='text' value='" + user_name + "' readonly /></div>"					
-								+"<div class='form-group' style='width: 300px'><label for='message_get' class='sr-only'>message_get</label>"
-								+"<input id='message_get' class='form-control' placeholder='받는 사람' type='text'></div>"
-								+"<div class='form-group'><label for='message_message' class='sr-only'>Message</label>"
-								+"<textarea name='message' id='message_message' cols='8' rows='8' class='form-control' placeholder='Message'></textarea></div>"
-								+"<div class='form-group'>"
-								+"<input class='btn btn-primary btn-lg' id='submitWriteForm' value='Send Message' type='submit'></div>");
+						 "<div class='form-group'>"
+						+"<div class='form-group' style='width: 300px'><label for='message_send' class='sr-only' >message_send</label>"				
+						+"<input id='message_send' class='form-control' type='text' value='" + user_name + "' readonly /></div>"					
+						+"<div class='form-group' style='width: 300px'><label for='message_get' class='sr-only'>message_get</label>"
+						+"<select id='message_get' class='form-control'></select></div>"
+						+"<div class='form-group'><label for='message_message' class='sr-only'>Message</label>"
+						+"<textarea name='message' id='message_message' cols='8' rows='8' class='form-control' placeholder='Message' ></textarea></div>"
+						+"<div class='form-group'>"
+						+"<input class='btn btn-primary btn-lg' id='submitWriteForm' value='Send Message' type='submit'></div>");
+				
+				// 사람찾기 ajax
+					
+				$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
+					url : "messageWriteView.go",
+					method : 'POST',
+					type : 'json',
+					contentType : "application/json",
+					success : function(result) {
 						
+					var result_size = Object.keys(result).length;
+						
+						if(result_size > 0){
+							
+							$("#message_get").append("<option value=''> 받을 ID를 선택하세요 </option>");
+							
+							for(var i = 0; i < result_size; i++){
+								$("#message_get").append("<option value='" + result[i].member_id + "'>" + result[i].member_id + " / " + result[i].member_name + "</option>");
+							}
+							
+						} else {
+							$("#message_get").html("<p>회원정보가 없습니다.</p>");
+						}
+							
+					},
+					error : function(result, status, er) {
+						$("#messageView").text(er);
+					}
+				});
+				
 				/* 메세지 보내기 */
 				$("#submitWriteForm").click(function() {
 					
 					var dataForm = {
 						message_send: $("#message_send").val(),
 						message_get: $("#message_get").val(),
-						message_message: $("#message_message").val()
+						message_message: $("#message_message").val(),
 					};
+					
+					if(	$("#message_get").val() == '' 	||
+						$("#message_get").val() == null ||
+						$("#message_get").val() == ' ')
+						{
+							alert('받는 사람 id를 선택해주세요.');
+							return false;
+						}
+					
+					if(	$("#message_message").val() == '' 	||
+						$("#message_message").val() == null ||
+						$("#message_message").val() == ' ')
+						{
+							alert('내용을 입력해주세요.');
+							return false;
+						}
 					
 					$.ajax({ // Ajax 요청을 작성하고 GET 방식으로 전송함.
 						url : "messageWriteAjax.go",
@@ -260,9 +326,9 @@
 						contentType : "application/json",
 						success : function(result) {
 							if(result > 0){
-								$("#messageView").append("<br/><br/>쪽지 발송에 성공하였습니다.");
+								alert('쪽지 발송에 성공하였습니다.');
 							} else {
-								$("#messageView").append("<br/><br/>쪽지 발송에 실패하였습니다. 다시 시도해주세요."); 
+								alert('쪽지 발송에 실패하였습니다. 다시 시도해주세요.');
 							}
 							
 						},
@@ -272,7 +338,7 @@
 					});
 				}); // write button click end
 				
-				message_total();
+				$("#message_get").html("");
 				
 			}); // write Form click end
 		}); // document end
