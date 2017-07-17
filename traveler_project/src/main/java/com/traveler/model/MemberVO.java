@@ -20,6 +20,42 @@ public class MemberVO {
 	String member_profile ;	//�����ʻ���
 	int member_isGuide;	//���̵� ���� 
 	String member_joinDate;	//���Գ�¥
+	int startNum; // 첫번째 글
+	int endNum; // 마지막 글
+	int pageSize; // 한 페이지의 크기 (몇개의 글?)
+	int pageNum; // 몇 페이지?
+	int pageTotalNum; // 전체 페이지 개수
+	
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getPageTotalNum() {
+		return pageTotalNum;
+	}
+	public void setPageTotalNum(int pageTotalNum) {
+		this.pageTotalNum = pageTotalNum;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

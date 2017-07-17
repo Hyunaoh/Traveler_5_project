@@ -2,24 +2,30 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-
+<head></head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>	
-</script>
+	 <style>
+      #container {
+        width: 940px;
+        margin: 0px auto;
+        padding: 20px;
+      }
+      </style>
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
-
+	<font size="2">
+	<div id="#container" style="width: 80%;" >
 	<section id="fh5co-contact" data-section="contact">
-		<div class="page-header">
+		<div class="page-header" style="margin-left: 300px;">
 			<h1>
-				세부사항<small>폼</small>
+				세부사항
 			</h1>
 			<p style="font-style: italic;">세부 사항을 입력하고 가이드가 되어보세요!</p>
 		</div>
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-md-6 col-md-offset-3" style="margin-left: 400px;">
 			<form method="post" enctype="multipart/form-data" action="memberInsertDetailPro.go" role="form">
 				<div class="form-group">
 					<label for="profile">프로필 사진</label>
@@ -75,12 +81,14 @@
 						입력취소<i class="fa fa-times spaceLeft"></i>
 					</button>
 					<button type="submit" class="btn btn-info" id="btn_join">
-						회원가입<i class="fa fa-check spaceLeft"></i>
+						완료<i class="fa fa-check spaceLeft"></i>
 					</button>
 				</div>
 			</form>
 		</div>
 	</section>
+	</div>
+	</font>
 	<!-- 주소 "검색"창  -->
 	<script>
 	$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
@@ -88,5 +96,6 @@
 	<!-- jQuery와 Postcodify를 로딩한다 -->
 	<script src="<c:url value="/resources/js/bootstrap/jquery.min.js"/>"></script>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	
 </body>
 </html>

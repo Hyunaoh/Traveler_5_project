@@ -7,7 +7,11 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.traveler.dao.MemberDAO;
+import com.traveler.dao.PackageDAO;
 import com.traveler.model.FacebookVO;
 import com.traveler.model.GoogleVO;
 import com.traveler.model.MemberVO;
@@ -88,6 +93,7 @@ public class MemberController {
 		return view;
 	}
 	
+	
 	// DB member Insert
 	@RequestMapping("/memberInsertForm.go")
 	public String memberInsertForm(Model model, GoogleVO googleVO) throws Exception {
@@ -97,7 +103,38 @@ public class MemberController {
 	}
 
 	
+	//가이드권한 신청 폼
+	@RequestMapping("/guideForm.go")
+	public String guideForm(MemberVO memberVO, Model model, Principal pincipal) throws Exception {
+		
+		MemberDAO memberDAO=sqlSession.getMapper(MemberDAO.class);
+		//ID 저장
+		memberVO.setMember_id(pincipal.getName());
+		MemberVO list= memberDAO.selectMyPage(memberVO);
+		
+		model.addAttribute("list", list);
+		return "/member/guideForm";
+	}
+	
+	//가이드 신청 - isGuide 
+	@RequestMapping("/memberGuideUp.go")
+	public String memberGuideUp(Principal pincipal) throws Exception {
+		System.out.println("[system] access memberGuideUp! ");
+		
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		MemberVO memberVO=new MemberVO();
+		
+		memberVO.setMember_id(pincipal.getName());
+		MemberVO vo= memberDAO.selectMyPage(memberVO);
+		
+		memberDAO.updateIsGuide(vo);
+		
+		
+		return "home";
+	}
 
+	
+	//멤버 회원가입
 	@Transactional
 	@RequestMapping("/memberInsertPro.go")
 	public String memberInsertPro(Model model, MemberVO memberVO) throws Exception {
@@ -114,12 +151,14 @@ public class MemberController {
 		return "/member/memberInsertPro";
 	}
 
+	
 	// Login security
 	@RequestMapping("/loginForm.go")
 	public String loginForm() throws Exception {
 		System.out.println("[system] access loginForm! ");
 		return "/member/loginForm";
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/idConfirmAjax.go")
@@ -140,6 +179,7 @@ public class MemberController {
 		return check;
 	}
 
+	//회원탈퇴 form 
 	@RequestMapping("/memberDeleteForm.go")
 	public String memberDeleteForm(Model model)throws Exception{
 		System.out.println("[system] access memberDelete! ");
@@ -147,6 +187,7 @@ public class MemberController {
 		return "/member/memberDeleteForm";
 	}
 	
+	//회원탈퇴 pro
 	@RequestMapping("/memberDelete.go")
 	public String memberDelete(Model model, HttpServletRequest request, Principal principal )throws Exception{
 		System.out.println("[system] access memberDelete! ");
@@ -172,26 +213,55 @@ public class MemberController {
 	}
 	
 	
+	//마이페이지
 	@RequestMapping("/mypageForm.go")
-	public String myPageForm(Model model, Principal principal)throws Exception{
+	public String myPageForm(MemberVO memberVO,Model model, Principal principal, HttpServletRequest request)throws Exception{
 		System.out.println("[system] access myPageForm! ");
 		
-		MemberVO memberVO=new MemberVO();
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		PackageDAO packageDAO=sqlSession.getMapper(PackageDAO.class);
 		
 		memberVO.setMember_id(principal.getName());
 		MemberVO list = memberDAO.selectMemberList(memberVO);
+
 		
+		// 페이징 처리
+		int totalCount = memberDAO.getTotalCountOfNotice(memberVO); //전체글수
+		final int page_size = 4;
+		if(memberVO.getPageNum() == 0){
+			memberVO.setPageNum(1); // default 값
+		}
+		memberVO.setStartNum(page_size * (memberVO.getPageNum() - 1));
+		memberVO.setEndNum(page_size * memberVO.getPageNum());
+		// 전체 페이지  개수
+		if(totalCount % page_size == 0){
+			memberVO.setPageTotalNum(totalCount / page_size);
+		} else {
+			memberVO.setPageTotalNum(1 + totalCount / page_size);
+		}
+		
+		List packageVO_result = memberDAO.getPagePerList(memberVO);
+		System.out.println(packageVO_result.toString());
+		//그룹패키지
 		model.addAttribute("list", list);
+		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("page", memberVO);
+		model.addAttribute("currentPageNum", memberVO.getPageNum());
 		return "/member/mypage";	
 	}
+
 	
+	//세부사항 insert
 	@RequestMapping("/memberInsertDetail.go")
 	public String memberInsertDetail()throws Exception{
 		System.out.println("[system] access memberInsertDetail! ");
 	return "/member/memberInsertDetail";
 	}
 
+
+
+	
+//---------------------------------------------------------------------
 	@RequestMapping("/memberInsertDetailPro.go")
 	public String memberInsertDetailPro(HttpServletRequest request, Model model, MemberVO memberVO, Principal principal, @RequestParam("imgFile") MultipartFile imgFile)throws Exception{
 		System.out.println("[system] access memberInsertDetailPro! ");
@@ -263,5 +333,4 @@ public class MemberController {
 			fos.close();
 		}
 	}
-
 }

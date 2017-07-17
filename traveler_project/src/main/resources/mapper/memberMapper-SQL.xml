@@ -12,9 +12,9 @@
  	</insert>
  	
  	<insert id="insertRole" parameterType="com.traveler.model.MemberVO">
- 	Insert into role
- 		(member_id, role)
- 		values
+ 	INSERT INTO ROLE
+ 		(MEMBER_ID, ROLE)
+ 		VALUES
  		(#{member_id}, 'ROLE_MEMBER')
  	</insert>
  	
@@ -61,12 +61,13 @@
  	<select id="selectAllMember" resultType="com.traveler.model.MemberVO">
  		SELECT *
  		FROM MEMBER
+ 		where member_isGuide = 2
  	</select>
  	
  	<update id="adminUpdateGuide" parameterType="com.traveler.model.MemberVO">
  		update member
  		<set>
- 		<if test ="member_isGuide==0">
+ 		<if test ="member_isGuide==2">
  			member_isGuide = 1
  		</if>
  		<if test="member_isGuide==1">
@@ -76,6 +77,12 @@
  		where member_id = #{member_id}
  	</update>
  	
+ 	<update id="updateIsGuide" parameterType="com.traveler.model.MemberVO">
+ 		UPDATE MEMBER
+ 		SET MEMBER_ISGUIDE = 2
+ 		WHERE MEMBER_ID=#{member_id}
+ 	
+ 	</update>
  	<select id="selectMemberPwd" resultType="String">
  	SELECT MEMBER_PWD 
  	FROM MEMBER
@@ -87,5 +94,40 @@
  	FROM MEMBER
  	WHERE MEMBER_ID = #{member_id}
  	</delete>
+ 	
+ 	<insert id="insertGuide" parameterType="com.traveler.model.MemberVO">
+ 	INSERT INTO GUIDE
+ 	(MEMBER_ID, GUIDE_REGDATE)
+ 	VALUES
+ 	(#{member_id}, now())
+ 	</insert>
+ 	
+ 	<delete id="deleteGuide" parameterType="com.traveler.model.MemberVO">
+ 	DELETE 
+ 	FROM GUIDE
+ 	WHERE MEMBER_ID=#{member_id}
+ 	</delete>
+ 	
+ 	<!-- 전체 리스트 개수 가져옴 -->
+	<select id = "getTotalCountOfNotice" resultType = "Integer" parameterType = "com.traveler.model.MessageVO">
+		SELECT COUNT(*)
+		FROM package
+		<where>
+			<if test="member_id != null and member_id != ''">
+				member_id = #{member_id}
+			</if>
+		</where>
+	</select>
+
+	<select id = "getPagePerList" resultType = "com.traveler.model.PackageVO" parameterType="com.traveler.model.MemberVO">
+		SELECT *
+		FROM Package
+		WHERE member_id=#{member_id}
+		and package_status = 1
+		ORDER BY package_regDate DESC
+		LIMIT #{startNum}, #{endNum}
+	</select>
+	
+	
  </mapper>
  
