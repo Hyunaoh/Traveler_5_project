@@ -65,6 +65,5 @@
 	<update id="deleteSendMessage" parameterType="com.traveler.model.MessageVO">
 		update message set message_send_flag=1 where message_seq=#{message_seq}
 	</update>
-	
-	
+
 </mapper>
