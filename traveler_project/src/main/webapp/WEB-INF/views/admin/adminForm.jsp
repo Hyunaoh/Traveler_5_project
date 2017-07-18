@@ -33,7 +33,7 @@
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminBoardForm.go'">
 					<i class="icon to-animate-2 icon-monitor"></i>
 					<h3>게시글 관리</h3>
-					<p>가이드상품 게시판, 가이드 찾기 게시판</p>
+					<p>가이드 찾기 게시판</p>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminMemberForm.go'">
 					<i class="icon icon-people to-animate-2"></i>
@@ -48,6 +48,13 @@
 					<h3>가이드 상품 검증</h3>
 					<p>올바른 가이드 상품에 대한 검증</p>
 				</div>
+				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminGroupPackageForm.go'">
+					<i class="icon to-animate-2 icon-video2"></i>
+					<h3>가이드 단체 상품 검증</h3>
+					<p>올바른 가이드 단체 상품에 대한 검증</p>
+				</div>
+				<div class="clearfix visible-sm-block"></div>
+				
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminGuideForm.go'">
 					<i class="icon icon-briefcase to-animate-2"></i>
 					<h3>가이드 권한 승인</h3>

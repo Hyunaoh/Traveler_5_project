@@ -33,6 +33,7 @@ public class GroupController {
 	public String groupListForm(Model model, GroupVO groupVO) throws Exception{
 		System.out.println("[system] access groupListForm! ");
 		
+		groupVO.setGroup_pak_status(1);
 		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
 		List<GroupVO> groupList = groupDAO.selectAll(groupVO);
 		
@@ -181,9 +182,6 @@ public class GroupController {
 		GroupNoticeDAO groupNoticeDAO = sqlSession.getMapper(GroupNoticeDAO.class);
 		List<GroupNoticeVO> groupNoticeList = groupNoticeDAO.selectAll(groupNoticeVO);
 		System.out.println(" >> Success Get GroupNotice List");
-		for(int i =0; i<groupNoticeList.size(); i++){
-			System.out.println(groupNoticeList.get(i).toString());
-		}
 		
 		model.addAttribute("groupVO", groupVO_result);
 		model.addAttribute("groupNoticeList", groupNoticeList);

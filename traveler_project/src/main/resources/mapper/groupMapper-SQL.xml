@@ -8,7 +8,7 @@
  	<select id="selectAll" parameterType="com.traveler.model.GroupVO" resultType="com.traveler.model.GroupVO">
  		SELECT *
  		FROM GROUP_PAK
- 		WHERE GROUP_PAK_STATUS = 1
+ 		WHERE GROUP_PAK_STATUS = #{group_pak_status}
  		ORDER BY GROUP_PAK_REGDATE DESC
  	</select>
  	
@@ -69,7 +69,7 @@
  			<if test="(group_pak_current != null and group_pak_current !='') or group_pak_current == 0">
  				GROUP_PAK_CURRENT = #{group_pak_current},
  			</if>
- 			<if test="group_pak_status != null and group_pak_status !=''">
+ 			<if test="(group_pak_status != null and group_pak_status !='') or group_pak_status == 0">
  				GROUP_PAK_STATUS = #{group_pak_status},
  			</if>
  			<if test="group_pak_flag1 != null and group_pak_flag1 !=''">
