@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.traveler.dao.GroupDAO;
+import com.traveler.dao.GroupNoticeDAO;
 import com.traveler.dao.M_groupDAO;
+import com.traveler.model.GroupNoticeVO;
 import com.traveler.model.GroupVO;
 import com.traveler.model.M_groupVO;
 
@@ -173,7 +175,18 @@ public class GroupController {
 		// 정보 가져옴
 		GroupVO groupVO_result = groupDAO.selectInfo(groupVO_in);
 		
+		// 추가 공지사항 리스트 가져옴
+		GroupNoticeVO groupNoticeVO = new GroupNoticeVO();
+		groupNoticeVO.setGroup_notice_parent_pk(groupVO_in.getGroup_pak_pk());
+		GroupNoticeDAO groupNoticeDAO = sqlSession.getMapper(GroupNoticeDAO.class);
+		List<GroupNoticeVO> groupNoticeList = groupNoticeDAO.selectAll(groupNoticeVO);
+		System.out.println(" >> Success Get GroupNotice List");
+		for(int i =0; i<groupNoticeList.size(); i++){
+			System.out.println(groupNoticeList.get(i).toString());
+		}
+		
 		model.addAttribute("groupVO", groupVO_result);
+		model.addAttribute("groupNoticeList", groupNoticeList);
 		return "group/groupDetailForm";
 	}
 }
