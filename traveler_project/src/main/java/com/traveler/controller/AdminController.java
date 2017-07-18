@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
+import com.traveler.dao.GroupDAO;
 import com.traveler.dao.MemberDAO;
 import com.traveler.dao.PackageDAO;
 import com.traveler.model.FindVO;
+import com.traveler.model.GroupVO;
 import com.traveler.model.MemberVO;
 import com.traveler.model.PackageVO;
 import com.traveler.model.PagingVO;
@@ -170,5 +172,54 @@ public class AdminController {
 		memberDAO.adminUpdateGuide(memberVO);
 		
 		return "redirect:adminMemberListForm.go";
+	}
+	
+	@RequestMapping("/adminGroupPackageForm.go")
+	public String adminGroupPackageForm(Model model) throws Exception{
+		System.out.println("[system] access adminGroupPackageForm!");
+		
+		// 검증 안된 상품
+		GroupVO groupVO1 = new GroupVO();
+		groupVO1.setGroup_pak_status(0);
+		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
+		List<GroupVO> groupList1 = groupDAO.selectAll(groupVO1);
+		System.out.println(" >> success get List1");
+		
+		// 검증 완료된 상품
+		GroupVO groupVO2 = new GroupVO();
+		groupVO2.setGroup_pak_status(1);
+		List<GroupVO> groupList2 = groupDAO.selectAll(groupVO2);
+		System.out.println(" >> success get List2");
+		
+		model.addAttribute("groupList1", groupList1);
+		model.addAttribute("groupList2", groupList2);
+		return "admin/adminGroupPackageForm";
+	}
+	
+	@RequestMapping("/adminGroupPackageUpdate.go")
+	public String adminGroupPackageUpdate(GroupVO groupVO) throws Exception{
+		System.out.println("[system] access adminGroupPackageUpdate!");
+		
+		boolean check = false;
+		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
+		if( groupDAO.updateGroup(groupVO) > 0 ){
+			check = true;
+		}
+		System.out.println(" >> proccess result : " + check + "/" + groupVO.getGroup_pak_pk());
+		System.out.println(groupVO.getGroup_pak_status());
+		
+		return "redirect:adminGroupPackageForm.go";
+	}
+	@RequestMapping("/adminGroupPackageDelete.go")
+	public String adminGroupPackageDelete(GroupVO groupVO) throws Exception{
+		System.out.println("[system] access adminGroupPackageDelete!");
+		
+		boolean check = false;
+		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
+		if( groupDAO.deleteGroup(groupVO) > 0 ){
+			check = true;
+		}
+		
+		return "redirect:adminGroupPackageForm.go";
 	}
 }

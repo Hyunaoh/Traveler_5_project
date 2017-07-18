@@ -5,8 +5,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>여행가 - 단체상품</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>여행가 - 단체상품</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("[name=groupNoticeForm]").hide();
+		});
+		
+		function groupNoticeUpdate(data){
+			$("#groupNoticeForm"+data).toggle();
+			$("#noticeContent"+data).toggle();
+		}
+	</script>
 </head>
 <body>
 	<!-- header -->
@@ -70,9 +81,11 @@
 				<c:if test="${groupVO.group_pak_guide == sessionID}">
                 <div class="well">
                     <h4>추가 전달 사항:</h4>
-                    <form action="" method="post">
+                    <form action="../group_notice/group_notice_insert.go" method="post">
                         <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                        	<input type="hidden" name="group_notice_writer" value="${sessionID}"/>
+                        	<input type="hidden" name="group_notice_parent_pk" value="${groupVO.group_pak_pk}"/>
+                            <textarea name="group_notice_content" class="form-control" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">등록</button>
                     </form>
@@ -82,44 +95,30 @@
                 
                 <!-- Comment -->
 				<p>해당 상품 가이드의 공지사항</p>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
-
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment -->
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">Nested Start Bootstrap
-                                    <small>August 25, 2014 at 9:30 PM</small>
-                                </h4>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-                        <!-- End Nested Comment -->
-                    </div>
-                </div>
-
+				<c:forEach items="${groupNoticeList}" var="groupNotice">
+					<div class="media">
+	                    <a class="pull-left" href="#">
+	                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+	                    </a>
+	                    <div class="media-body">
+	                        <h4 class="media-heading">${groupNotice.group_notice_writer}
+	                            <small>${groupNotice.group_notice_regDate}</small>
+	                        </h4>
+	                        <span id="noticeContent${groupNotice.group_notice_pk}">${groupNotice.group_notice_content}</span>
+	                        <!-- 글 작성자만 볼 수 있음 -->
+							<c:if test="${groupVO.group_pak_guide == sessionID}">
+		                        <input type="button" value="수정" class="btn btn-default btn-sm" onclick="groupNoticeUpdate(${groupNotice.group_notice_pk})"/>
+		                        <input type="button" value="삭제" class="btn btn-default btn-sm" onclick="location='../group_notice/group_notice_delete.go?group_notice_pk=${groupNotice.group_notice_pk}&group_notice_parent_pk=${groupVO.group_pak_pk}'"/>
+		                        <form action="../group_notice/group_notice_update.go"  name="groupNoticeForm" id="groupNoticeForm${groupNotice.group_notice_pk}" method="post">
+	                        		<input type="hidden" name="group_notice_parent_pk" value="${groupVO.group_pak_pk}"/>
+		                        	<input type="hidden" name="group_notice_pk" value="${groupNotice.group_notice_pk}"/>
+		                        	<textarea name="group_notice_content" class="form-control" rows="3">${groupNotice.group_notice_content}</textarea>
+		                        	<input type="submit" value="등록" class="btn btn-primary btn-sm"/>
+		                        </form>
+	                        </c:if>
+	                    </div>
+	                </div>
+				</c:forEach>
             </div>
 
             <!-- Sidebar Widgets Column -->
