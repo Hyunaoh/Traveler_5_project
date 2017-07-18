@@ -20,19 +20,28 @@
 		for(var i = 0 ; i < taglist.length; i++){
 			availableTags.push(taglist[i].value);
 		}
-		$('[name="package_tag"').autocomplete({
-		      source: availableTags
-		      });
 		
-		/*해시태그 칸 추가했을 시*/
+		
+		/* $('[name="package_tag"]').keydown(function(e) {
+			if (e.which == 51) {
+				
+				$('[name="package_tag"').autocomplete({
+				      source: availableTags
+				      });
+			}
+		});  */
+		
+	
+		///*해시태그 칸 추가했을 시
 		$("#add_div").click(function add_div(){
 		    var div = document.createElement('div');
 		    div.innerHTML = document.getElementById('tagdiv').innerHTML;
 		    document.getElementById('field').appendChild(div);
-		    $('[name="package_tag"').autocomplete({
+		   /*  $('[name="package_tag"]').autocomplete({
 			      source: availableTags
-			      });
+			      }); */
 		});
+		
 		
 		
 	    /* 국가 셀렉박스 */
@@ -174,10 +183,10 @@
 </script>
 
 
-
-
 </head>
 <body>
+
+
 
 	 <!--헤더 넣으니까 왜 안돼지.....????????????이상하다......-->
 	<%--  <!-- header -->
@@ -213,9 +222,18 @@
 		<p id="area_text3">해시태그 : </p>
 			<input type="button" id="add_div" value="해시태그 추가"><br/>
 			<div id="tagdiv">
-				<input type="text" name="package_tag" placeholder="해시태그" required="required">
+				<font color="pink" font-weight="bold">#</font>
+				<input type="text" name="package_tag" list="info_list" placeholder="해시태그" required="required" autocomplete="on">
 				<input type="button" value="삭제" onclick="remove_div(this)">
 			</div>
+			
+			<!-- datalist -->
+			<datalist id ="info_list">
+				<c:forEach items="${tagList}" var="list">
+					<option value="${list.key }"> 관련 상품 ${list.value}개</option>
+				</c:forEach>
+			</datalist>
+			
 
 			<div id="field">
 			</div>
@@ -234,8 +252,11 @@
 	
 		<!-- 해시태그 리스트 Jquery로 전달하기 위한.. -->
 		<c:forEach items="${tagList}" var="list">
-			<input type="hidden" name="tag" value="${list}">		
+			<input type="hidden" name="tag" value="${list.key}">	
+				
 		</c:forEach>
+		
+		
 
 </body>
 </html>

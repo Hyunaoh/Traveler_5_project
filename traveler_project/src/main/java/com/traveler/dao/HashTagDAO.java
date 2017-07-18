@@ -3,6 +3,7 @@ package com.traveler.dao;
 import java.util.List;
 
 import com.traveler.model.HashTagVO;
+import com.traveler.model.PackageVO;
 
 public interface HashTagDAO {
 	
@@ -14,5 +15,8 @@ public interface HashTagDAO {
 		
 		//특정 태그 있는지 검색
 		public int getSpecificHashTag(HashTagVO hashTagVO) throws Exception;
+		
+		//해당 태그 갯수 구하기
+		public int getCount(String str) throws Exception;
 		
 }

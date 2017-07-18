@@ -23,6 +23,16 @@
  			WHERE HASHTAG_TAG=#{hashTag_tag}
  			
    </select>
+   
+   <!-- 특정 단어 해시태그로 등록한 게시글 몇 개인지 구하기 -->
+   <select id="getCount" parameterType="String" resultType="Integer">
+   	select count(*) 
+   		from package 
+   		where package_tag like '%,${value},%'
+   			or package_tag like '${value},%'
+   			or package_tag like '%,${value}'
+   
+   </select>
 
 	
 </mapper>
