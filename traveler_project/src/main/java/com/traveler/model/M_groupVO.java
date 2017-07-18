@@ -11,6 +11,9 @@ public class M_groupVO {
 	private String group_mem_gender; // varchar(500) not null, -- 성별
 	private int group_mem_status; // int(1) not null -- 0: 입금 대기중, 1: 입금 완료
 	private String group_mem_str_age; // 문자열 나이
+	private int group_mem_count; // 예약한 단체의 손님 수 (예) 김태홍 외 친구 4명 : 총 5명
+	private double avg_age; // 예약한 단체 손님의 평균 연령
+	
 	// set get method
 	public int getGroup_mem_pk() {
 		return group_mem_pk;
@@ -66,12 +69,24 @@ public class M_groupVO {
 	public void setGroup_mem_str_age(String group_mem_str_age) {
 		this.group_mem_str_age = group_mem_str_age;
 	}
+	public int getGroup_mem_count() {
+		return group_mem_count;
+	}
+	public void setGroup_mem_count(int group_mem_count) {
+		this.group_mem_count = group_mem_count;
+	}
+	public double getAvg_age() {
+		return avg_age;
+	}
+	public void setAvg_age(double avg_age) {
+		this.avg_age = avg_age;
+	}
 	@Override
 	public String toString() {
 		return "M_groupVO [group_mem_pk=" + group_mem_pk + ", group_mem_package_pk=" + group_mem_package_pk
 				+ ", group_mem_reserve_id=" + group_mem_reserve_id + ", group_mem_id=" + group_mem_id
 				+ ", group_mem_name=" + group_mem_name + ", group_mem_age=" + group_mem_age + ", group_mem_gender="
 				+ group_mem_gender + ", group_mem_status=" + group_mem_status + ", group_mem_str_age="
-				+ group_mem_str_age + "]";
+				+ group_mem_str_age + ", group_mem_count=" + group_mem_count + ", avg_age=" + avg_age + "]";
 	}
 }

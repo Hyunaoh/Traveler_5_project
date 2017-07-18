@@ -137,9 +137,8 @@
                     	<button type="submit" class="btn btn-primary btn-md">취소</button>
 					</form>
 					<c:if test="${groupVO.group_pak_guide == sessionID}">
-					<form action="" method="post" style="display:inline;">
+					<form action="../m_group/m_groupListForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
-                    	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
                     	<button type="submit" class="btn btn-primary btn-md">손님 목록</button>
 					</form>
 					</c:if>
