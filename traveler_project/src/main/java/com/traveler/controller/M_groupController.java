@@ -1,5 +1,6 @@
 package com.traveler.controller;
 
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.traveler.dao.GroupDAO;
 import com.traveler.dao.M_groupDAO;
 import com.traveler.dao.MemberDAO;
-import com.traveler.model.GroupVO;
 import com.traveler.model.M_groupVO;
 import com.traveler.model.MemberVO;
 
@@ -65,17 +66,40 @@ public class M_groupController {
 			System.out.println(" >> process result["+i+"] : " + check);
 		}
 		
-		// 단체 상품 현재 인원 증가
-//		GroupVO groupVO = new GroupVO();
-//		groupVO.setGroup_pak_pk(m_groupVO.getGroup_mem_package_pk());
-//		groupVO.setGroup_pak_current(count);
-//		boolean check_group_package = false;
-//		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
-//		if(groupDAO.updateGroup(groupVO) > 0){
-//			check_group_package = true;
-//		}
-//		System.out.println(" >> Process Result : " + check_group_package);
-		
 		return "redirect:../group/groupDetailForm.go?group_pak_pk="+m_groupVO.getGroup_mem_package_pk();
+	}
+	
+	@RequestMapping("/m_groupListForm.go")
+	public String m_groupListForm(M_groupVO m_groupVO, Model model) throws Exception{
+		System.out.println("[system] access m_groupListForm!");
+		
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupList = m_groupDAO.selectAllGroup(m_groupVO);
+		
+		model.addAttribute("m_groupList", m_groupList);
+		return "m_group/m_groupListForm";
+	}
+	
+	@RequestMapping("/m_groupDetailForm.go")
+	public String m_groupDetailForm(M_groupVO m_groupVO_in, Model model) throws Exception{
+		System.out.println("[system] access m_groupDetailForm!");
+		
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupList = m_groupDAO.selectDetailInfo(m_groupVO_in);
+		
+		model.addAttribute("m_groupList", m_groupList);
+		return "m_group/m_groupDetailForm";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/m_groupGetInfoAjax.go")
+	public List<M_groupVO> m_groupGetInfoAjax(@RequestBody M_groupVO m_groupVO_in)throws Exception{
+		System.out.println("[system] access m_groupGetInfoAjax!");
+		
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupListAjax = m_groupDAO.selectAll(m_groupVO_in);
+		
+		return m_groupListAjax;
 	}
 }
