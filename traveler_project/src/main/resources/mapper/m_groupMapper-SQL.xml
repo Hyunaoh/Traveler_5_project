@@ -17,7 +17,7 @@
 		FROM GROUP_MEM
 		WHERE group_mem_package_pk = #{group_mem_package_pk}
 	</select>
-	<select id="selectAll" parameterType="com.traveler.model.M_groupVO" resultType="com.traveler.model.M_groupVO">
+	<select id="selectAllGroup" parameterType="com.traveler.model.M_groupVO" resultType="com.traveler.model.M_groupVO">
 		SELECT *, COUNT(GROUP_MEM_RESERVE_ID) AS GROUP_MEM_COUNT, AVG(GROUP_MEM_AGE) AS AVG_AGE
 		FROM GROUP_MEM
 		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk}
@@ -27,5 +27,10 @@
 		SELECT *
 		FROM GROUP_MEM
 		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk} AND GROUP_MEM_RESERVE_ID = #{group_mem_reserve_id}
+	</select>
+	<select id="selectAll" parameterType="com.traveler.model.M_groupVO" resultType="com.traveler.model.M_groupVO">
+		SELECT *
+		FROM GROUP_MEM
+		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk}
 	</select>
 </mapper>

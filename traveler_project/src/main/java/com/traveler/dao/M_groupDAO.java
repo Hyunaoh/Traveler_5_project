@@ -13,4 +13,6 @@ public interface M_groupDAO {
 	public List<M_groupVO> selectAll(M_groupVO m_groupVO) throws Exception;
 	
 	public List<M_groupVO> selectDetailInfo(M_groupVO m_groupVO) throws Exception;
+
+	public List<M_groupVO> selectAllGroup(M_groupVO m_groupVO) throws Exception;
 }

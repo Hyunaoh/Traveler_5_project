@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.traveler.dao.M_groupDAO;
 import com.traveler.dao.MemberDAO;
@@ -72,7 +74,7 @@ public class M_groupController {
 		System.out.println("[system] access m_groupListForm!");
 		
 		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
-		List<M_groupVO> m_groupList = m_groupDAO.selectAll(m_groupVO);
+		List<M_groupVO> m_groupList = m_groupDAO.selectAllGroup(m_groupVO);
 		
 		model.addAttribute("m_groupList", m_groupList);
 		return "m_group/m_groupListForm";
@@ -89,4 +91,15 @@ public class M_groupController {
 		return "m_group/m_groupDetailForm";
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/m_groupGetInfoAjax.go")
+	public List<M_groupVO> m_groupGetInfoAjax(@RequestBody M_groupVO m_groupVO_in)throws Exception{
+		System.out.println("[system] access m_groupGetInfoAjax!");
+		
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupListAjax = m_groupDAO.selectAll(m_groupVO_in);
+		
+		return m_groupListAjax;
+	}
 }
