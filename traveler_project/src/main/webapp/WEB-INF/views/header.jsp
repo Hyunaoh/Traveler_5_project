@@ -64,9 +64,25 @@
 		function disconnectUser() {
 			var token = sessionStorage.getItem("access_token");
 			var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + token; // 로그아웃 위해 토큰값을 보내줌
+			var nlogoutUrl = 'http://nid.naver.com/nidlogin.logout'; //네이버 로그아웃 url
 			var dataForm={
 					token : revokeUrl
 			};
+			$.ajax({
+				type : 'GET',
+				url : nlogoutUrl,
+				async : false,
+				data: JSON.stringify(dataForm),
+				contentType : "application/json",
+				dataType : 'jsonp',
+				success : function(nullResponse) {
+					//성공
+					alert("네이버 로그아웃 성공 ");
+				},
+				error : function(e){
+					
+				}
+			});
 			if(token != null){
 				$.ajax({
 					type : 'GET',

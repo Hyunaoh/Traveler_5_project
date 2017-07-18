@@ -31,6 +31,7 @@ import com.traveler.dao.PackageDAO;
 import com.traveler.model.FacebookVO;
 import com.traveler.model.GoogleVO;
 import com.traveler.model.MemberVO;
+import com.traveler.model.NaverVO;
 
 @Controller
 @RequestMapping("/member")
@@ -65,7 +66,35 @@ public class MemberController {
 		}
 		return view;
 	}
-	
+	// Naver Login
+	@RequestMapping("/navercallback.go")
+	public String naverCB()throws Exception{
+		return "/member/nloginCallback";
+	}
+	@RequestMapping("/loginvalue.go")
+	public String loginvalue(Model model, NaverVO naverVO)throws Exception{
+		System.out.println("[system] access naverLogin! ");
+		String view = "";
+		if(naverVO != null){
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMember_id(naverVO.getN_email());
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			memberVO = memberDAO.selectMemberList(memberVO);
+			try {
+				if(memberVO.getMember_id().equals(naverVO.getN_email())){
+				// 이미 가입한 회원!
+				// 로그인을 한다.
+					model.addAttribute("memberVO", memberVO);
+					view = "/member/loginForm";
+				}
+			} catch (Exception e) {
+				// 회원이 아님 (회원가입을 함)
+				model.addAttribute("naverVO", naverVO);
+				view = "/member/memberInsertForm";
+			}
+		}
+		return view;
+	}
 	// Google Login
 	@RequestMapping("/googleLogin.go")
 	public String googleLogin(Model model, GoogleVO googleVO) throws Exception {

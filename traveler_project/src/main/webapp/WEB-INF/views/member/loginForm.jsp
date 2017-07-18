@@ -6,6 +6,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>여행가 - 로그인</title>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<!-- Include the API client and Google+ client. -->
 	<script src="https://plus.google.com/js/client:platform.js" async defer></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -92,6 +94,10 @@
 											data-cookiepolicy="single_host_origin"></button>
 									</div>
 								</div>
+								 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+								<div class="col-md-3">
+								<div id="naver_id_login"></div>
+								</div>
 								<div class="col-md-3">
 									<div scope="public_profile, email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
 								</div>
@@ -108,6 +114,15 @@
 		<input type="hidden" name="f_name" value="">
 		<input type="hidden" name="f_gender" value="">
 	</form>
+	<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("DqftzUBEom_HWFvpmKTh", "http://localhost:8080/member/navercallback.go");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 2,40);
+  	naver_id_login.setDomain("http://localhost:8080/");
+  	naver_id_login.setState(state);
+  	/* naver_id_login.setPopup(); */
+  	naver_id_login.init_naver_id_login();
+  </script>
 	<script>
 		// 로그인 상태
 		function statusChangeCallback(response) {
