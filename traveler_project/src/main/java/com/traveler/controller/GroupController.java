@@ -166,6 +166,7 @@ public class GroupController {
 		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
 		int count = m_groupDAO.countAll(m_groupVO);
 		groupVO_in.setGroup_pak_current(count);
+		groupVO_in.setGroup_pak_status(1);
 		boolean check = false;
 		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
 		if(groupDAO.updateGroup(groupVO_in) > 0){

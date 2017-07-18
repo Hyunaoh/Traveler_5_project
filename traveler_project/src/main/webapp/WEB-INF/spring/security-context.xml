@@ -21,6 +21,9 @@
 		<security:intercept-url pattern="/find/findUpdateForm.go" access="hasAnyRole('ROLE_VIP', 'ROLE_ADMIN', 'ROLE_GUIDE')" />
 		<security:intercept-url pattern="/find/findDeleteForm.go" access="hasAnyRole('ROLE_VIP', 'ROLE_ADMIN', 'ROLE_GUIDE')" />
 		<security:intercept-url pattern="/find/findDetailForm.go" access="isAuthenticated()" />
+		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/group/groupInsertForm.go" access="hasAnyRole('ROLE_ADMIN', 'ROLE_GUIDE')" />
+		<security:intercept-url pattern="/group/groupUpdateForm.go" access="hasAnyRole('ROLE_ADMIN', 'ROLE_GUIDE')" />
 	</security:http>
 
 	<security:authentication-manager>
