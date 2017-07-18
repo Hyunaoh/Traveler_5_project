@@ -18,10 +18,10 @@
     	INSERT INTO PACKAGE (
     		PACKAGE_TITLE, PACKAGE_CONTENT, PACKAGE_PLACE1,
     		PACKAGE_PLACE2, PACKAGE_PLACE3, PACKAGE_LEADTIME,
-    		MEMBER_ID, PACKAGE_REGDATE, PACKAGE_IMAGE)
+    		MEMBER_ID, PACKAGE_REGDATE, PACKAGE_IMAGE, PACKAGE_TAG)
          VALUES ( #{package_title}, #{package_content}, #{package_place1},
          		  #{package_place2},#{package_place3},#{package_leadTime},
-         		  #{member_id},now(), #{package_image})
+         		  #{member_id},now(), #{package_image}, #{package_tag})
     </insert>
     
      <!-- 전체 게시물 수 -->
@@ -79,6 +79,9 @@
 			<if test="package_status != null and package_status !=''">
 				PACKAGE_STATUS = #{package_status}
 			</if>
+			<if test="package_tag != null and package_tag !=''">
+				PACKAGE_TAG = #{package_tag}
+			</if>
 		</set>
 		WHERE PACKAGE_PK = #{package_pk}
     </update>
@@ -90,6 +93,18 @@
 		WHERE PACKAGE_STATUS=0
 		ORDER BY PACKAGE_REGDATE DESC;
     </select>
+    
+    <!-- 해시태그 겹치는 게시물 가져오기 -->
+     <!-- 특정 단어 해시태그로 등록한 게시글 몇 개인지 구하기 -->
+   <select id="getSimillar" parameterType="String" resultType="com.traveler.model.PackageVO">
+   	select * 
+   		from package 
+   		where package_tag like '%,${value},%'
+   			or package_tag like '${value},%'
+   			or package_tag like '%,${value}'
+   
+   </select>
+    
     
  
 </mapper>

@@ -35,6 +35,9 @@ public interface PackageDAO {
 	//미승인 게시글 불러오기
 	public List<PackageVO> getUnapprovedPackage() throws Exception;
 	
+	//해시태그 겹치는 게시물 가져오기
+	public List<PackageVO> getSimillar(String str) throws Exception;
+	
 	
 	
 }

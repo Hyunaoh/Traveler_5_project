@@ -20,6 +20,11 @@
 	<jsp:include page="../header.jsp" />
 	
 	<section id="fh5co-work" data-section="work" >
+		<form name="test3" action="countTest.go" method="post">
+		<input type="text" name = "hashTag_tag">
+		<input type="submit">
+	
+		</form>
 		<div class="fh5co-overlay"></div>
 		
 		<!-- Page Content -->
