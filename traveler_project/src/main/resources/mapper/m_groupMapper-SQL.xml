@@ -33,4 +33,8 @@
 		FROM GROUP_MEM
 		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk}
 	</select>
+	<delete id="delete" parameterType="com.traveler.model.M_groupVO" >
+		DELETE FROM GROUP_MEM
+		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk} AND GROUP_MEM_RESERVE_ID = #{group_mem_reserve_id}
+	</delete>
 </mapper>

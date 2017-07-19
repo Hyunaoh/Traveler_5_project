@@ -1,5 +1,6 @@
 package com.traveler.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -101,5 +102,32 @@ public class M_groupController {
 		List<M_groupVO> m_groupListAjax = m_groupDAO.selectAll(m_groupVO_in);
 		
 		return m_groupListAjax;
+	}
+	
+	@RequestMapping("/m_groupDeleteForm.go")
+	public String m_groupDeleteForm(M_groupVO m_groupVO_in, Model model) throws Exception{
+		System.out.println("[system] access m_groupDeleteForm!");
+		
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupList = m_groupDAO.selectDetailInfo(m_groupVO_in);
+		
+		model.addAttribute("m_groupList", m_groupList);
+		return "m_group/m_groupDeleteForm";
+	}
+	
+	@RequestMapping("/m_groupDeletePro.go")
+	public String m_groupDeletePro(M_groupVO m_groupVO_in, Principal principal) throws Exception{
+		System.out.println("[system] access m_groupDeletePro!");
+		
+		String sessionID = principal.getName();
+		m_groupVO_in.setGroup_mem_reserve_id(sessionID);
+		boolean check = false;
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		if(m_groupDAO.delete(m_groupVO_in) > 0){
+			check=true;
+		}
+		System.out.println(" >> process result : " + check);
+		
+		return "redirect:../group/groupDetailForm.go?group_pak_pk="+m_groupVO_in.getGroup_mem_package_pk();
 	}
 }

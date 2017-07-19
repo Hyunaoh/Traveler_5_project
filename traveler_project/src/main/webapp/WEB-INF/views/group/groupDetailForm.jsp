@@ -144,10 +144,10 @@
                     </c:if>
                     
                     <!-- 예약 취소 -->
-					<form action="" method="post" style="display:inline;">
+					<form action="../m_group/m_groupDeleteForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
                     	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
-                    	<button type="submit" class="btn btn-primary btn-md">취소</button>
+                    	<button type="submit" class="btn btn-primary btn-md">예약취소</button>
 					</form>
 					
 					<!-- 예약한 손님 목록(글 작성자만 확인 가능) -->
