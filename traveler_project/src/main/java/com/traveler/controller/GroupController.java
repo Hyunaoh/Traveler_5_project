@@ -167,15 +167,25 @@ public class GroupController {
 		int count = m_groupDAO.countAll(m_groupVO);
 		groupVO_in.setGroup_pak_current(count);
 		groupVO_in.setGroup_pak_status(1);
-		boolean check = false;
 		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
-		if(groupDAO.updateGroup(groupVO_in) > 0){
-			check = true;
-		}
-		System.out.println(" >> Process Result : " + check);
+		groupDAO.updateGroup(groupVO_in);
 		
 		// 정보 가져옴
 		GroupVO groupVO_result = groupDAO.selectInfo(groupVO_in);
+		
+		// 예약 좌석 여부 확인
+		boolean flag1_check = false;
+		if(groupVO_result.getGroup_pak_max() <= groupVO_result.getGroup_pak_current() ){
+			// 좌석이 꽉차거나 넘음
+			groupVO_result.setGroup_pak_flag1(1);
+			flag1_check = true;
+		}else{
+			// 좌석 있음
+			groupVO_result.setGroup_pak_flag1(0);
+		}
+		// DB값 변경
+		groupDAO.updateGroup(groupVO_result);
+		System.out.println(" >> Process Result : " + flag1_check);
 		
 		// 추가 공지사항 리스트 가져옴
 		GroupNoticeVO groupNoticeVO = new GroupNoticeVO();
@@ -186,6 +196,7 @@ public class GroupController {
 		
 		model.addAttribute("groupVO", groupVO_result);
 		model.addAttribute("groupNoticeList", groupNoticeList);
+		model.addAttribute("flag1_check", flag1_check);
 		return "group/groupDetailForm";
 	}
 }

@@ -101,9 +101,7 @@
 	</script>
 </head>
 <body>
-	<!-- Test용 (나중에 지울것!) -->
-	<% session.setAttribute("member_id", "8518");%>
-	
+
 	<form action="updatePackagePro.go" method="post">
 		제목 : <input type="text" name="package_title" value="${packageVO.package_title}" class="form-control"/><br>
 		

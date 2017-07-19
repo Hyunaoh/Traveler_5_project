@@ -21,7 +21,10 @@
 						+ 'ID <input type="text" name="group_mem_id" class="form-control" placeholder="회원은 ID를 입력해야합니다."/><br>'
 						+ '이름 <input type="text" name="group_mem_name" class="form-control"/><br>'
 						+ '나이 <input type="number" min="1" name="group_mem_str_age" class="form-control"/><br>'
-						+ '성별 <input type="text" name="group_mem_gender" class="form-control"/><br></div>'
+						+ '성별 <select name="group_mem_gender" value="${memberVO.member_gender}" class="black-font form-control">'
+						+ '<option value="man">남성</option>'
+						+ '<option value="woman">여성</option>'
+						+ '</select><br></div>'
 					);
 				}else if($("#select_mem").val() == '비회원'){
 					count = count + 1;
@@ -31,7 +34,10 @@
 							+ '<input type="hidden" name="group_mem_id" value="없음"/>'
 							+ '이름 <input type="text" name="group_mem_name" class="form-control"/><br>'
 							+ '나이 <input type="number" min="1" name="group_mem_str_age" class="form-control"/><br>'
-							+ '성별 <input type="text" name="group_mem_gender" class="form-control"/><br></div>'
+							+ '성별 <select name="group_mem_gender" value="${memberVO.member_gender}" class="black-font form-control">'
+							+ '<option value="man">남성</option>'
+							+ '<option value="woman">여성</option>'
+							+ '</select><br></div>'
 						);
 				}
 				$("#count").val(count+1);
@@ -69,7 +75,11 @@
 						ID <input type="text" readonly name="group_mem_reserve_id" value="${memberVO.member_id}"class="black-font form-control"/><br>
 						이름 <input type="text" readonly name="group_mem_name" value="${memberVO.member_name}"class="black-font form-control"/><br>
 						나이 <input type="number" min="1" name="group_mem_str_age" class="black-font form-control"/><br>
-						성별 <input type="text" value="${memberVO.member_gender}" name="group_mem_gender" class="black-font form-control"/><br>
+						성별 
+						<select name="group_mem_gender" value="${memberVO.member_gender}" class="black-font form-control">
+							<option value="man">남성</option>
+							<option value="woman">여성</option>
+						</select>
 						<div id="add_info"></div>
 						<select id="select_mem" class="black-font">
 							<option>선택</option>

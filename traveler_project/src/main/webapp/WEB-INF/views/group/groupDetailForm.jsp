@@ -55,7 +55,12 @@
 				<p>도시 : ${groupVO.group_pak_place2} </p>
 				<p>상세 장소 : ${groupVO.group_pak_place3}</p>
 				<p>가격(인당) : ${groupVO.group_pak_cost}</p>
-				<p>총 인원 : ${groupVO.group_pak_min} ~ ${groupVO.group_pak_max} ( 최소 인원 ~ 최대 인원 )</p>
+				<p>
+					총 인원 : ${groupVO.group_pak_min} ~ ${groupVO.group_pak_max} ( 최소 인원 ~ 최대 인원 )
+					<c:if test="${flag1_check == true }">
+						<font color="red">예약 자리 없음</font>
+					</c:if>
+				</p>
 				<hr>
 				<p>현재 인원 : ${groupVO.group_pak_current} </p>
                 
@@ -126,16 +131,26 @@
                 <!-- Blog Search Well -->
                 <div class="well">
                     <h4>여행 상품 신청 및 취소</h4>
+                    <!-- 신청 -->
+                    <c:if test="${flag1_check != true }">
                     <form action="../m_group/m_groupInsertForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
                     	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
                     	<button type="submit" class="btn btn-primary btn-md">신청</button>
 					</form>
+					</c:if>
+                    <c:if test="${flag1_check == true }">
+                    	<font color="red">신청불가</font>
+                    </c:if>
+                    
+                    <!-- 예약 취소 -->
 					<form action="" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
                     	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
                     	<button type="submit" class="btn btn-primary btn-md">취소</button>
 					</form>
+					
+					<!-- 예약한 손님 목록(글 작성자만 확인 가능) -->
 					<c:if test="${groupVO.group_pak_guide == sessionID}">
 					<form action="../m_group/m_groupListForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
