@@ -16,9 +16,36 @@ public class PackageVO {
 	private Date package_regDate;
 	private int package_status;
 	private String package_tag;
+	private int countBoardPerPage; // 한 페이지 당 게시물 개수
+	private int startBoardNum; // 해당 페이에서의 첫 시작 글
+	private int endBoardNum; // 해당 페이에서의 마지막 글
 	
 	
 	
+	public int getCountBoardPerPage() {
+		return countBoardPerPage;
+	}
+
+	public void setCountBoardPerPage(int countBoardPerPage) {
+		this.countBoardPerPage = countBoardPerPage;
+	}
+
+	public int getStartBoardNum() {
+		return startBoardNum;
+	}
+
+	public void setStartBoardNum(int startBoardNum) {
+		this.startBoardNum = startBoardNum;
+	}
+
+	public int getEndBoardNum() {
+		return endBoardNum;
+	}
+
+	public void setEndBoardNum(int endBoardNum) {
+		this.endBoardNum = endBoardNum;
+	}
+
 	public String getPackage_tag() {
 		return package_tag;
 	}

@@ -31,6 +31,7 @@
    		where package_tag like '%,${value},%'
    			or package_tag like '${value},%'
    			or package_tag like '%,${value}'
+   			or package_tag = #{value}
    
    </select>
 
