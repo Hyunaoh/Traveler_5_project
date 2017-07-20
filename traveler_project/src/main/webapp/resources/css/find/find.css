@@ -57,3 +57,12 @@
 .find-paging-content {
 	margin-bottom: 5rem;
 }
+
+/* find detail form */
+.find-detail-content{
+	margin-top : 10rem;
+	margin-bottom: 10rem;
+}
+.find-detail-content label{
+	font-style: italic;
+}
