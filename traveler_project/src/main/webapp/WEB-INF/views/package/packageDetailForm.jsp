@@ -22,22 +22,40 @@
 	<!-- 패키지 찾기에서 접근했을 때(이미 승인 된 상품) -->
 	<c:if test="${packageVO.package_status eq 1 }">
 		<a href="getAllPackage.go">목록보기</a>
-		<a href="updatePackageForm.go?package_pk=${packageVO.package_pk}">수정</a>
-		<a href="packageDeletePro.go?package_pk=${packageVO.package_pk}">삭제</a>
+		<se:authorize access="isAuthenticated()">
+			<se:authentication property="principal.username" var="sessionID" />
+			<c:if test="${packageVO.member_id == sessionID}">
+				<a class="btn btn-default btn-sm" href="updatePackageForm.go?package_pk=${packageVO.package_pk}">수정</a>
+				<a class="btn btn-default btn-sm" href="packageDeletePro.go?package_pk=${packageVO.package_pk}">삭제</a>
+			</c:if>
+		</se:authorize>
 		
 		<br><br><br>
 		이런 상품은 어떠세염?(비슷한 상품들 띄워주기)<br>
-		<c:forEach items="" var="list">
-			<c:if test="${list.package_image ne null}">
-				<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
-					<img src="<c:url value="/resources/images/package_img/${list.package_image}" />" alt="Image" class="img-responsive" style="height: 270px; width: 359.98px;">
+			<c:if test="${sim_pack1.package_image ne null}">
+				<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${sim_pack1.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+					<img src="<c:url value="/resources/images/package_img/${sim_pack1.package_image}" />" alt="Image" class="img-responsive" style="height: 100px; width: 100px;">
 					<div class="fh5co-text">
-						<h2>${list.package_title}</h2>
-						<span> 작성자 : ${list.member_id} / 소요시간 : ${list.package_leadTime}</span>
+						<h2>${sim_pack1.package_title}</h2>
 					</div>
 				</a>
 			</c:if>
-		</c:forEach>
+			<c:if test="${sim_pack2.package_image ne null}">
+				<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${sim_pack2.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+					<img src="<c:url value="/resources/images/package_img/${sim_pack2.package_image}" />" alt="Image" class="img-responsive" style="height: 100px; width: 100px;">
+					<div class="fh5co-text">
+						<h2>${sim_pack2.package_title}</h2>
+					</div>
+				</a>
+			</c:if>
+			<c:if test="${sim_pack3.package_image ne null}">
+				<a href="#" onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${sim_pack3.package_pk}" />'"  class="fh5co-project-item image-popup to-animate">
+					<img src="<c:url value="/resources/images/package_img/${sim_pack3.package_image}" />" alt="Image" class="img-responsive" style="height: 100px; width: 100px;">
+					<div class="fh5co-text">
+						<h2>${sim_pack3.package_title}</h2>
+					</div>
+				</a>
+			</c:if>
 		
 		
 	</c:if>

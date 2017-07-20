@@ -10,7 +10,17 @@
 		SELECT *
 		FROM PACKAGE
 		WHERE PACKAGE_STATUS=1
-		ORDER BY PACKAGE_REGDATE DESC;
+		ORDER BY PACKAGE_REGDATE DESC
+    </select>
+    
+    <!-- 페이징처리 된 게시글 리스트 -->
+    <select id="selectPackageListAllPaging" parameterType="com.traveler.model.PackageVO" resultType="com.traveler.model.PackageVO">
+    	SELECT *
+		FROM PACKAGE
+		WHERE PACKAGE_STAtuS=1
+		ORDER BY PACKAGE_REGDATE DESC
+		LIMIT #{startBoardNum}, #{countBoardPerPage}
+    
     </select>
     
      <!-- 추가 -->
@@ -26,8 +36,17 @@
     
      <!-- 전체 게시물 수 -->
     <select id="countTotalPackage" resultType="Integer">
-    	SELECT COUNT (*)
+    	SELECT COUNT(*)
     	FROM PACKAGE    
+    	WHERE PACKAGE_STATUS=1
+    </select>
+    
+    <!-- 국가별 게시물 갯수 -->
+    <select id="countContryPackage" resultType="Integer" parameterType="com.traveler.model.PackageVO">
+    	SELECT COUNT(*)
+    	FROM PACKAGE
+    	WHERE PACKAGE_PLACE1 = #{package_place1} AND
+   			PACKAGE_STATUS=1
     </select>
   
      <!-- 국가로 게시글 찾기 -->
@@ -91,7 +110,7 @@
 		SELECT *
 		FROM PACKAGE
 		WHERE PACKAGE_STATUS=0
-		ORDER BY PACKAGE_REGDATE DESC;
+		ORDER BY PACKAGE_REGDATE DESC
     </select>
     
     <!-- 해시태그 겹치는 게시물 가져오기 -->
@@ -102,6 +121,7 @@
    		where package_tag like '%,${value},%'
    			or package_tag like '${value},%'
    			or package_tag like '%,${value}'
+   			or package_tag=#{value}
    
    </select>
     

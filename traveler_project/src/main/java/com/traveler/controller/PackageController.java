@@ -24,11 +24,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.traveler.commons.Ascending;
+import com.traveler.commons.Commons;
+import com.traveler.commons.Commons_sort;
 import com.traveler.dao.HashTagDAO;
 import com.traveler.dao.PackageDAO;
+import com.traveler.model.FindVO;
 import com.traveler.model.HashTagVO;
 import com.traveler.model.PackageVO;
+import com.traveler.model.PagingVO;
 
 @Controller
 @RequestMapping("/package")
@@ -36,99 +39,6 @@ public class PackageController {
 	
 	@Autowired
 	SqlSession sqlSession;
-	
-	@RequestMapping("countTest.go")
-	public String testHashTag(PackageVO packageVO) throws Exception {
-		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
-		HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
-		
-		//String[] tags=splitHashTag(packageVO.getPackage_tag());
-		String[] tags={"CSLI", "밴쿠버", "마로"};
-		
-		//해시맵 key값에 개별 해시태그를, value값에 해당 태그 적용된 상품pk를 저장
-		HashMap<String, ArrayList<Integer>> simillar = new HashMap<>();
-		
-		ArrayList pk = new ArrayList<>();
-
-		
-		
-		for(int i = 0 ; i <tags.length; i++){
-			for(int j = 0 ; j <hashTagDAO.getCount(tags[i]); j++){
-				pk.add(packageDAO.getSimillar(tags[i]).get(j).getPackage_pk());
-				simillar.put(tags[i], pk);
-			}//in for
-		}//out for
-		
-		//sysout
-		
-		System.out.println("simillar출력-------------------------------");
-		
-		Iterator<String> iterator = simillar.keySet().iterator();
-
-		while (iterator.hasNext()) {
-			String key = iterator.next();
-			System.out.print("key=" + key);
-			System.out.println(", value=" + simillar.get(key));
-		}
-		
-		//sysout
-		
-		//정렬하고
-		Ascending ascending = new Ascending();
-        Collections.sort(pk, ascending);
-        
-        //바로 뒤 값이랑 비교해서 count++해주고, 그걸 다시 map에 담는다
-        //1 1 2 3 4 6
-        
-        HashMap<Integer, Integer> map = new HashMap<>();
-        
-        
-        int pknum=(int) pk.get(0);
-        int count=1;
-        
-        for(int i=0; i<pk.size(); i++){
-        	
-        	
-        	
-        	if(pk.get(i).equals(pk.get(i+1))){
-        		count++;
-        		System.out.println("같을때: "+pk.get(i));
-        		//map.put(pknum,count);
-        	}else if(!pk.get(i).equals(pk.get(i+1))){
-        		map.put(pknum, count);
-        		count=1;
-        		System.out.println("다를때: "+pk.get(i));
-        		pknum=(int)pk.get(i+1);
-        		
-        	}
-        	
-        }
-        
-   
-        
-        
-       /* Iterator<Integer> iterator3 =pk.iterator();
-        
-		while (iterator3.hasNext()) {
-			int key = iterator3.next();
-			System.out.println("key=" + key);
-		}*/
-		
-		Iterator<Integer> iterator2 = map.keySet().iterator();
-		
-		System.out.println("map출력--------------------------------");
-
-		while (iterator2.hasNext()) {
-			Integer key = iterator2.next();
-			System.out.print("key=" + key);
-			System.out.println(", value=" + map.get(key));
-		}
-		
-		
-		return "/package/getListForm";
-
-	}
-	
 	
 	/*
 	@RequestMapping("countTest.go")
@@ -147,20 +57,33 @@ public class PackageController {
 	
 	//패키지 전체 목록 띄워주기
 	@RequestMapping("getAllPackage.go")
-	public String getAllpackage(Model model) throws Exception{
+	public String getAllpackage(Model model,  PagingVO pagingVO) throws Exception{
 		
 		System.out.println("전체 목록 띄워주는 컨트롤러 진입");
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
 		
-		//전체 패키지 목록
-		List<PackageVO> list = packageDAO.getAllPackage();
-		
 		//패키지 전체 갯수
 		int countPackage = packageDAO.countTotalPackage();
+		final int COUNT_PER_PAGE = 9; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(countPackage);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
 		
+		// 가이드 찾기 전체 List 가져옴
+		PackageVO packageVO = new PackageVO();
+		packageVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		packageVO.setStartBoardNum(pagingVO.getStartBoardNum());
+		
+		List<PackageVO> list = packageDAO.selectPackageListAllPaging(packageVO);
+		System.out.println("  >> success processing!");
+		
+
+		// 전체 게시판에서 가져옴
+		pagingVO.setState("listAll");
+
 		model.addAttribute("list", list);
 		model.addAttribute("count", countPackage);
-		
+		model.addAttribute("pagingVO", pagingVO);
 		
 		return "/package/getListForm";
 	}
@@ -237,22 +160,33 @@ public class PackageController {
 		return "redirect:getAllPackage.go";
 	}
 	
+	/*나라별 패키지 리스트*/
 	@RequestMapping("packageCountryListForm.go")
-	public String packageCountryListForm (Model model, PackageVO packageVO) throws Exception{
+	public String packageCountryListForm (Model model, PackageVO packageVO, PagingVO pagingVO) throws Exception{
 		
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
 		
-		//전체 패키지 목록
+		// 전체 게시물 개수 가져옴
+		int totalCount = packageDAO.countContryPackage(packageVO);
+		final int COUNT_PER_PAGE = 9; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
+
+		// 국가 별 리스트 출력할 List 가져옴
+		packageVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		packageVO.setStartBoardNum(pagingVO.getStartBoardNum());
 		List<PackageVO> searchList = packageDAO.searchPackage(packageVO);
-		
-		PackageVO what = searchList.get(0);
-		System.out.println("투스트링"+what.toString());
-		
-		//패키지 전체 갯수
-		int countPackage = packageDAO.countTotalPackage();
-		
+		System.out.println("  >> success processing!");
+
+		// 나라 게시판에서 가져옴
+		pagingVO.setState("listCountryAll");
+
 		model.addAttribute("list", searchList);
-		model.addAttribute("count", countPackage);
+		model.addAttribute("count", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("packageVO", packageVO);
+		
 		
 		return "/package/getListForm";
 	}
@@ -261,9 +195,9 @@ public class PackageController {
 	@RequestMapping("packageDetailForm.go")
 	public String packageDetailForm (Model model, PackageVO packageVO, HttpSession session) throws Exception{
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
+		HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
 		
 		PackageVO detailPackage = packageDAO.selectPackage(packageVO);
-		System.out.println("투스트링"+detailPackage.toString());
 		
 		//조회수 증가
 		boolean check = false;
@@ -290,10 +224,104 @@ public class PackageController {
 			}
 		}
 		
-		//같은 해시태그인 상품들 리스트 넘겨주기
+		///////////////유사 패키지/////////////////////////////
 		
+		//db에 저장된 태그들을 하나씩 스플릿함
+		String[] tags=splitHashTag(detailPackage.getPackage_tag());
 		
-		model.addAttribute("packageVO", detailPackage);
+		//ArrayList에 태그 적용된 상품pk를 저장(중복 허용해서 저장.. 그래야 나중에 몇 개 겹치는지 알 수 있으니까)
+		ArrayList<Integer> pk = new ArrayList<Integer>();
+
+		for(int i = 0 ; i <tags.length; i++){
+			for(int j = 0 ; j <hashTagDAO.getCount(tags[i]); j++){
+				int get_pk = packageDAO.getSimillar(tags[i]).get(j).getPackage_pk();
+				pk.add(get_pk);
+			}//in for
+		}//out for
+		
+		//오름차순으로 정렬하고
+		Commons_sort ascending = new Commons_sort();
+        Collections.sort(pk, ascending);
+        
+        //바로 뒤 값이랑 비교해서 중복되면 count++해주고, 그걸 다시 map에 담는다
+        //key 값이 package_pk 고, value값이 겹치는 해시태그 갯수
+        HashMap<Integer, Integer> map = new HashMap<>();
+    
+        int pknum=(int) pk.get(0);
+        int count=1;
+        
+        
+        for(int i=0; i<pk.size(); i++){
+        	if(pk.size()==1){//겹치는 애가 없는 것(자기 자신은 무조건 있어서 사이즈 1)
+        		map.put(pknum, 1);
+        	}else if(i!=pk.size()-1){
+	        	if(pk.get(i).equals(pk.get(i+1))){
+	        		count++;
+	        	}else if(!pk.get(i).equals(pk.get(i+1))){
+	        		map.put(pknum, count);
+	        		count=1;
+	        		pknum=(int)pk.get(i+1);
+	        	}
+        	}else{//마지막요소일때
+        		if(pk.get(i).equals(pk.get(i-1))){
+        			map.put(pknum, count);
+        		} else{
+        			pknum=(int)pk.get(i);
+        			map.put(pknum, 1);
+        		}
+        	}//else end
+        }//for end
+	       
+	        //view페이지에 넘겨주기 위해..
+	        PackageVO sim_pack1=new PackageVO();
+	        PackageVO sim_pack2=new PackageVO();
+	        PackageVO sim_pack3=new PackageVO();
+	       
+	        //map의 value값으로 내림차순 정렬해서 list에 담기(가장 많이 겹치는 애부터 뽑아야하니까..)
+	        Iterator it = Commons_sort.sortByValue(map).iterator();
+	        List list = new ArrayList<>();
+	        
+	        while(it.hasNext()){
+	        	int temp = (int) it.next();
+	        	list.add(temp);
+	        }
+	        
+	        //자기 자신 지우기
+	        if(list.size()==1){
+	        	list.remove(0);
+	        }
+	        
+	        if(list.size()==0){
+	        	sim_pack1=null;
+	        	sim_pack2=null;
+	        	sim_pack3=null;
+	        	
+	        }else if(list.size()==1){
+	        	sim_pack1.setPackage_pk((int) list.get(0));
+	        	sim_pack1=packageDAO.selectPackage(sim_pack1);
+	        	sim_pack2=null;
+	        	sim_pack3=null;
+	        }else if(list.size()==2){
+	        	sim_pack1.setPackage_pk((int) list.get(0));
+	        	sim_pack1=packageDAO.selectPackage(sim_pack1);
+	        	sim_pack2.setPackage_pk((int) list.get(1));
+	        	sim_pack2=packageDAO.selectPackage(sim_pack2);
+	        	sim_pack3=null;
+	        
+	        }else{
+	        	sim_pack1.setPackage_pk((int) list.get(0));
+	        	sim_pack1=packageDAO.selectPackage(sim_pack1);
+	        	sim_pack2.setPackage_pk((int) list.get(1));
+	        	sim_pack2=packageDAO.selectPackage(sim_pack2);
+	        	sim_pack3.setPackage_pk((int) list.get(2));
+	        	sim_pack3=packageDAO.selectPackage(sim_pack3);
+	        	
+	        }
+		
+			model.addAttribute("sim_pack1", sim_pack1);
+			model.addAttribute("sim_pack2", sim_pack2);
+			model.addAttribute("sim_pack3", sim_pack3);
+			model.addAttribute("packageVO", detailPackage);
 		
 		return "/package/packageDetailForm";
 	}
@@ -316,10 +344,22 @@ public class PackageController {
 	@RequestMapping("updatePackageForm.go")
 	public String updatePackageForm (Model model, PackageVO packageVO) throws Exception{
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
+		HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
 		
 		PackageVO detailPackage = packageDAO.selectPackage(packageVO);
 		
+		//DB에 등록되어있는 해시태그들과 해당 태그 포함된 게시글 몇 개인지 담아서 넘기기
+		HashMap<String, Integer> list = new HashMap<String, Integer>();
+		
+		for(int i = 0 ; i <hashTagDAO.getHashTag().size(); i++){
+			String tag= hashTagDAO.getHashTag().get(i).getHashTag_tag();
+			
+			list.put(tag, hashTagDAO.getCount(tag) );
+		}
+		
+		model.addAttribute("tagList", list);
 		model.addAttribute("packageVO", detailPackage);
+		
 		
 		return "/package/updatePackageForm";
 	}

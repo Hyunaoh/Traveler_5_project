@@ -4,8 +4,24 @@
 <head>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	
+	function remove_div(obj){
+	document.getElementById('field').removeChild(obj.parentNode);
+	}
+
+</script>
 	<script type="text/javascript">
 		$(function(){
+			
+			///*해시태그 칸 추가
+			$("#add_div").click(function add_div(){
+			    var div = document.createElement('div');
+			    div.innerHTML = document.getElementById('tagdiv').innerHTML;
+			    document.getElementById('field').appendChild(div);
+			  
+			});
+			
 			// 초기값 설정
 			$("#country").val($("#find_place1").val()).attr("selected", "selected");
 			init_place();
@@ -101,7 +117,6 @@
 	</script>
 </head>
 <body>
-
 	<form action="updatePackagePro.go" method="post">
 		제목 : <input type="text" name="package_title" value="${packageVO.package_title}" class="form-control"/><br>
 		
@@ -133,10 +148,29 @@
 		
 		소요시간 : <input type="number" name="package_leadTime" value="${packageVO.package_leadTime}" id="leadTime" class="form-control"/>
 		
+		<p id="area_text3">해시태그 : </p>
+			<input type="button" id="add_div" value="해시태그 추가"><br/>
+			<div id="tagdiv">
+				<font color="pink" font-weight="bold">#</font>
+				<input type="text" name="package_tag" list="info_list" placeholder="해시태그" required="required" autocomplete="on">
+				<input type="button" value="삭제" onclick="remove_div(this)">
+			</div>
+			
+			<!-- datalist -->
+			<datalist id ="info_list">
+				<c:forEach items="${tagList}" var="list">
+					<option value="${list.key }"> 관련 상품 ${list.value}개</option>
+				</c:forEach>
+			</datalist>
+			
+
+			<div id="field">
+			</div>
+			<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
+			
 		<input type="hidden" name="member_id" value = "${sessionScope.member_id}" class="form-control"/>
 		<input type="hidden" name="package_pk" value = "${packageVO.package_pk}" class="form-control"/>
-		<!-- 보안상 CSRF 값 넘겨줌 -->
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		
 		<button type="submit" id="submit_btn" class="btn btn-md btn-default">등록하기</button><div id="date_result_text"></div>
 	</form>
 
