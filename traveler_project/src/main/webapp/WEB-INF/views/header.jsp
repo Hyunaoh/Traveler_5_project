@@ -7,55 +7,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>여행가 - 여행을 더하다</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
-
-<!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
-
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="favicon.ico">
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-<!-- Animate.css -->
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/animate.css"/>">
-<!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/icomoon.css"/>">
-<!-- Simple Line Icons -->
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/simple-line-icons.css"/>">
-<!-- Magnific Popup -->
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/magnific-popup.css"/>">
-<!-- Bootstrap  -->
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/bootstrap.css"/>">
-<!-- 
-	Default Theme Style 
-	You can change the style.css (default color purple) to one of these styles
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	
-	1. pink.css
-	2. blue.css
-	3. turquoise.css
-	4. orange.css
-	5. lightblue.css
-	6. brown.css
-	7. green.css
-
-	-->
-	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap/style.css"/>">
-	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
-	<link rel="stylesheet" id="theme-switch" href="<c:url value="/resources/css/bootstrap/style.css"/>">
-	<!-- End demo purposes only -->
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	
-	<!-- Modernizr JS -->
-	<script src="<c:url value="/resources/js/bootstrap/modernizr-2.6.2.min.js"/>"></script>
+	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
 	<!-- 06.30 오현아 알람 쪽지 및 user 정보 js -->
 	<script src="<c:url value="/resources/js/message/alarm_conn.js"/>"></script>
@@ -103,78 +62,84 @@
 			}
 		}
 	</script>
+	
+	<!-- Header page CSS -->
+	<link rel="stylesheet" href="<c:url value="/resources/css/header.css" />" />
 </head>
+<!-- 로그인 했을때 알람 -->
 <se:authorize access="isAuthenticated()">
-	<body onload="alarm_access();">
+<body onload="alarm_access();">
+</se:authorize>
+<!-- 비회원인 경우 알람 없음 -->
+<se:authorize access="isAnonymous()">
+<body>
 </se:authorize>
 
-<se:authorize access="isAnonymous()">
-	<body>
-</se:authorize>
 	<!-- logout 주소 -->
 	<input type="hidden" id="logout_uri" value="<c:url value="/j_spring_security_logout"/>"/>
 
-<header role="banner" id="fh5co-header">
-	<div class="container">
-		<!-- <div class="row"> -->
-		<nav class="navbar navbar-default">
-			<div class="navbar-header">
-				<!-- Mobile Toggle Menu Button -->
-				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-				<a class="navbar-brand" href="<c:url value="/home.go" />">여행가</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
+	<!-- Header -->
+	<nav class="navbar navbar-default" id="header-init">
+		<div class="container">
+		
+			<!-- 상단 Menu -->
+			<div class="row">
+			
+				<!-- 사이트 로고 -->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="<c:url value="/home.go" />">여행가</a>
+				</div>
+				
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#" data-nav-section="home" onclick="location='<c:url value="/home.go" />'">
-						<span><i class="icon-home"></i>Home</span></a></li>
-					<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'"><span>가이드 찾기</span></a></li>
-					<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'"><span>패키지 찾기</span></a></li>
-					<li><a href="#" onclick="location='<c:url value="/group/groupListForm.go" />'"><span>단체 패키지</span></a></li>
+					<!-- 로그인 안했을 경우 -->
 					<se:authorize access="isAnonymous()">
-						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'"><span>로그인</span></a></li>
-						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'"><span>회원가입</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/loginForm.go" />'">로그인</a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/memberInsertForm.go" />'">회원가입</a></li>
+						<!-- google 사이트 언어 번역 -->
+						<li><div id="google_translate_element"></div></li>
+						<script type="text/javascript">
+							function googleTranslateElementInit() {
+							  new google.translate.TranslateElement({pageLanguage: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+							}
+						</script>
+						<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 					</se:authorize>
+					
+					<!-- 로그인 했을때만 보임 -->
 					<se:authorize access="isAuthenticated()">
-						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'"><span>쪽지</span></a></li>
-						<li><a href="#" onclick="location='<c:url value="/plan/myPlanList.go" />'"><span>여행계획</span></a></li>
-						<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'"><span>마이페이지</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'">쪽지</a></li>
+						<li><a href="#" onclick="location='<c:url value="/plan/myPlanList.go" />'">여행계획</a></li>
+						<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'">마이페이지</a></li>
 						<se:authorize access="hasRole('ROLE_ADMIN')">
-							<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'"><span>관리자</span></a></li>
+						<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'">관리자</a></li>
 						</se:authorize>
-						<li><a href="#" onclick="disconnectUser()"><span>로그아웃(<se:authentication property='principal.username' />)</span></a></li>
+						<li><a href="#" onclick="disconnectUser()">로그아웃(<se:authentication property='principal.username' />)</a></li>
 					</se:authorize>
 				</ul>
 			</div>
-		</nav>
-		<!-- </div> -->
-	</div>
-</header>
-
-<!-- jQuery -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.min.js"/>"></script>
-<!-- jQuery Easing -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.easing.1.3.js"/>"></script>
-<!-- Bootstrap -->
-<script src="<c:url value="/resources/js/bootstrap/bootstrap.min.js"/>"></script>
-<!-- Waypoints -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.waypoints.min.js"/>"></script>
-<!-- Stellar Parallax -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.stellar.min.js"/>"></script>
-<!-- Counter -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.countTo.js"/>"></script>
-<!-- Magnific Popup -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.magnific-popup.min.js"/>"></script>
-<script src="<c:url value="/resources/js/bootstrap/magnific-popup-options.js"/>"></script>
-
-<!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-<script src="<c:url value="/resources/js/bootstrap/google_map.js"/>"></script>
-
-<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
-<script src="<c:url value="/resources/js/bootstrap/jquery.style.switcher.js"/>"></script>
-
-<!-- Main JS (Do not remove) -->
-<script src="<c:url value="/resources/js/bootstrap/main.js"/>"></script>
+			
+			<!-- 하단 Menu -->
+			<div class="row">
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#" onclick="location='<c:url value="/home.go" />'">Home</a></li>
+						<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'">가이드 찾기</a></li>
+						<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'">싱글 패키지</a></li>
+						<li><a href="#" onclick="location='<c:url value="/group/groupListForm.go" />'">단체 패키지</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+	<!-- Header 끝 -->
+	
+	<!-- jQuery -->
+	<script src="<c:url value="/resources/js/bootstrap/jquery.min.js"/>"></script>
+	
+	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<script src="<c:url value="/resources/js/bootstrap/google_map.js"/>"></script>
 
 </body>
 </html>

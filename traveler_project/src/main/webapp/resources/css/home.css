@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+.menu-content {
+	margin-top: 7rem;
+	margin-bottom: 7rem;
+}
+
+.home-menu-img-size {
+	width: 100%;
+	padding: 1rem;
+}
+
+.home-menu-img-size:hover {
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+.home-menu-img {
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+}
+
+.home-menu-img-text {
+	position: absolute;
+	top: 35%;
+	left: 33%;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.home-menu-img-text h3 {
+	font-size: 3rem;
+	text-align: center;
+}
