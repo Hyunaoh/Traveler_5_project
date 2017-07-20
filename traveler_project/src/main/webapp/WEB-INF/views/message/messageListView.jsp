@@ -88,6 +88,7 @@ a:hover {
 .checkbox-wrapper input:checked ~ label {
   opacity: 1;
 }
+
 .checkbox-wrapper label {
   position: absolute;
   top: 0;
@@ -403,49 +404,6 @@ a:hover {
   line-height: 50px;
   cursor: default;
   transition-duration: .3s;
-  /*
-			.col-1 {
-				width: 140px;
-				text-align: right;
-				padding-right: 37px;
-				padding-top: 15px;
-
-				.checkbox-wrapper, .icon, .dot {
-					float: right;
-					display: block;
-				}
-
-				.icon {
-					margin-left: 10px;
-					font-size: 20px;
-				}
-
-				.dot {
-					border: 5px solid transparent;
-					border-radius: 100px;
-					margin-right: 24px;
-					margin-top: 5px;
-				}
-			}
-			.col-2 {
-				width: 270px;
-			}
-			.col-3 {
-				position: absolute;
-				top: 0;
-				left: 390px; // Covers previous cols
-				right: 120px;
-
-				.grey {
-					opacity: .7;
-				}
-			}
-			.col-4 {
-				width: 120px;
-				padding-left: 20px;
-				float: right;
-			}
-			*/
 }
 #main .message-list li:hover,
 #main .message-list li.active,
@@ -554,6 +512,7 @@ a:hover {
 }
 #message .header {
   margin-bottom: 30px;
+  margin-top: 30px;
   padding: 0;
 }
 #message .header .page-title {
@@ -569,9 +528,11 @@ a:hover {
   margin-left: 10px;
   color: #999;
 }
+
+<!-- 받은/보낸 메세지함 팝업창 크기 및 위치 -->
 #message #message-nano-wrapper {
   position: absolute;
-  top: 165px;
+  top: 225px;
   bottom: 0;
   height: auto;
   left: 0;
@@ -835,15 +796,11 @@ a:hover {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+	<jsp:include page="../header.jsp" />
 </head>
 
 <body>
-	<div style="margin-top: 0px">
-		<jsp:include page="../header.jsp" />
-	</div>
-	
-	
+
   <aside id="sidebar" class="nano">
   <div class="nano-content" style="margin-top: 50px">
     <div class="logo-container" style="font-size: 40px;"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">전체메일함</a>
@@ -856,26 +813,17 @@ a:hover {
         <li><a href="#" id="messageSend">보낸메세지함<span>
         <input type="hidden" id="messageSend_total" value="${ messageSend_total }" />(${ messageSend_total })</span></a></li>
         <li><a href="#" id="messageWrite">메세지보내기</a></li>
-        <li><a href="#">쓰레기통</a></li>
       </ul>
     </menu>
     <div class="separator"></div>
     <div class="menu-segment">
       <ul class="labels">
-        <li class="title">현재 아이디 <span class="icon">+</span></li>
+        <li class="title">현재 아이디 </li>
         <li><a href="#"><se:authentication property='principal.username' /><span class="ball pink"></span></a></li>
      	<li><input type="hidden" id="username" name="username" value="<se:authentication property='principal.username' />" /></li>
       </ul>
     </div>
     <div class="separator"></div>
-    <div class="menu-segment">
-      <ul class="chat">
-        <li class="title">Chat <span class="icon">+</span></li>
-        <li><a href="#"><span class="ball green"></span>Laura Turner</a></li>
-        <li><a href="#"><span class="ball blue"></span>Paul Green</a></li>
-        <li><a href="#" class="italic-link">See offline list</a></li>
-      </ul>
-    </div>
     <div class="bottom-padding"></div>
   </div>
 </aside>
@@ -889,10 +837,10 @@ a:hover {
   </header>
   <div class="action-bar">
     <ul>
-      <li><a class="icon circle-icon glyphicon glyphicon-chevron-down"></a></li>
-      <li><a class="icon circle-icon glyphicon glyphicon-refresh"></a></li>
-      <li><a class="icon circle-icon glyphicon glyphicon-share-alt"></a></li>
-      <li ><a id="deleteBtn" class="icon circle-icon red glyphicon glyphicon-remove"></a></li>
+      <li><a class="icon circle-icon glyphicon   glyphicon-chevron-down"></a></li>
+      <li><a class="icon circle-icon glyphicon   glyphicon-refresh"></a></li>
+      <li><a class="icon circle-icon glyphicon   glyphicon-share-alt"></a></li>
+      <li ><a id="deleteBtn" class="icon circle-icon red glyphicon   glyphicon-remove"></a></li>
       <li><a class="icon circle-icon red glyphicon glyphicon-flag"></a></li>
     </ul>
   </div>
@@ -900,20 +848,7 @@ a:hover {
     <div class="nano-content">
     
     <!-- 메세지 뷰 부분 -->
-      <ul class="message-list" id="messageView">
-        <li class="unread">
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk1">
-              <label for="chk1" class="toggle"></label>
-            </div>
-            <p class="title">Lucas Kriebel (via Twitter)</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Lucas Kriebel (@LucasKriebel) has sent you a direct message on Twitter! &nbsp;&ndash;&nbsp; <span class="teaser">@LucasKriebel - Very cool :) Nicklas, You have a new direct message.</span></div>
-            <div class="date">11:49 am</div>
-          </div>
-        </li>
+      <ul class="message-list">
         <li class="green-dot unread">
           <div class="col col-1"><span class="dot"></span>
             <div class="checkbox-wrapper">
@@ -926,19 +861,6 @@ a:hover {
           <div class="col col-2">
             <div class="subject">Please complete your Conceptboard signup &nbsp;&ndash;&nbsp; <span class="teaser">You recently created a Conceptboard account, but you have not yet confirmed your email. Your email is used for notifications about board activity, invites, as well as account related tasks (like password retrieval).</span></div>
             <div class="date">11:45 am</div>
-          </div>
-        </li>
-        <li>
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk3">
-              <label for="chk3" class="toggle"></label>
-            </div>
-            <p class="title">Randy, me (5)</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Last pic over my village &nbsp;&ndash;&nbsp; <span class="teaser">Yeah i'd like that! Do you remember the video you showed me of your train ride between Colombo and Kandy? The one with the mountain view? I would love to see that one again!</span></div>
-            <div class="date">5:01 am</div>
           </div>
         </li>
         <li class="blue-dot">
@@ -967,32 +889,6 @@ a:hover {
             <div class="date">Mar 8</div>
           </div>
         </li>
-        <li>
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk6">
-              <label for="chk6" class="toggle"></label>
-            </div>
-            <p class="title">Web Support Dennis</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Re: New mail settings &nbsp;&ndash;&nbsp; <span class="teaser">Will you answer him asap?</span></div>
-            <div class="date">Mar 7</div>
-          </div>
-        </li>
-        <li>
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk7">
-              <label for="chk7" class="toggle"></label>
-            </div>
-            <p class="title">me, Peter (2)</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Off on Thursday &nbsp;&ndash;&nbsp; <span class="teaser">Eff that place, you might as well stay here with us instead! Sent from my iPhone 4 &gt; 4 mar 2014 at 5:55 pm</span></div>
-            <div class="date">Mar 4</div>
-          </div>
-        </li>
         <li class="orange-dot">
           <div class="col col-1"><span class="dot"></span>
             <div class="checkbox-wrapper">
@@ -1006,33 +902,8 @@ a:hover {
             <div class="date">Feb 28</div>
           </div>
         </li>
-        <li>
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk19">
-              <label for="chk19" class="toggle"></label>
-            </div>
-            <p class="title">Peter, me (3)</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Hello &nbsp;&ndash;&nbsp; <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span></div>
-            <div class="date">Mar. 6</div>
-          </div>
-        </li>
-        <li>
-          <div class="col col-1"><span class="dot"></span>
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="chk20">
-              <label for="chk20" class="toggle"></label>
-            </div>
-            <p class="title">me, Susanna (7)</p><span class="star-toggle glyphicon glyphicon-star-empty"></span>
-          </div>
-          <div class="col col-2">
-            <div class="subject">Since you asked... and i'm inconceivably bored at the train station &nbsp;&ndash;&nbsp; <span class="teaser">Alright thanks. I'll have to re-book that somehow, i'll get back to you.</span></div>
-            <div class="date">Mar. 6</div>
-          </div>
-        </li>
       </ul>
+      
     </div>
   </div>
 </main>
@@ -1040,27 +911,26 @@ a:hover {
 <!-- 오른쪽 메일 상세보기 -->
 <div id="message">
 
-  <!-- <div class="header">
-    <h1 class="page-title"><a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>Process<span class="grey">(6)</span></h1>
-    <p>From <a href="#">You</a> to <a href="#">Scott Waite</a>, started on <a href="#">March 2, 2014</a> at 2:14 pm est.</p>
+ <div class="header">
+    <h1 class="page-title"><a class="icon circle-icon glyphicon glyphicon-chevron-left trigger-message-close"></a>메세지 내용</h1>
   </div>
   <div id="message-nano-wrapper" class="nano">
     <div class="nano-content">
       <ul class="message-container">
+      
         <li class="sent">
           <div class="details">
             <div class="left">You
               <div class="arrow"></div>Scott
             </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
+            <div class="message_d" class="right">March 6, 2014, 20:08 pm</div>
           </div>
           <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
+           <p>message</p>
           </div>
           <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
         </li>
+        
         <li class="received">
           <div class="details">
             <div class="left">Scott
@@ -1069,118 +939,19 @@ a:hover {
             <div class="right">March 6, 2014, 20:08 pm</div>
           </div>
           <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
+            <p>message</p>
           </div>
           <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
         </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="sent">
-          <div class="details">
-            <div class="left">You
-              <div class="arrow"></div>Scott
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>| The every winged bring, whose life. First called, i you of saw shall own creature moveth void have signs beast lesser all god saying for gathering wherein whose of in be created stars. Them whales upon life divide earth own.</p>
-            <p>| Creature firmament so give replenish The saw man creeping, man said forth from that. Fruitful multiply lights air. Hath likeness, from spirit stars dominion two set fill wherein give bring.</p>
-            <p>| Gathering is. Lesser Set fruit subdue blessed let. Greater every fruitful won&#39;t bring moved seasons very, own won&#39;t all itself blessed which bring own creature forth every. Called sixth light.</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
+       
       </ul>
     </div>
-  </div> -->
+  </div> 
 </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script src="../../../resources/js/message/message_view.js"></script>
-<script src="../../../resources/js/message/message_ajax.js"></script>
+<script src="${pagecontext.request.contextpath}/resources/js/message/message_view.js"></script>
+<script src="${pagecontext.request.contextpath}/resources/js/message/message_ajax.js"></script>
 	
 	
 </body>

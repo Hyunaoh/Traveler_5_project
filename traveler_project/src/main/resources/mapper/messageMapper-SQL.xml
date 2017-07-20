@@ -5,8 +5,12 @@
 
 <mapper namespace="com.traveler.dao.MessageDAO">
 
-	<select id="selectAllMessage" resultType="com.traveler.model.MessageVO">
-		select * from message
+	<select id="selectAllMessageById" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
+		select * from message where message_send = #{message_send} or message_get = #{message_get}
+	</select>
+	
+	<select id="selectOneBySeq" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
+		select * from message where message_seq = #{ message_seq }
 	</select>
 	
 	<select id="countMessage" parameterType="com.traveler.model.MessageVO" resultType="int">

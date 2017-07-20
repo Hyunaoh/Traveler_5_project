@@ -1,6 +1,5 @@
 
-
-jQuery(document).ready(function($) {
+/*jQuery(document).ready(function($) {*/
 
 	var cols = {},
 
@@ -48,32 +47,38 @@ jQuery(document).ready(function($) {
 
 
 	// When you click on a message, show it
+	// 이 부분은 받은메세지함, 보낸 메세지함에서 보여짐
 
-	$('#main .message-list li').on('click', function(e) {
-		var item = $(this),
-			target = $(e.target);
+	function click_popup() {
+		
+		$('#main .message-list .msg-list').on('click', function(e) {
+			
+			messagePopup();
+			var item = $(this), target = $(e.target);
 
-		if(target.is('label')) {
-			item.toggleClass('selected');
-		} else {
-			if(messageIsOpen && item.is('.active')) {
-				cols.hideMessage();
-				cols.hideOverlay();
+			if (target.is('label')) {
+				item.toggleClass('selected');
 			} else {
-				if(messageIsOpen) {
+				if (messageIsOpen && item.is('.active')) {
 					cols.hideMessage();
-					item.addClass('active');
-					setTimeout(function() {
-						cols.showMessage();
-					}, 300);
+					cols.hideOverlay();
 				} else {
-					item.addClass('active');
-					cols.showMessage();
+					if (messageIsOpen) {
+						cols.hideMessage();
+						item.addClass('active');
+						setTimeout(function() {
+							cols.showMessage();
+						}, 300);
+					} else {
+						item.addClass('active');
+						cols.showMessage();
+					}
+					
+					cols.showOverlay();
 				}
-				cols.showOverlay();
 			}
-		}
-	});
+		});
+	}
 
 
 	// This will prevent click from triggering twice when clicking checkbox/label
@@ -115,7 +120,7 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-});
+/*});*/
 
 
 

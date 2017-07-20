@@ -1,5 +1,6 @@
 package com.traveler.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.traveler.model.MessageVO;
@@ -7,7 +8,10 @@ import com.traveler.model.MessageVO;
 public interface MessageDAO {
 
 	// 모든 메세지 select 
-	public List<MessageVO> selectAllMessage();
+	public List<MessageVO> selectAllMessageById(MessageVO vo);
+
+	// 아이디로 메세지 select하여 VO타입으로 받아옴
+	public ArrayList<MessageVO> selectOneBySeq(MessageVO vo);
 	
 	// 받은 메세지 select
 	public List<MessageVO> selectByIdMessage(MessageVO vo);
