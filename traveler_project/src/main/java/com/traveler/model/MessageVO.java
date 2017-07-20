@@ -63,27 +63,33 @@ public class MessageVO {
 	public void setMessage_date(Date message_date) throws ParseException {
 		
 		Calendar calendar = Calendar.getInstance();
-        java.util.Date date = calendar.getTime();
+        java.util.Date today = calendar.getTime();
         
-        // 현재 날짜 및 시간
-        String today = (new SimpleDateFormat("yyyy-MM-dd").format(date));
-		
+        // 받아온 날짜 및 시간
+        String res = "";
+        
         // 데이터 형태
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		// 받아온 날짜 및 시간
-		String mDate = sdf.format(message_date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("a HH:mm");
+		
+		String form1 = sdf.format(message_date);
+		String form2 = sdf.format(today);
+		
+		System.out.println(sdf2.format(message_date));
+		
+		System.out.println(sdf2.format(message_date));
 		
 		// 받아온 날짜가 오늘 날짜라면,
-		if(mDate.equals(today)){
-			sdf = new SimpleDateFormat("a HH:mm");
+		if(form1.equals(form2)){
 			
+			res = sdf2.format(message_date);
+
 		// 받아온 날짜가 다른 날이라면,
 		} else {
-			sdf = new SimpleDateFormat("MM/dd");
-		}
+			
+			res = sdf.format(message_date);
 		
-		String res = sdf.format(message_date);
+		}
 		
 		this.message_date = res;
 	}

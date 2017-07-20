@@ -42,7 +42,7 @@ function alarm_access() {
 						   view_msg("[ 쪽지가 도착하였습니다 ]<br/>보낸사람 : "
 						 + alarm_msg.message_send 
 						 + "<br/>메세지 내용 : "
-						 + alarm_msg.message_message);
+						 + alarm_msg.message_message, alarm_msg.message_send);
 						   
 					}
 				} else {
@@ -61,15 +61,14 @@ function alarm_access() {
 
 }
 
-function view_msg(msg) {
-	// var width = 450;
-	// var height = 400;
-	// var left = (document.body.clientWidth - width) / 2;
-	// var top = (document.body.clientHeight - height) / 2;
+function view_msg(msg, message_send) {
+	var width = 400;
+	var height = 300;
+	var left = (document.body.clientWidth - width) / 2;
+	var top = (document.body.clientHeight - height) / 2;
+	
 	var alarm_win = window
-			.open('/message/alarm_view.go?msg=' + msg, "쪽지도착",
-					"width=700, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
-	// var alarm_win = window.open(
-	//					
-	// );
+			.open('/message/alarm_view.go?msg=' + msg + '&message_send=' + message_send , "쪽지도착",
+					"width=" + width + ", height=" + height + ", left=" + left + ", top=" + top +", toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+
 }

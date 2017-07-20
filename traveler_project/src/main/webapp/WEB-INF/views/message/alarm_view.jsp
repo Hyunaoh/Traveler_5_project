@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,8 +26,8 @@
 <body>
 	<div class="modal-body">${ msg }</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return goMessage()">쪽지함 이동</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return exit()">창닫기</button>
+		<button type="button" class="btn btn-primary"  onclick="return goMessage()">쪽지함 이동</button>
+		<button type="button" class="btn btn-default" onclick="return exit()">창닫기</button>
 	</div>
 
 </body>
