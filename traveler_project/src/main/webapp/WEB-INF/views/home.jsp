@@ -128,6 +128,114 @@
 		</div>
 	</div>
 	
+	
+	<div class="container dev-story-content">
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-bg">
+					<div class="dev-story-header">
+						<h1>개발자 이야기</h1>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-content-bg">
+					<div class="row">
+						<!-- 사진 -->
+						<div class="col-md-3 dev-story-img-border">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+						</div>
+						<!-- 개발자 소견 -->
+						<div class="col-md-6">
+							<div class="dev-story-comment">
+								<h4>김태홍</h4>
+								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎsdsdfsfdsfdsfdsf</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-content-bg">
+					<div class="row">
+						<!-- 사진 -->
+						<div class="col-md-3 dev-story-img-border">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+						</div>
+						<!-- 개발자 소견 -->
+						<div class="col-md-6">
+							<div class="dev-story-comment">
+								<h4>김희망</h4>
+								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎ</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-content-bg">
+					<div class="row">
+						<!-- 사진 -->
+						<div class="col-md-3 dev-story-img-border">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+						</div>
+						<!-- 개발자 소견 -->
+						<div class="col-md-6">
+							<div class="dev-story-comment">
+								<h4>김지호</h4>
+								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎ</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-content-bg">
+					<div class="row">
+						<!-- 사진 -->
+						<div class="col-md-3 dev-story-img-border">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+						</div>
+						<!-- 개발자 소견 -->
+						<div class="col-md-6">
+							<div class="dev-story-comment">
+								<h4>오현아</h4>
+								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎ</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="dev-story-content-bg">
+					<div class="row">
+						<!-- 사진 -->
+						<div class="col-md-3 dev-story-img-border">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+						</div>
+						<!-- 개발자 소견 -->
+						<div class="col-md-6">
+							<div class="dev-story-comment">
+								<h4>류지훈</h4>
+								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎ</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- footer -->
 	<jsp:include page="footer.jsp" />
 </body>
