@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 /* MENU CSS */
 .menu-content {
@@ -63,14 +64,14 @@
 	padding-top: 2.5rem;
 	padding-left: 1rem;
 	margin-right: 1rem;
-	margin-left: 1rem;
-	color: #99d6ff;
-	font-family: 'Nanum Pen Script', cursive;
-	font-size: 2rem;
+	margin-left: 1.5rem;
+	color: lightgray;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 1.3rem;
 }
 .dev-story-comment h4{
-	color: skyblue;
-	font-size: 3rem;
+	color: gray;
+	font-size: 2rem;
 }
 .dev-story-img-border{
 	display: inline-block;

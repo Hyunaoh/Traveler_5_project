@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+
+.find-content {
+	margin-top: 5rem;
+}
+
+.find-banner {
+	padding: 0;
+	margin: 0;
+	height: 400px;
+	background-size: cover;
+}
+
+.side-menu-bg {
+	padding: 2rem;
+}
+
+.side-menu-bg h4 {
+	font-size: 1.5rem;
+}
+
+.btn-custom {
+	background-color: white;
+	color: #4da6ff;
+	border: 1px solid #4da6ff;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.btn-custom:hover {
+	background-color: #4da6ff;
+	color: #fff;
+}
+
+.inline {
+	display: inline;
+}
+
+.find-list-content {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	color: gray;
+	border: 1px solid lightgray;
+	margin-bottom: 1.5rem;
+}
+
+.find-list-content:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.find-paging-content {
+	margin-bottom: 5rem;
+}
