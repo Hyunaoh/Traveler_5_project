@@ -86,12 +86,11 @@
 	</script>
 </head>
 <body>
-
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
 	<!-- contents -->
-	<section id="fh5co-counters" style="background-image: url(<c:url value='/resources/images/full_image_1.jpg' />);" data-stellar-background-ratio="0.5">
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center to-animate">
@@ -178,6 +177,8 @@
 				</div>
 			</div>
 		</div>
-	</section>
+		
+	<!-- footer -->
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>

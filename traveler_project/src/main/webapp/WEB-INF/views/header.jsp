@@ -122,7 +122,6 @@
 			<div class="row">
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="#" onclick="location='<c:url value="/home.go" />'">Home</a></li>
 						<li><a href="#" onclick="location='<c:url value="/find/findListForm.go" />'">가이드 찾기</a></li>
 						<li><a href="#" onclick="location='<c:url value="/package/getAllPackage.go" />'">싱글 패키지</a></li>
 						<li><a href="#" onclick="location='<c:url value="/group/groupListForm.go" />'">단체 패키지</a></li>
