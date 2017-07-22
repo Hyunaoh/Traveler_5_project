@@ -60,9 +60,25 @@
 
 /* find detail form */
 .find-detail-content{
-	margin-top : 10rem;
-	margin-bottom: 10rem;
+	padding-top: 5rem;
+	margin-bottom: 5rem;
 }
-.find-detail-content label{
-	font-style: italic;
+.find-detail-header{
+	font-size: 3rem;
+	font-weight: bold;
+	margin-top: 2rem;
+}
+.find-detail-regDate-text{
+	color:gray;
+	font-size: 1rem;
+}
+.find-detail-place-img-container{
+	background-color: lightgray;
+	padding: 2rem;
+}
+.find-detail-place-img{
+	width: 310px;
+}
+.find-detail-btn-container{
+	margin-top: 3rem;
 }
