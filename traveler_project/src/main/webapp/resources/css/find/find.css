@@ -82,3 +82,22 @@
 .find-detail-btn-container{
 	margin-top: 3rem;
 }
+
+/* find insert form */
+.find-insert-container{
+	margin-bottom: 10rem;
+}
+.find-insert-header{
+	
+}
+.find-insert-header-subtext{
+	font-style:italic;
+	margin-bottom: 5rem;
+}
+.find-insert-content{
+	margin-bottom: 3rem;	
+}
+.find-insert-content-subheader{
+	margin-bottom: 4rem;
+	color: blue;
+}

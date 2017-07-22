@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/find/find.css" />" />
 	
 	<!-- jQuery -->
-	<script src="<c:url value="/resources/js/bootstrap/jquery.min.js"/>"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<script type="text/javascript">
 		$('#findDetailTap').click(function(e) {
