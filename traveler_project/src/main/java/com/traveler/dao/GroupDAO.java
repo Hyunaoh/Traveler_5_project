@@ -20,4 +20,6 @@ public interface GroupDAO {
 	
 	// delete
 	public int deleteGroup(GroupVO groupVO) throws Exception;
+
+	public List<GroupVO> selectPlace1(GroupVO groupVO) throws Exception;
 }

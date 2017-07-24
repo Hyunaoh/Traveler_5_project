@@ -87,4 +87,11 @@
  		DELETE FROM GROUP_PAK
  		WHERE GROUP_PAK_PK = #{group_pak_pk}
  	</delete>
+ 	
+ 	<!-- place1 을 이용한 select -->
+	<select id="selectPlace1" parameterType="com.traveler.model.GroupVO" resultType="com.traveler.model.GroupVO">
+		SELECT *
+		FROM GROUP_PAK
+		WHERE GROUP_PAK_PLACE1 = #{group_pak_place1} AND GROUP_PAK_TITLE != #{group_pak_title} AND GROUP_PAK_STATUS = 1
+	</select>
 </mapper>
