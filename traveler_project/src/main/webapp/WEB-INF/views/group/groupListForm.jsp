@@ -5,37 +5,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>여행가 - 단체상품 목록</title>
-	<style type="text/css">
-		.title-font{
-			font-style: italic;
-			color: #fff;
-			text-shadow: 2px 2px 2px black;
-		}
-		.title-font:hover{
-			color: #fff;
-			text-shadow: 4px 4px 4px black;
-		}
-		.content-font{
-			font-size: 15px;
-			color: #fff;
-			text-shadow: 2px 2px 2px black;
-		}
-		.img:hover{
-			opacity: 0.4;
-			cursor: pointer;
-		}
-	</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>여행가 - 단체상품 목록</title>
 
+	<!-- Group CSS -->
+	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
 </head>
 <body style="background-color: #f0f0f5">
+	
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
-	<br><br><br><br>
+	
+	<!-- banner -->
+	<div class="group-banner" style="background-image:url('<c:url value='/resources/images/group_img/group-package-banner.jpg' />');"></div>
 	
     <!-- Page Content -->
-    <div class="container">
+    <div class="container group-container">
         <!-- Page Header -->
         <div class="row">
             <div class="col-lg-12">
@@ -51,14 +36,14 @@
             <div class="col-md-3 portfolio-item">
 	            <div style="padding-bottom: 3px; margin: 12px 0.5px;">
 				    <div onclick="location='groupDetailForm.go?group_pak_pk=${list.group_pak_pk}'">
-				    	<img class="img-responsive img" style="width:600px; height:250px;" src="<c:url value="/resources/images/group_img/${list.group_pak_photo}" />" alt="">
+				    	<img class="img-responsive group-list-img" style="width:600px; height:250px;" src="<c:url value="/resources/images/group_img/${list.group_pak_photo}" />" alt="">
 				    	<div class="carousel-caption">
 							<h3>
-								<a class="title-font" href="groupDetailForm.go?group_pak_pk=${list.group_pak_pk}">
+								<a class="group-title-font" href="groupDetailForm.go?group_pak_pk=${list.group_pak_pk}">
 									${list.group_pak_title}
 								</a>
 							</h3>
-							<span class="content-font">인원 : ${list.group_pak_min} / ${list.group_pak_max}</span>
+							<span class="group-content-font">인원 : ${list.group_pak_min} / ${list.group_pak_max}</span>
 				    	</div>
 				    </div>
 	            </div>
@@ -67,5 +52,8 @@
         <!-- /.row -->
     </div>
     <!-- /.container -->
+    
+    <!-- footer -->
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>

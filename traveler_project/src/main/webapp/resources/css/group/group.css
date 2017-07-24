@@ -1,0 +1,61 @@
+@CHARSET "UTF-8";
+
+/* button */
+.btn-custom {
+	background-color: white;
+	color: #4da6ff;
+	border: 1px solid #4da6ff;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.btn-custom:hover {
+	background-color: #4da6ff;
+	color: #fff;
+}
+
+/* group List Form css */
+.group-banner {
+	padding: 0;
+	margin: 0;
+	height: 400px;
+	background-size: cover;
+}
+
+.group-container {
+	margin-top: 5rem;
+	margin-bottom: 5rem;
+}
+
+.group-title-font {
+	font-style: italic;
+	color: #fff;
+	text-shadow: 2px 2px 2px black;
+}
+
+.group-title-font:hover {
+	color: #fff;
+	text-shadow: 4px 4px 4px black;
+}
+
+.group-content-font {
+	font-size: 15px;
+	color: #fff;
+	text-shadow: 2px 2px 2px black;
+}
+
+.group-list-img:hover {
+	opacity: 0.4;
+	cursor: pointer;
+}
+/* group insert form */
+.group-insert-form-header {
+	color: blue;
+	font-style: italic;
+	border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+}
+.group-insert-list-content{
+	margin-bottom: 2rem; 
+}

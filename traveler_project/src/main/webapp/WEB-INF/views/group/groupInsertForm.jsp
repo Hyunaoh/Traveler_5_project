@@ -7,6 +7,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>여행가 - 단체상품 등록</title>
+	<!-- Group CSS -->
+	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
+	<!--  jQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -63,20 +66,22 @@
 		});
 	</script>
 </head>
-<body style="background-image: url('<c:url value="/resources/images/group-package-bg.jpg" />');">
+<body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
-	<br><br><br><br><br><br>
+	
+	<!-- banner -->
+	<div class="group-banner" style="background-image:url('<c:url value='/resources/images/group_img/group-package-banner.jpg' />');"></div>
 	
 	<!-- content -->
-	<div class="container">
+	<div class="container group-container">
 		<div class="row">
-			<h1 style="color: rgba(255, 255, 255, 0.8); font-style:italic; border-bottom: 1px dotted rgba(255, 255, 255, 0.5);">단체 상품 등록</h1>
+			<h1 class="group-insert-form-header">단체 상품 등록</h1>
 		</div>
 		<div class="row">
 			<!-- 왼쪽 -->
 			<div class="col-md-8">
-				<div class="well" style="background-color: rgba(255,255,255,0.9); margin-right:1rem;">
+				<div style="margin-right:1rem;">
 				<form action="groupInsertPro.go" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-md-6">
@@ -153,17 +158,41 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-6">
-							<input type="submit" value="등록" class="btn btn-primary btn-md"/>
+							<input type="submit" value="등록" class="btn-custom"/>
 						</div>
 					</div>
 				</form>
 				</div>
 			</div>
 			<!-- side bar -->
-			<div class="col-md-4 well" style="background-color: rgba(255,255,255,0.9);">
-				뭘 넣을까..
+			<div class="col-md-4" style="background-color: rgba(255,255,255,0.9);">
+				<ul>
+					<li class="group-insert-list-content">
+						<font color="green">제목</font>은 게시판에서 미리 보여지는 부분입니다.<br>고객들이 쉽게 알 수 있게 적을수록 상품의 인기가 높아집니다.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">내용</font>에는 자신의 상품의 자세한 정보를<br>써주시면 고객들에게 더욱 도움이 될 겁니다.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">나라</font>와 <font color="green">도시</font>, 그리고 <font color="green">상세한 장소</font>를 작성해서 상품의 여행코스를 알려주세요.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">최소인원</font>및 <font color="green">최대인원</font> 을 정확히 확인해서 올려주세요.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">가격</font>을 적당한 수준에 맞게 올려주시길 바랍니다.
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
+	
+	<!-- footer -->
+	<jsp:include page="../footer.jsp" />
+	
 </body>
 </html>
