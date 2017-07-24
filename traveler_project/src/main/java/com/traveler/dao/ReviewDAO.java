@@ -25,4 +25,10 @@ public interface ReviewDAO {
 	
 	//리뷰 수정 완료
 	public int updateReview(ReviewVO reviewVO)throws Exception;
+	
+	//리뷰가 있는지 확인(nullpoint exception 방지)
+	public int checkCountReview(int package_pk)throws Exception;
+	
+	//리뷰가 있다면 avg구하기
+	public double getAvgScore(int package_pk)throws Exception;
 }

@@ -11,6 +11,7 @@ public class ReviewVO {
 	private Timestamp review_date;
 	private int update_check;
 	private int review_score;
+	private double review_avg = 0;
 	
 	public int getReview_pk() {
 		return review_pk;
@@ -54,6 +55,13 @@ public class ReviewVO {
 	public void setReview_score(int review_score) {
 		this.review_score = review_score;
 	}
+	public double getReview_avg() {
+		return review_avg;
+	}
+	public void setReview_avg(double review_avg) {
+		this.review_avg = review_avg;
+	}
+	
 	
 	
 }

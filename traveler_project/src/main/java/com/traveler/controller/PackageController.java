@@ -27,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.traveler.commons.Ascending;
 import com.traveler.dao.HashTagDAO;
 import com.traveler.dao.PackageDAO;
+import com.traveler.dao.ReviewDAO;
 import com.traveler.model.HashTagVO;
 import com.traveler.model.PackageVO;
+import com.traveler.model.ReviewVO;
 
 @Controller
 @RequestMapping("/package")
@@ -147,13 +149,23 @@ public class PackageController {
 	
 	//패키지 전체 목록 띄워주기
 	@RequestMapping("getAllPackage.go")
-	public String getAllpackage(Model model) throws Exception{
+	public String getAllpackage(Model model, Principal principal) throws Exception{
 		
 		System.out.println("전체 목록 띄워주는 컨트롤러 진입");
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
-		
+		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
+		/*if(principal.getName() != null){
+		String user = principal.getName();
+		reviewUpdateInit(user);
+		}*/
 		//전체 패키지 목록
 		List<PackageVO> list = packageDAO.getAllPackage();
+		for(int i=0; i<list.size(); i++){
+			int checkResult = reviewDAO.checkCountReview(list.get(i).getPackage_pk());
+			if(checkResult > 0){
+				list.get(i).setReview_avg(reviewDAO.getAvgScore(list.get(i).getPackage_pk()));
+			}
+		}
 		
 		//패키지 전체 갯수
 		int countPackage = packageDAO.countTotalPackage();
@@ -241,9 +253,15 @@ public class PackageController {
 	public String packageCountryListForm (Model model, PackageVO packageVO) throws Exception{
 		
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
-		
+		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
 		//전체 패키지 목록
 		List<PackageVO> searchList = packageDAO.searchPackage(packageVO);
+		for(int i=0; i<searchList.size(); i++){
+			int checkResult = reviewDAO.checkCountReview(searchList.get(i).getPackage_pk());
+			if(checkResult > 0){
+				searchList.get(i).setReview_avg(reviewDAO.getAvgScore(searchList.get(i).getPackage_pk()));
+			}
+		}
 		
 		PackageVO what = searchList.get(0);
 		System.out.println("투스트링"+what.toString());
@@ -259,12 +277,16 @@ public class PackageController {
 	
 	//패키지 상세보기
 	@RequestMapping("packageDetailForm.go")
-	public String packageDetailForm (Model model, PackageVO packageVO, HttpSession session) throws Exception{
+	public String packageDetailForm (Model model, PackageVO packageVO, HttpSession session, Principal principal) throws Exception{
 		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
-		
+		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
+		List<ReviewVO> reviewList = reviewDAO.getReviewList(packageVO.getPackage_pk());
 		PackageVO detailPackage = packageDAO.selectPackage(packageVO);
 		System.out.println("투스트링"+detailPackage.toString());
-		
+		String user = "";
+		if(principal != null){
+		user = principal.getName();
+		}
 		//조회수 증가
 		boolean check = false;
 		PackageVO packageVO_hit = new PackageVO();
@@ -289,12 +311,18 @@ public class PackageController {
 				session.setAttribute("view_check", packageVO.getPackage_pk());
 			}
 		}
-		
+		//리뷰 평점 체크
+		int checkResult = reviewDAO.checkCountReview(packageVO.getPackage_pk());
+		//리뷰가 있다면 평점구하기
+		if(checkResult > 0){
+			detailPackage.setReview_avg(reviewDAO.getAvgScore(packageVO.getPackage_pk()));
+		}
 		//같은 해시태그인 상품들 리스트 넘겨주기
 		
 		
 		model.addAttribute("packageVO", detailPackage);
-		
+		model.addAttribute("rlist", reviewList);
+		model.addAttribute("user", user);
 		return "/package/packageDetailForm";
 	}
 	
@@ -384,6 +412,17 @@ public class PackageController {
 			
 			return tagList;
 					
+			
+		}
+		
+		//udate_check를 매번 초기화 해줌.
+		public void reviewUpdateInit(String user)throws Exception{
+			ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
+			int result = 0;
+			result = reviewDAO.checkReview(user);
+			if(result == 1){
+				reviewDAO.reviewUpdateInit(user);
+			}
 			
 		}
 	

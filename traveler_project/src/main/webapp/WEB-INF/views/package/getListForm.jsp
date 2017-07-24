@@ -14,6 +14,8 @@
 		}
 	
 	</style>
+	<link rel="stylesheet" href="../../../resources/css/review/star.css">
+	<script src="../../../resources/js/review/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<!-- header -->
@@ -82,7 +84,15 @@
 									<div class="fh5co-text">
 										<h2>${list.package_title}</h2>
 										<span>작성자 : ${list.member_id} / 소요시간 : ${list.package_leadTime}</span>
+										<span class="star-view">
+											<span class="view">
+									    	<input type="radio" name="review_score" value="1" id="p1">
+									    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>
+									 		</span>
+									 		${list.review_avg } 점				
+										</span>
 									</div>
+									
 								</a>
 							</c:if>
 						
@@ -92,6 +102,13 @@
 									<div class="fh5co-text">
 										<h2>${list.package_title}</h2>
 										<span>작성자 : ${list.member_id}/ 소요시간 : ${list.package_leadTime}</span>
+										<span class="star-view">
+											<span class="view">
+									    	<input type="radio" name="review_score" value="1" id="p1">
+									    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>
+									 		</span>
+									 		${list.review_avg } 점				
+										</span>
 									</div>
 								</a>
 							</c:if>

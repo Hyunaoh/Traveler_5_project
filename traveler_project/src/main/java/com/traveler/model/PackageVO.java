@@ -16,6 +16,7 @@ public class PackageVO {
 	private Date package_regDate;
 	private int package_status;
 	private String package_tag;
+	private double review_avg;
 	
 	
 	
@@ -121,6 +122,14 @@ public class PackageVO {
 
 	public void setPackage_status(int package_status) {
 		this.package_status = package_status;
+	}
+	
+	public double getReview_avg() {
+		return review_avg;
+	}
+
+	public void setReview_avg(double review_avg) {
+		this.review_avg = review_avg;
 	}
 
 	@Override

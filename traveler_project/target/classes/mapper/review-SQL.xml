@@ -48,4 +48,14 @@
 		SET REVIEW_COMMENT = #{review_comment}
 		WHERE REVIEW_PK = #{review_pk}
 	</update>
+	<select id="checkCountReview" resultType="Integer">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE PACKAGE_PK = #{package_pk}
+	</select>
+	<select id="getAvgScore" resultType="double">
+		SELECT ROUND(AVG(REVIEW_SCORE),2)
+		FROM REVIEW
+		WHERE PACKAGE_PK = #{package_pk}
+	</select>
 </mapper>
