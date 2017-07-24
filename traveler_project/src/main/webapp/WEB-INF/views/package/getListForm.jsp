@@ -14,6 +14,8 @@
 		}
 	
 	</style>
+	<link rel="stylesheet" href="../../../resources/css/review/star.css">
+	<script src="../../../resources/js/review/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<!-- header -->
@@ -88,6 +90,13 @@
 							<h2>${list.package_title}</h2>
 							<span>작성자 : ${list.member_id}/ 소요시간 :
 								${list.package_leadTime}</span>
+							<span class="star-view">
+									<span class="view">
+							    	<input type="radio" name="review_score" value="1" id="p1">
+							    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>s
+							 		</span>
+							 		${list.review_avg } 점				
+							</span>
 						</div>
 					</a>
 
@@ -107,8 +116,7 @@
 						<c:if test="${pagingVO.state eq 'listAll'}">
 							<c:if
 								test="${pagingVO.currentPageNum ne 1 && pagingVO.currentPageNum ne '' && pagingVO.currentPageNum ne null}">
-								<a
-									href="getAllPackage.go?currentPageNum=${pagingVO.currentPageNum-1}">[이전]
+								<a href="getAllPackage.go?currentPageNum=${pagingVO.currentPageNum-1}">[이전]
 								</a>
 							</c:if>
 							<c:forEach begin="${pageNum}" end="${pagingVO.totalPageCount}"

@@ -1,5 +1,6 @@
 package com.traveler.controller;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,48 +25,26 @@ public class ReviewController {
 
 	@RequestMapping(value = "/star.go")
 	public String adminForm(Model model, MemberVO vo) throws SQLException, ClassNotFoundException{
-		
 		return "review/star";
 	}
-	@RequestMapping("/logintest.go")
-	public String logintest() throws Exception{
-		return "review/APIExamNaverLogin";
+	//review insertForm 접근
+	@RequestMapping("/reviewWriteForm.go")
+	public String reviewWriteForm(Model model,int package_pk, Principal principal)throws Exception{
+		System.out.println("reviewWriteForm.go 접근");
+		String user = principal.getName();
+		model.addAttribute("package_pk", package_pk);
+		model.addAttribute("user", user);
+		return "/review/reviewWriteForm";
 	}
-	@RequestMapping("/logintest2.go")
-	public String logintest2() throws Exception{
-		return "review/callback";
+	//insert Review
+	@RequestMapping("/reviewWritePro.go")
+	public String reviewWritePro(ReviewVO reviewVO, Model model)throws Exception{
+		System.out.println("reviewWritePro.go 접근");
+		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
+		reviewDAO.insertReview(reviewVO);
+		return "redirect:/home.go";
 	}
-	@RequestMapping("/loginvalue.go")
-	public String loginvalue(Model model, NaverVO naverVO) throws Exception{
-		System.out.println("email = " + naverVO.getN_email());
-		System.out.println("nickname = " + naverVO.getN_nickname());
-		System.out.println("age = " + naverVO.getN_name());
-		System.out.println("name = " + naverVO.getN_name());
-		System.out.println("token = " + naverVO.getN_token());
-		String view = "";
-		
-		if(naverVO != null){
-			MemberVO memberVO = new MemberVO();
-			memberVO.setMember_id(naverVO.getN_email());
-			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-			memberVO = memberDAO.selectMemberList(memberVO);
-			try {
-				if(memberVO.getMember_id().equals(naverVO.getN_email()));
-				// 이미 가입한 회원!
-				// 로그인을 한다.
-				model.addAttribute("memberVO", memberVO);
-				view = "/member/loginForm";
-				
-			} catch (Exception e) {
-				// 회원이 아님 (회원가입을 함)
-				// 네이버 정보 가져옴
-				model.addAttribute("naverVO", naverVO);
-				view = "/member/TmemberInsertForm";
-			}
-		}
-		return view;
-	}
-	@RequestMapping("/writeform.go")
+	/*@RequestMapping("/writeform.go")
 	public String formgo(Model model) throws Exception{
 		System.out.println("writeform 접근");
 		int package_pk = 1;
@@ -77,57 +56,51 @@ public class ReviewController {
 		model.addAttribute("rlist", reviewList);
 		//셀릭 끝
 		return "review/reviewWriteForm";
-	}
-	@RequestMapping("/listForUpdate.go")
+	}*/
+	/*@RequestMapping("/listForUpdate.go")
 	public String listForUpdate(Model model)throws Exception{
 		int package_pk = 1;
 		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
 		List<ReviewVO> reviewList = reviewDAO.getReviewList(package_pk);
 		model.addAttribute("rlist", reviewList);
 		return "review/reviewWriteForm";
-	}
-	@RequestMapping("/reviewWrite.go")
-	public String reviewWrite(ReviewVO reviewVO, Model model) throws Exception{
-		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
-		String user = "test1"; //나중에 세션으로 변경
-		reviewUpdateInit(user);
-		//입력 부분
-		System.out.println("점수 넘어 옴? " + reviewVO.getReview_score());
-		reviewDAO.insertReview(reviewVO);
-		System.out.println("입력완료");
-		return "redirect:writeform.go";
-	}
-	
+	}*/
 	//리뷰삭제 하는 부분
 	@RequestMapping("/deleteReview.go")
-	public String reviewDelete(int review_pk) throws Exception{
+	public String reviewDelete(int package_pk, int review_pk, Principal principal) throws Exception{
+		System.out.println("deleteReview.go 접근");
 		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
-		String user = "test1"; //나중에 세션으로 변경
+		String user = principal.getName();
+		String view = "redirect:/package/packageDetailForm.go?package_pk=" + package_pk;
 		reviewUpdateInit(user);
 		reviewDAO.deleteReview(review_pk);
-		return "redirect:writeform.go";
+		return view;
 	}
 	
 	//수정버튼을 눌렀을 시 접근하는 부분
 	@RequestMapping("/updateReady.go")
-	public String updateReady(int package_pk, int review_pk) throws Exception{
+	public String updateReady(int package_pk, int review_pk, Principal principal) throws Exception{
+		System.out.println("updateReady.go 접근");
 		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
-		String user = "test1"; //나중에 세션으로 변경
+		String user = principal.getName();
+		String view = "redirect:/package/packageDetailForm.go?package_pk=" + package_pk + "#review_comment";
 		reviewUpdateInit(user);
 		reviewDAO.updateReady(review_pk);
-		return "redirect:listForUpdate.go#review_comment";
+		return view;
 	}
 	
 	//업데이트 동작부분
 	@RequestMapping("updatePro.go")
-	public String updatePro(ReviewVO reviewVO) throws Exception{
+	public String updatePro(ReviewVO reviewVO, Principal principal) throws Exception{
+		System.out.println("updatePro.go 접근");
 		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
-		String user = "test1"; //나중에 세션으로 변경
+		String user = principal.getName();
+		String view = "redirect:/package/packageDetailForm.go?package_pk=" + reviewVO.getPackage_pk();
 		reviewUpdateInit(user);
 		
 		reviewDAO.updateReview(reviewVO);
 		
-		return "redirect:writeform.go";
+		return view;
 	}
 	
 	//udate_check를 매번 초기화 해줌.

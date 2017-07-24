@@ -16,9 +16,13 @@ public class PackageVO {
 	private Date package_regDate;
 	private int package_status;
 	private String package_tag;
+
 	private int countBoardPerPage; // 한 페이지 당 게시물 개수
 	private int startBoardNum; // 해당 페이에서의 첫 시작 글
 	private int endBoardNum; // 해당 페이에서의 마지막 글
+
+	private double review_avg;
+
 	
 	
 	
@@ -148,6 +152,14 @@ public class PackageVO {
 
 	public void setPackage_status(int package_status) {
 		this.package_status = package_status;
+	}
+	
+	public double getReview_avg() {
+		return review_avg;
+	}
+
+	public void setReview_avg(double review_avg) {
+		this.review_avg = review_avg;
 	}
 
 	@Override
