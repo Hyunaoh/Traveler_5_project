@@ -15,6 +15,42 @@
 	<script type="text/javascript">
 		$(function(){
 			$("[name=groupNoticeForm]").hide();
+			
+			var dataForm = {
+					group_pak_place1 : $("#place1").val(),
+					group_pak_title : $("#title").val()
+			};
+			$.ajax({
+				url : "group_pack_like_goods_ajax.go",
+				method : 'POST',
+				type : 'json',
+				data: JSON.stringify(dataForm),
+				contentType : "application/json",
+				success : function(data) {
+					var size =0;
+					if(data.length >= 5){
+						size = 5;
+					}else if(data.length == 0){
+						$("#place1-list").html("없음");
+					}else{
+						size = data.length;
+					}
+					
+					for(var i=0; i < size; i++){
+						$("#place1-list").html(
+							'<li><a href="groupDetailForm.go?group_pak_pk='+data[i].group_pak_pk+'" style="text-align:center;">'
+							+'<img src="<c:url value="/resources/images/group_img/'+data[i].group_pak_photo+'" />" style="width: 100%;">'
+							+'<br>'
+							+ data[i].group_pak_title
+							+'</a>'
+							+'</li><hr>'
+						);
+					}
+				},
+				error : function(result, status, er) {
+					alert(er);
+				}
+			});
 		});
 		
 		function groupNoticeUpdate(data){
@@ -24,6 +60,8 @@
 	</script>
 </head>
 <body>
+<input type="hidden" value="${groupVO.group_pak_place1}" id="place1"/>
+<input type="hidden" value="${groupVO.group_pak_title}" id="title"/>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
@@ -170,40 +208,12 @@
                 <div class="well">
                     <h4>이와 비슷한 상품</h4>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                            </ul>
+                        <div class="col-lg-12">
+                            <ul class="list-unstyled" id="place1-list"></ul>
                         </div>
                     </div>
                     <!-- /.row -->
                 </div>
-
-                <!-- Side Widget Well -->
-                <div class="well">
-                    <h4>인기 있는 상품</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                </div>
-
             </div>
 
         </div>

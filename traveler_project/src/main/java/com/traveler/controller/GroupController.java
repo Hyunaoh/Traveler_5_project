@@ -11,7 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -198,5 +200,16 @@ public class GroupController {
 		model.addAttribute("groupNoticeList", groupNoticeList);
 		model.addAttribute("flag1_check", flag1_check);
 		return "group/groupDetailForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/group_pack_like_goods_ajax.go")
+	public List<GroupVO> group_pack_like_goods_ajax(@RequestBody GroupVO groupVO) throws Exception{
+		System.out.println("[system] access group_pack_like_goods_ajax! ");
+		
+		GroupDAO groupDAO = sqlSession.getMapper(GroupDAO.class);
+		List<GroupVO> list = groupDAO.selectPlace1(groupVO);
+		
+		return list;
 	}
 }
