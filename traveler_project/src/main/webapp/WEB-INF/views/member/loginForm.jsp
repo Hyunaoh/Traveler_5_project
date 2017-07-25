@@ -12,6 +12,31 @@
 	<script src="https://plus.google.com/js/client:platform.js" async defer></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<style type="text/css">
+		.login-container{
+			margin-top : 5rem;
+			margin-bottom: 10rem;
+			padding: 5rem;
+			border-top : 1px solid lightgray;
+			border-left : 1px solid lightgray;
+			border-right : 2.5px solid lightgray;
+			border-bottom : 2.5px solid lightgray;
+		}
+		.login-img{
+			height:400px;
+		}
+		.login-form{
+			padding-left: 3rem;
+		}
+		.login-header{
+			margin-bottom: 5rem;
+			border-bottom : 1px solid lightgray;
+		}
+		.login-header h3{
+			color: rgba(0, 0, 0, 0.5);
+		}
+		.login-header h2{
+			font-style: italic;
+		}
 		.inline {
 			display:inline-block;
 		}
@@ -27,87 +52,95 @@
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
-	<section id="fh5co-contact" data-section="contact">
-		<div class="container">
+	<div class="container">
+		<div class="login-container">
+			<!-- login header -->
+			<div class="row login-header">
+				<div class="col-md-12">
+					<h2>LOGIN</h2>
+					<h3>로그인하고 원하는 여행을 하세요!</h3>
+				</div>
+			</div>
+			
+			<!-- login contents -->
 			<div class="row">
-				<div class="col-md-12 section-heading text-center">
-					<h2 class="to-animate">LOGIN</h2>
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 subtext to-animate">
-							<h3>로그인하고 원하는 여행을 하세요!</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row row-bottom-padded-md">
-				<div class="col-md-6 to-animate"
-				style="background-image:url('<c:url value="/resources/images/login-bg.jpg" />'); height:400px;">
-				</div>
-
-				<div class="col-md-6 to-animate">
-					<h3>Login</h3>
-					<form action="<c:url value="/j_spring_security_check" />" method="post" name="loginForm">
-						<c:if test="${memberVO.member_id eq null }">
+				<div class="col-md-6 login-img" style="background-image:url('<c:url value="/resources/images/login-bg.jpg" />');"></div>
+				<div class="col-md-6">
+					<div class="login-form">
+						<h3>Login</h3>
+						<form action="<c:url value="/j_spring_security_check" />" method="post" name="loginForm">
+							<c:if test="${memberVO.member_id eq null }">
+								<div class="form-group ">
+									<label for="name">ID</label>
+									<input type = "text" name="id" class="form-control"/>
+								</div>
+								<div class="form-group ">
+									<label for="email">Password</label>
+									<input type = "password" name="pwd" class="form-control"/>
+								</div>
+							</c:if>
+							<c:if test="${memberVO.member_id ne null }">
+								<div class="form-group ">
+									<label for="name">ID</label>
+									<input type = "text" name="id" value ="${memberVO.member_id}" class="form-control"/>
+								</div>
+								<div class="form-group ">
+									<label for="email">Password</label>
+									<input type = "password" name="pwd" value ="${memberVO.member_pwd}" class="form-control"/>
+								</div>
+								<input type="hidden" id="howToLogin" value="1"/>
+								<script type="text/javascript">
+									$(function(){
+										if($("#howToLogin").val() == 1){
+											document.loginForm.submit();
+										}
+									})
+								</script>
+							</c:if>
 							<div class="form-group ">
-								<label for="name">ID</label>
-								<input type = "text" name="id" class="form-control"/>
+								<input class="btn btn-default btn-md" value="login" type="submit">
+								<input class="btn btn-default btn-md" value="Sign-up" type="button" onclick="location='memberInsertForm.go'">
 							</div>
-							<div class="form-group ">
-								<label for="email">Password</label>
-								<input type = "password" name="pwd" class="form-control"/>
-							</div>
-						</c:if>
-						<c:if test="${memberVO.member_id ne null }">
-							<div class="form-group ">
-								<label for="name" class="sr-only">ID</label>
-								<input type = "text" name="id" value ="${memberVO.member_id}" class="form-control"/>
-							</div>
-							<div class="form-group ">
-								<label for="email" class="sr-only">Password</label>
-								<input type = "password" name="pwd" value ="${memberVO.member_pwd}" class="form-control"/>
-							</div>
-							<input type="hidden" id="howToLogin" value="1"/>
-							<script type="text/javascript">
-								$(function(){
-									if($("#howToLogin").val() == 1){
-										document.loginForm.submit();
-									}
-								})
-							</script>
-						</c:if>
-						<div class="form-group ">
-							<input class="btn btn-primary btn-lg" value="login" type="submit">
-							<input class="btn btn-primary btn-lg" value="Sign-up" type="button" onclick="location='memberInsertForm.go'">
-						</div>
-						<hr>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-3">
-									<!-- Container with the Sign-In button. -->
-									<div id="gConnect" class="button">
-										<button
-											class="g-signin"
-											data-scope="email"
-											data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
-											data-callback="onSignInCallback"
-											data-theme="light"
-											data-cookiepolicy="single_host_origin"></button>
+							<hr>
+							<div class="form-group">
+								<div class="row">
+									
+									<div class="col-md-3">
+										<!-- Goolgle the Sign-In button. -->
+										<div id="gConnect" class="button">
+											<button
+												class="g-signin"
+												data-scope="email"
+												data-clientid="341469578879-3gtopv1fjej2s0vhvh4k8igk8igmckgs.apps.googleusercontent.com"
+												data-callback="onSignInCallback"
+												data-theme="light"
+												data-cookiepolicy="single_host_origin"></button>
+										</div>
 									</div>
-								</div>
-								 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
-								<div class="col-md-3">
-								<div id="naver_id_login"></div>
-								</div>
-								<div class="col-md-3">
-									<div scope="public_profile, email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+									
+									 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+									<div class="col-md-3">
+										<div id="naver_id_login"></div>
+									</div>
+								
+									<!-- facebook 로그인 버튼 -->
+									<div class="col-md-3">
+										<div scope="public_profile, email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+									</div>
+									
 								</div>
 							</div>
+						</form>
 						</div>
-					</form>
 					</div>
 				</div>
 			</div>
-	</section>
+		</div>
+	
+	<!-- header -->
+	<jsp:include page="../footer.jsp" />
+	
+	
 	<!-- facebook 회원정보 보내줌 -->
 	<form action="facebookLogin.go" name="facebookInfo" method="post">
 		<input type="hidden" name="f_email" value="">
