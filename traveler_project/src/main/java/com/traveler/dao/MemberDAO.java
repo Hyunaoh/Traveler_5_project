@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.traveler.model.CounselVO;
 import com.traveler.model.MemberVO;
 
 public interface MemberDAO {
@@ -44,6 +45,18 @@ public interface MemberDAO {
 	public int getTotalCountOfNotice(MemberVO memberVO);
 
 	public List getPagePerList(MemberVO memberVO);
+
+	//Q&A
+	public void insertInquire(CounselVO counselVO);
+	
+	public List selectAllQnA(MemberVO memberVO);
+
+	public int countTravel(MemberVO memberVO);
+
+	public int countTravel2(MemberVO memberVO);
+
+	
+
 
 	
 }
