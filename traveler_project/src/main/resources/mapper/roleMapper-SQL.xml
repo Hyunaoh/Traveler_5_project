@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.traveler.dao.RoleDAO">
+	<insert id="insertRole" parameterType="com.traveler.model.RoleVO">
+		INSERT INTO ROLE
+			(MEMBER_ID, ROLE)
+		VALUES
+			(#{member_id}, #{role})
+	</insert>
+	<update id="updateRole" parameterType="com.traveler.model.RoleVO">
+		UPDATE ROLE
+		<set>
+			<if test="role != null and role != ''">
+				ROLE = #{role}
+			</if>
+		</set>
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+	<delete id="deleteRole" parameterType="com.traveler.model.RoleVO">
+		DELETE FROM ROLE
+		WHERE MEMBER_ID = #{member_id}
+	</delete>
+</mapper>

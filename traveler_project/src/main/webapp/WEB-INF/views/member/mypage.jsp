@@ -130,9 +130,7 @@ a {
 
 				<div id="jb-content2">
 				<div style="margin-left: 480px; margin-bottom:-40px;">
-				<input type="button" value="편집" class="btn btn-default"
-												onclick="location='memberInsertDetail.go'"
-												>
+				<input type="button" value="편집" class="btn btn-default" onclick="location='memberInsertDetail.go'" >
 				</div>
 					<div id="profile_photo" style="margin-left: 200px;">
 					<c:if test="${ list.member_profile == null }">
