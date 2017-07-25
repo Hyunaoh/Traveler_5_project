@@ -32,21 +32,24 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img src="<c:url value='/resources/images/home_img/home_bg_1.jpg' />" alt="...">
+				<a href="<c:url value="/package/getAllPackage.go" />">
+					<img src="<c:url value='/resources/images/home_img/home_bg_1.jpg' />" alt="...">
+				</a>
 				<div class="carousel-caption">
-					그림1
 				</div>
 			</div>
 			<div class="item">
-				<img src="<c:url value='/resources/images/home_img/home_bg_2.jpg' />" alt="...">
+				<a href="<c:url value="/find/findListForm.go" />">
+					<img src="<c:url value='/resources/images/home_img/home_bg_2.jpg' />" alt="...">
+				</a>
 				<div class="carousel-caption">
-					그림2
 				</div>
 			</div>
 			<div class="item">
-				<img src="<c:url value='/resources/images/home_img/home_bg_3.jpg' />" alt="...">
+				<a href="<c:url value="/group/groupListForm.go" />">
+					<img src="<c:url value='/resources/images/home_img/home_bg_3.jpg' />" alt="...">
+				</a>
 				<div class="carousel-caption">
-					그림3
 				</div>
 			</div>
 		</div>
