@@ -128,6 +128,27 @@
 		LIMIT #{startNum}, #{endNum}
 	</select>
 	
+	<insert id="insertInquire" parameterType="com.traveler.model.CounselVO" >
+	INSERT INTO counsel
+ 	(MEMBER_ID, counsel_date, counsel_title, counsel_content, counsel_flag)
+ 	VALUES
+ 	(#{member_id}, now(), #{counsel_title}, #{counsel_content}, 0)
+	</insert>
 	
+	<select id="selectAllQnA" parameterType="com.traveler.model.MemberVO" resultType="com.traveler.model.CounselVO">
+	select * from counsel
+	where member_id=#{member_id}
+	order by counsel_date desc
+	</select>
+	
+	<select id="countTravel" parameterType="com.traveler.model.MemberVO" resultType="Integer">
+	select count(*) from package p, group_pak g
+	where member_id=#{member_id}
+	</select>
+	
+	<select id="countTravel2" parameterType="com.traveler.model.MemberVO" resultType="Integer">
+	 select count(*) from group_mem
+ 	where group_mem_id=#{member_id}
+	</select>
  </mapper>
  

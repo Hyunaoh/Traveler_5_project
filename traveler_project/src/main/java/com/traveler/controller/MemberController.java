@@ -7,11 +7,8 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.traveler.dao.MemberDAO;
 import com.traveler.dao.PackageDAO;
+import com.traveler.model.CounselVO;
 import com.traveler.model.FacebookVO;
 import com.traveler.model.GoogleVO;
 import com.traveler.model.MemberVO;
@@ -252,7 +250,11 @@ public class MemberController {
 		
 		memberVO.setMember_id(principal.getName());
 		MemberVO list = memberDAO.selectMemberList(memberVO);
-
+		List list3=memberDAO.selectAllQnA(memberVO);
+		
+		int num_guide = memberDAO.countTravel(memberVO);
+		int num_trip = memberDAO.countTravel2(memberVO);
+		
 		
 		// 페이징 처리
 		int totalCount = memberDAO.getTotalCountOfNotice(memberVO); //전체글수
@@ -274,6 +276,9 @@ public class MemberController {
 		//그룹패키지
 		model.addAttribute("list", list);
 		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("list3", list3);
+		model.addAttribute("num_guide", num_guide);
+		model.addAttribute("num_trip", num_trip);
 		model.addAttribute("page", memberVO);
 		model.addAttribute("currentPageNum", memberVO.getPageNum());
 		return "/member/mypage";	
@@ -288,7 +293,21 @@ public class MemberController {
 	}
 
 
-
+	@RequestMapping("/inquireMember.go")
+	public String inquireMember() throws Exception{
+		System.out.println("[system] access inquireMember! ");
+		return "/member/inquireMemberForm";
+	}
+	
+	@RequestMapping("/inquireMemberPro.go")
+	public String inquireMemberPro(CounselVO counselVO, Model model, Principal principal) throws Exception{
+		System.out.println("[system] access inquireMemberPro! ");
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		
+		counselVO.setMember_id(principal.getName());
+		memberDAO.insertInquire(counselVO);
+		return "redirect:mypageForm.go";
+	}
 	
 //---------------------------------------------------------------------
 	@RequestMapping("/memberInsertDetailPro.go")
@@ -313,10 +332,10 @@ public class MemberController {
 	        } catch (Exception e) {
 	        }
 		}
+		
 	     // 이미지 복사
-	
-//		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
-//		 imgCopy(fullPath, saveLocalPath, rename);
+		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
+		 imgCopy(fullPath, saveLocalPath, rename);
 		 
 		 // 이미지 이름 셋팅
 		 memberVO.setMember_profile(rename);

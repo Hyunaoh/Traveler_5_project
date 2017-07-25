@@ -1,328 +1,187 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <title>마이페이지</title>
 <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <style>
+
 #jb-container {
 	width: 940px;
 	margin: 0px auto;
 	padding: 20px;
 }
-
 #jb-header {
 	padding: 20px;
 	margin-bottom: 10px;
 }
-
-#jb-header1 {
-	float: left;
-	background-color: navy;
-}
-
-#jb-header2 {
-	float: left;
-}
-
 #jb-content1 {
-	width: 64%;
-	height: 320px;
+	width: 33%;
+	height: 300px;
 	padding: 10px;
-	margin-top: 30px;
+	margin-top: -10px;
+	margin-right: 13px;
 	float: left;
-	border: 1px solid #bcbcbc;
-	padding: 10px;
+	background-color: white;
 }
 
-#jb-content1-1 {
-	float: left;
-}
-
-#jb-content1-2 {
+#profile_photo{
+	margin-left: 30%;
 	margin-top: 10px;
-	margin-left: 220px;
-}
-
-#jb-content1-3 {
-	margin-top: 20px;
 }
 
 #jb-content2 {
-	width: 33%;
-	height: 320px;
+	width: 64%;
+	height: 450px;
 	padding: 10px;
-	margin-top: 30px;
-	margin-left: 13px;
-	float: right;
-	border: 1px solid #bcbcbc;
+	margin-top: -10px;
+	float: left;
+	padding: 10px;
+	background-color: white;
 }
 
+}
 #jb-footer {
 	float: none;
 	height: 270px;
 	margin-top: 375px;
 	padding: 10px;
-	background-color: #E3F6CE;
+	
 }
 
 #jb-footer1 {
 	float: left;
-	width: 180px;
-	margin-top: -20px;
-	margin-left: 15px;
-	height: 180px;
-	background-color: #D0F5A9;
+    width: 180px;
+    margin-top: 15px;
+    margin-left: 560px;
 }
 
 #jb-paging {
-    margin-top: -150px;
-    margin-left: 150px;
+	margin-top: -150px;
+	margin-left: 150px;
 }
+a {
+    color: #424242;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+#A tr{
+	height: 50px;
+}
+
+#B{
+	margin-left: 40px;
+    padding-top: 10px;
+}
+
 </style>
 </head>
-<script type="text/javascript">
-	$(function() {
-		var hover1 = $('.hover1');
-		hover1.hover(function() {
-			hover1.css('background-color', '#BEF781');
-		}, function() {
-			hover1.css('background-color', '#D0F5A9');
-		});
-		var hover2 = $('.hover2');
-		hover2.hover(function() {
-			hover2.css('background-color', '#BEF781');
-		}, function() {
-			hover2.css('background-color', '#D0F5A9');
-		});
-		var hover3 = $('.hover3');
-		hover3.hover(function() {
-			hover3.css('background-color', '#BEF781');
-		}, function() {
-			hover3.css('background-color', '#D0F5A9');
-		});
-		var hover4 = $('.hover4');
-		hover4.hover(function() {
-			hover4.css('background-color', '#BEF781');
-		}, function() {
-			hover4.css('background-color', '#D0F5A9');
-		});
-	});
-</script>
-<body>
+
+<body style="background-color: #E6E6E6;">
+	
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 
-	<font size="3">
-		<div id="jb-container">
-
-			<h2>&nbsp;&nbsp;마이페이지</h2>
-
-			<div role="tabpanel">
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#myPage"
-						role="tab" data-toggle="tab">마이페이지</a></li>
-					<li role="presentation"><a href="#purchase" role="tab"
-						data-toggle="tab">구매내역</a></li>
-					<li role="presentation"><a href="#QnA" role="tab"
-						data-toggle="tab">Q&A</a></li>
-					<li role="presentation"><a href="#change" role="tab"
-						data-toggle="tab">비밀번호변경</a></li>
-					<li role="presentation"><a href="#pay" role="tab"
-						data-toggle="tab">결제정보</a></li>
-				</ul>
-
-				<!-- 탭내용 -->
-				<div class="tab-content">
-
-					<!-- 마이페이지 -->
-					<div role="tabpanel" class="tab-pane fade in active" id="myPage">
-						<div id="jb-header">
-							안녕하세요! ${ list.member_name } 님<br> 여행가를 이용해 주셔서 항상 감사합니다.
-							<div>
-								<div id="jb-content1">
-									회원정보
-									<hr>
-									<div title="photo" id="jb-content1-1">
-										<c:if test="${ list.member_profile == null }">
-											<img style="width: 208px; height: 208px;"
-												src="<c:url value='/resources/images/profile.jpg' />" alt="">
-										</c:if>
-										<c:if test="${ list.member_profile != null }">
-											<img
-												src="<c:url value='/resources/images/profiles/${list.member_profile}' />"
-												class="img-rounded" alt="Cinque Terre"
-												style="width: 208px; height: 208px;">
-										</c:if>
-									</div>
-									<div title="text" id="jb-content1-2">
-										<table>
-											<tr>
-
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;ID</td>
-												<td>${ list.member_id }</td>
-											</tr>
-											<tr>
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;닉네임</td>
-												<td>${ list.member_nickName }</td>
-											</tr>
-											<tr>
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;휴대폰번호</td>
-												<td>${ list.member_tel }</td>
-											</tr>
-											<tr>
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;이메일</td>
-												<td>${ list.member_email }</td>
-											</tr>
-											<tr>
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;국가</td>
-												<td>${ list.member_nationality }</td>
-											</tr>
-											<tr>
-												<td><input type="image"
-													style="width: 15px; height: 15px;"
-													src="<c:url value='/resources/images/icons/id-card.png' />"
-													alt="">&nbsp;언어</td>
-												<td>${ list.member_language }</td>
-											</tr>
-										</table>
-										<div title="link" id="jb-content1-3">
-											<input type="button" value="가이드신청" class="btn btn-default"
-												onclick="location='guideForm.go'"> <input
-												type="button" value="정보수정" class="btn btn-default"
-												onclick="location='memberInsertDetail.go'">
-
-											<div align="right">
-												<a href="/member/memberDeleteForm.go">회원탈퇴</a>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div id="jb-content2">
-									상담내역
-									<hr>
-									내용
-								</div>
-							</div>
-
-
-							<!-- 탭 기능 -->
-							<div id="jb-footer">
-								<div role="tabpanel">
-									<ul class="nav nav-pills" role="tablist">
-										<li role="presentation" class="active"><a href="#private"
-											role="tab" data-toggle="tab">개인패키지</a></li>
-										<li role="presentation"><a href="#group" role="tab"
-											data-toggle="tab">그룹패키지</a></li>
-									</ul>
-									<div class="row" > 
-													<div class="col-lg-7"></div>
-													<div class="form-inline col-lg-5">
-														<ul class="pagination" id="jb-paging">
-															<c:if test="${currentPageNum > '1'}">
-																<li><a
-																	href="mypageForm.go?pageNum=${currentPageNum-1}"><span
-																		class="glyphicon glyphicon-chevron-left"></span></a></li>
-															</c:if>
-															<c:forEach begin="1" end="${page.pageTotalNum}"
-																var="pageNum">
-																<li><a href="mypageForm.go?pageNum=${pageNum}">${pageNum}</a></li>
-															</c:forEach>
-															<c:if test="${page.pageTotalNum > currentPageNum}">
-																<li><a
-																	href="mypageForm.go?pageNum=${currentPageNum+1}"><span
-																		class="glyphicon glyphicon-chevron-right"></span></a></li>
-															</c:if>
-														</ul>
-													</div>
-												</div>
-									<!--  탭 내용  -->
-									<div class="tab-content">
-				
-										<!-- 개인패키지 -->
-										<div role="tabpanel" class="tab-pane fade in active"
-											id="private">
-											<div style="margin-left: 20px; margin-top: 10px;">
-												<c:forEach items="${ list2 }" var="list2">
-													<div id="jb-footer1" class="hover1">
-														<img style="width: 180px; height: 180px;"
-															src="<c:url value='/resources/images/package_img/123.jpg' />"
-															alt="">
-													</div>
-												</c:forEach>
-											</div>
-										</div>
-
-
-										<!-- 단체패키지 -->
-										<div role="tabpanel" class="tab-pane fade in" id="group">
-											되나?</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-
-					<!-- 구매내역 -->
-					<div></div>
-
-
-
-					<!-- Q&A -->
-					<div role="tabpanel" class="tab-pane fade in active" id="QnA">
-					</div>
-
-
-
-
-					<!-- 비밀번호변경 -->
-					<div role="tabpanel" class="tab-pane fade in active" id="change"></div>
-
-
-
-
-					<!-- 결제 -->
-					<div role="tabpanel" class="tab-pane fade in active" id="pay"></div>
-
-
-
-
-
-				</div>
-
+		<div id="jb-container" >
+		<font color="#151515;" size="3">
+			<div id="jb-header">
+			<h2>&nbsp;&nbsp;프로필관리</h2>
 			</div>
-	</font>
+			<h2><font color="#424242">&nbsp;&nbsp;프로필관리</font></h2>
+				
+				<!-- 프로필 사진  -->
+				<div id="jb-content1">
+				
+					<div id="profile_photo">
+					<c:if test="${ list.member_profile == null }">
+						<img class="img-circle"  style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
+					</c:if>
+					<c:if test="${ list.member_profile != null }">
+						<img src="<c:url value='/resources/images/profiles/${list.member_profile}' />" 
+						class="img-circle" alt="Cinque Terre" 	style="width: 120px; height: 120px;">
+					</c:if>
+					</div>
+					
+					<strong ><div style="margin-left: 44%; margin-top: 10px;">${ list.member_nickName }</div></strong>
+					<hr>
+					<div id="B">
+					♥나의 가이드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_guide }개</a><br>
+					♥나의 여  &nbsp;&nbsp;&nbsp; 행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_trip }개</a><br>
+					</div>
+					
+				</div>	<!-- <div role="profile_photo"> -->
+
+
+
+				<div id="jb-content2">
+				<div style="margin-left: 480px; margin-bottom:-40px;">
+				<input type="button" value="편집" class="btn btn-default"
+												onclick="location='memberInsertDetail.go'"
+												>
+				</div>
+					<div id="profile_photo" style="margin-left: 200px;">
+					<c:if test="${ list.member_profile == null }">
+						<img class="img-circle"  style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
+					</c:if>
+					<c:if test="${ list.member_profile != null }">
+						<img src="<c:url value='/resources/images/profiles/${list.member_profile}' />" 
+						class="img-circle" alt="Cinque Terre"  style="width: 120px; height: 120px;">
+					</c:if>
+					</div>
+					<strong ><div style="margin-left: 44%; margin-top: 10px;">${ list.member_nickName }</div></strong>
+					<div style="margin-left: 50px; margin-top:30px; padding: 10px; ">
+					<table id="A">
+					<tr>
+					<td><strong>이름</strong></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>${ list.member_name }</td>
+					</tr>
+					<tr>
+					<td><strong>이메일</strong></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>${ list.member_email }</td>
+					</tr>
+					<tr>
+					<td><strong>연락처</strong></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>${ list.member_tel }</td>
+					</tr>
+					<tr>
+					<td><strong>SNS연동</strong></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td></td>
+					</tr>
+					</table>
+					</div>
+				</div>		
+				
+				
+			<div id="jb-footer">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div id="jb-footer1">
+				<a href="/member/memberDeleteForm.go">회원탈퇴</a>	
+				</div>
+			</div>
+		
+		</font>
+		</div>
+		
+		<!-- <div id="jb-container"> -->
 </body>
 </html>
