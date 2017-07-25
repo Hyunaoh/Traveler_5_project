@@ -8,6 +8,7 @@ public class HomeController {
 	
 	@RequestMapping("/home.go")
 	public String home() {
+		
 		return "home";
 	}
 	
