@@ -103,7 +103,6 @@ a {
 			<div id="jb-header">
 			<h2>&nbsp;&nbsp;프로필관리</h2>
 			</div>
-			<h2><font color="#424242">&nbsp;&nbsp;프로필관리</font></h2>
 				
 				<!-- 프로필 사진  -->
 				<div id="jb-content1">
