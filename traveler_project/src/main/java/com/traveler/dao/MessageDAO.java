@@ -28,4 +28,6 @@ public interface MessageDAO {
 	// 받은 메세지 / 보낸메시지 개수 세기
 	public int countMessage(MessageVO vo) throws Exception;
 	
+	public int updateReadMessage(MessageVO vo) throws Exception;
+	
 }

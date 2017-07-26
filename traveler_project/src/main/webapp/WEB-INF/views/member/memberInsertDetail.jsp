@@ -18,7 +18,6 @@
 	<jsp:include page="../header.jsp" />
 	<font size="2">
 	<div id="#container" style="width: 80%;" >
-	<section id="fh5co-contact" data-section="contact">
 		<div class="page-header" style="margin-left: 300px;">
 			<h1>
 				세부사항
@@ -86,7 +85,6 @@
 				</div>
 			</form>
 		</div>
-	</section>
 	</div>
 	</font>
 	<!-- 주소 "검색"창  -->

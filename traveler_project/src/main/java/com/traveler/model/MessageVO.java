@@ -74,11 +74,7 @@ public class MessageVO {
 		
 		String form1 = sdf.format(message_date);
 		String form2 = sdf.format(today);
-		
-		System.out.println(sdf2.format(message_date));
-		
-		System.out.println(sdf2.format(message_date));
-		
+
 		// 받아온 날짜가 오늘 날짜라면,
 		if(form1.equals(form2)){
 			
