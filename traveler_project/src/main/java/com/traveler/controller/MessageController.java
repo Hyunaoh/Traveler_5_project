@@ -45,20 +45,10 @@ public class MessageController {
 	static int count;
 
 	@RequestMapping("/messageListView.go")
-	public String messageListView(Model model, Principal pr, HttpServletRequest request) throws Exception {
+	public String messageListView(Model model, Principal pr) throws Exception {
 
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 		MessageVO mVo = new MessageVO();
-
-		if (request.getParameter("message_send") != null) {
-
-			String message_send = request.getParameter("message_send");
-			
-			System.out.println("message 보낸이 : " + message_send);
-			
-			model.addAttribute("message_send_go", message_send);
-
-		}
 		
 		/**
 		 * 
@@ -94,7 +84,7 @@ public class MessageController {
 		return "/message/alarm_view";
 	}
 
-	// 메세지 쓰는 함 프로세스
+	// 메세지 작성 프로세스
 	@ResponseBody
 	@RequestMapping(value = "/messageWriteAjax.go", method = RequestMethod.POST)
 	public int messageWritePro(@RequestBody MessageVO mVo, Principal principal, boolean chk_all) throws Exception {
@@ -111,11 +101,12 @@ public class MessageController {
 		return insertRes;
 	}
 
+	// 메세지 쓰는함 View
 	@ResponseBody
 	@RequestMapping(value = "/messageWriteView.go", method = RequestMethod.POST)
 	public List<MemberVO> messageWritePro() throws Exception {
 
-		System.out.println("memer List 뽑아오는 ajax 실행");
+		System.out.println("member List 뽑아오는 ajax 실행");
 
 		MemberDAO memDao = sqlSession.getMapper(MemberDAO.class);
 
@@ -218,6 +209,7 @@ public class MessageController {
 		return res;
 	}
 
+	// 메세지 모달창에 들어갈 내용들
 	@RequestMapping("/messageGetModal.go")
 	public String messageGetModal(Model model, HttpServletRequest request) {
 
@@ -232,19 +224,60 @@ public class MessageController {
 		return "message/messageGetModal";
 	}
 	
+	// 제목을 클릭하면 팝업이 나타나는데, 이 팝업에 대한 List
 	@ResponseBody
 	@RequestMapping("/messagePopupView.go")
-	public ArrayList<MessageVO> messagePopupView (Model model, Principal pr, MessageVO vo ) {
+	public ArrayList<MessageVO> messagePopupView (Model model, Principal pr, @RequestBody MessageVO vo ) throws Exception {
 		
 		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
 		
-		vo.setMessage_seq(vo.getMessage_seq());
+		System.out.println("제목을 클릭하면 팝업창이 뜹니다.");
+		System.out.println("시퀀스 넘버 : " + vo.getMessage_seq());
+
+		int res = mDao.updateReadMessage(vo);
 		
+		System.out.println("read 컬럽 update 결과 : " + res);
 		// 아이디로 하나의 컬럼 (팝업에 표시될 쪽지내용)을 가져옴
 		ArrayList<MessageVO> list = mDao.selectOneBySeq(vo);
 		
 		return list;
 		
 	}
+	
+	// 한 아이디에 대한 전체 목록 불러오기
+	@ResponseBody
+	@RequestMapping("/selectAllMessageById.go")
+	public List<MessageVO> selectAllMessageById (Model model, Principal pr, @RequestBody MessageVO vo ) throws Exception {
+		
+		/**
+		 * 
+		 * 받은/보낸사람 쪽지 개수 구하기
+		 */
+		
+		MessageVO mVo = new MessageVO();
+		MessageDAO mDao = sqlSession.getMapper(MessageDAO.class);
+
+		// 해당 아이디 보낸사람 개수
+		mVo.setMessage_send(pr.getName());
+		mVo.setMessage_get(null);
+		int messageSend_total = mDao.countMessage(mVo);
+
+		// 해당 아이디 받은사람 개수
+		mVo.setMessage_send(null);
+		mVo.setMessage_get(pr.getName());
+		int messageGet_total = mDao.countMessage(mVo);
+
+		model.addAttribute("messageGet_total", messageGet_total);
+		model.addAttribute("messageSend_total", messageSend_total);
+		
+		// 아이디로 하나의 컬럼 (팝업에 표시될 쪽지내용)을 가져옴
+		
+		List<MessageVO> list = mDao.selectAllMessageById(vo);
+		
+		return list;
+		
+	}
+	
+	
 
 }

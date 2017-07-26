@@ -16,6 +16,17 @@
       * {
   box-sizing: border-box;
 }
+
+<!-- 아이콘 관련 css -->
+.action-bar .icon .circle-icon .red .glyphicon{
+	line-height: 2;
+}
+
+<!-- 체크 박스 관련 css -->
+.checkbox-wrapper .chkBox label{
+	margin-bottom: 0px !important;
+}
+
 body {
   background: #FFF;
   font-family: Roboto, sans-serif;
@@ -41,6 +52,7 @@ a:hover {
   transition-duration: .05s;
   text-decoration: none;
 }
+
 .circle-icon {
   width: 30px;
   height: 30px;
@@ -803,7 +815,7 @@ a:hover {
 
   <aside id="sidebar" class="nano">
   <div class="nano-content" style="margin-top: 50px">
-    <div class="logo-container" style="font-size: 40px;"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</div><a class="compose-button">전체메일함</a>
+    <div class="logo-container" style="font-size: 40px;"><a href="messageListView.go"><span class="logo glyphicon glyphicon-envelope"></span>쪽지함</a></div><a onclick="all_message_function()" class="compose-button">전체메일함</a>
 
     <!-- 왼쪽 메뉴바 -->
     <menu class="menu-segment" id="list_message">
@@ -829,7 +841,7 @@ a:hover {
 </aside>
 <main id="main">
   <div class="overlay"></div>
-  <header class="header">
+  <header class="header" >
     <div class="search-box">
       <input placeholder="Search..."><span class="icon glyphicon glyphicon-search"></span>
     </div>
@@ -837,11 +849,10 @@ a:hover {
   </header>
   <div class="action-bar">
     <ul>
-      <li><a class="icon circle-icon glyphicon   glyphicon-chevron-down"></a></li>
       <li><a class="icon circle-icon glyphicon   glyphicon-refresh"></a></li>
-      <li><a class="icon circle-icon glyphicon   glyphicon-share-alt"></a></li>
       <li ><a id="deleteBtn" class="icon circle-icon red glyphicon   glyphicon-remove"></a></li>
       <li><a class="icon circle-icon red glyphicon glyphicon-flag"></a></li>
+      <li id="result_size"></li>
     </ul>
   </div>
   <div id="main-nano-wrapper" class="nano">
@@ -849,7 +860,7 @@ a:hover {
     
     <!-- 메세지 뷰 부분 -->
       <ul class="message-list">
-        <li class="green-dot unread">
+       <!--  <li class="green-dot unread">
           <div class="col col-1"><span class="dot"></span>
             <div class="checkbox-wrapper">
               <input type="checkbox" id="chk2">
@@ -901,7 +912,7 @@ a:hover {
             <div class="subject">This Week's Top Stories &nbsp;&ndash;&nbsp; <span class="teaser">Our top pick for you on Medium this week The Man Who Destroyed America’s Ego</span></div>
             <div class="date">Feb 28</div>
           </div>
-        </li>
+        </li> -->
       </ul>
       
     </div>
@@ -918,31 +929,7 @@ a:hover {
     <div class="nano-content">
       <ul class="message-container">
       
-        <li class="sent">
-          <div class="details">
-            <div class="left">You
-              <div class="arrow"></div>Scott
-            </div>
-            <div class="message_d" class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-           <p>message</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
-        
-        <li class="received">
-          <div class="details">
-            <div class="left">Scott
-              <div class="arrow orange"></div>You
-            </div>
-            <div class="right">March 6, 2014, 20:08 pm</div>
-          </div>
-          <div class="message">
-            <p>message</p>
-          </div>
-          <div class="tool-box"><a href="#" class="circle-icon small glyphicon glyphicon-share-alt"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-remove"></a><a href="#" class="circle-icon small red-hover glyphicon glyphicon-flag"></a></div>
-        </li>
+     	<!-- 메세지 팝업내용 -->
        
       </ul>
     </div>

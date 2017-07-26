@@ -6,7 +6,11 @@
 <mapper namespace="com.traveler.dao.MessageDAO">
 
 	<select id="selectAllMessageById" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
-		select * from message where message_send = #{message_send} or message_get = #{message_get}
+		select * 
+		from message 
+		where   (message_send = #{message_send} or message_get = #{message_get})
+			and (message_send_flag=0 and message_send_flag=0)
+		order by message_date desc
 	</select>
 	
 	<select id="selectOneBySeq" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
@@ -34,6 +38,7 @@
 		select * from message where message_message like '#{message_message}'
 	</select>
 	
+	<!-- id로 메세지를 알아낼 때 -->
 	<select id="selectByIdMessage" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
 		select *
 		
@@ -53,6 +58,7 @@
 		
 	</select>
 	
+	<!-- 메세지 insert -->
 	<insert id="insertMessage" parameterType="com.traveler.model.MessageVO">
 		insert into message ( 
 		  message_send
@@ -62,12 +68,19 @@
 		values(#{message_send},#{message_get},#{message_message}, now());
 	</insert>
 	
+	<!-- 받은메세지를 삭제할 때 -->
 	<update id="deleteGetMessage" parameterType="com.traveler.model.MessageVO">
 		update message set message_get_flag=1 where message_seq=#{message_seq}
 	</update>
 	
+	<!-- 보낸메세지를 삭제할 때 -->
 	<update id="deleteSendMessage" parameterType="com.traveler.model.MessageVO">
 		update message set message_send_flag=1 where message_seq=#{message_seq}
+	</update>
+	
+	<!-- 쪽지를 읽었을 경우, 0으로 업데이트. (이미 1인 경우는 update를 진행하지 않음) -->
+	<update id="updateReadMessage" parameterType="com.traveler.model.MessageVO">
+		update message set message_read='1' where message_seq=#{message_seq} and message_read='0'
 	</update>
 
 </mapper>
