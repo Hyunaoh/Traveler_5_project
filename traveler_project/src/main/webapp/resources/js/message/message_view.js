@@ -49,11 +49,10 @@
 	// When you click on a message, show it
 	// 이 부분은 받은메세지함, 보낸 메세지함에서 보여짐
 
-	function click_popup() {
+	function click_popup(exec_func) {
 		
-		$('#main .message-list .msg-list').on('click', function(e) {
+		$('#main .message-list .msg-list').on('click', function(e) {	
 			
-			messagePopup();
 			var item = $(this), target = $(e.target);
 
 			if (target.is('label')) {
@@ -68,6 +67,7 @@
 						item.addClass('active');
 						setTimeout(function() {
 							cols.showMessage();
+
 						}, 300);
 					} else {
 						item.addClass('active');
@@ -75,6 +75,7 @@
 					}
 					
 					cols.showOverlay();
+
 				}
 			}
 		});

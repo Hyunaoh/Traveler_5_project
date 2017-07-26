@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+ @CHARSET "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -389,7 +389,7 @@ a:hover {
   line-height: 50px;
   cursor: default;
   transition-duration: .3s;
-  /*
+  
 			.col-1 {
 				width: 140px;
 				text-align: right;
@@ -431,7 +431,7 @@ a:hover {
 				padding-left: 20px;
 				float: right;
 			}
-			*/
+			
 }
 #main .message-list li:hover,
 #main .message-list li.active,
@@ -744,9 +744,9 @@ a:hover {
     display: none;
   }
 }
-/**
+*
  * Nano scroll stuff
-*/
+
 .nano {
   position: relative;
   width: 100%;
@@ -779,7 +779,7 @@ a:hover {
   top: 8px;
   bottom: 8px;
   visibility: hidden\9;
-  /* Target only IE7 and IE8 with this hack */
+  Target only IE7 and IE8 with this hack
   opacity: .01;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -813,6 +813,9 @@ a:hover {
 .nano-pane.active,
 .nano-pane.flashed {
   visibility: visible\9;
-  /* Target only IE7 and IE8 with this hack */
+  Target only IE7 and IE8 with this hack
   opacity: 0.99;
 }
+
+ 
+
