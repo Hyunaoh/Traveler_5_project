@@ -18,16 +18,17 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
 #jb-container {
 	width: 940px;
 	margin: 0px auto;
 	padding: 20px;
+	height: 670px;
 }
 #jb-header {
-	padding: 20px;
-	margin-bottom: 10px;
+	padding: 10px;
 }
 #jb-content1 {
 	width: 33%;
@@ -41,7 +42,7 @@
 
 #profile_photo{
 	margin-left: 30%;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 #jb-content2 {
@@ -57,7 +58,7 @@
 }
 #jb-footer {
 	float: none;
-	height: 270px;
+	height: 400px;
 	margin-top: 375px;
 	padding: 10px;
 	
@@ -86,22 +87,22 @@ a {
 }
 
 #B{
-	margin-left: 40px;
-    padding-top: 10px;
+    margin-left: 20px;
+    padding-top: 5px;
 }
 
 </style>
 </head>
 
-<body style="background-color: #E6E6E6;">
+<body style="background-color: #DEEEF4;">
 	
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 
 		<div id="jb-container" >
-		<font color="#151515;" size="3">
+		<font size="3">
 			<div id="jb-header">
-			<h2>&nbsp;&nbsp;프로필관리</h2>
+			<h2>프로필관리</h2>
 			</div>
 				
 				<!-- 프로필 사진  -->
@@ -109,19 +110,19 @@ a {
 				
 					<div id="profile_photo">
 					<c:if test="${ list.member_profile == null }">
-						<img class="img-circle"  style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
+						<img class="img-rounded"  style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
 					</c:if>
 					<c:if test="${ list.member_profile != null }">
 						<img src="<c:url value='/resources/images/profiles/${list.member_profile}' />" 
-						class="img-circle" alt="Cinque Terre" 	style="width: 120px; height: 120px;">
+						class="img-rounded" alt="Cinque Terre" 	style="width: 120px; height: 120px;">
 					</c:if>
 					</div>
 					
 					<strong ><div style="margin-left: 44%; margin-top: 10px;">${ list.member_nickName }</div></strong>
 					<hr>
 					<div id="B">
-					♥나의 가이드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_guide }개</a><br>
-					♥나의 여  &nbsp;&nbsp;&nbsp; 행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_trip }개</a><br>
+					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 가이드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_guide }개</a><br>
+					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 여  &nbsp;&nbsp; 행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_trip }개</a><br>
 					</div>
 					
 				</div>	<!-- <div role="profile_photo"> -->
@@ -129,40 +130,39 @@ a {
 
 
 				<div id="jb-content2">
-				<div style="margin-left: 480px; margin-bottom:-40px;">
-				<input type="button" value="편집" class="btn btn-default"
-												onclick="location='memberInsertDetail.go'"
-												>
+				<div style="margin-left: 520px; margin-bottom:-23px;">
+				
+				<a href="#" onclick="location='memberInsertDetail.go'">편집</a>
 				</div>
-					<div id="profile_photo" style="margin-left: 200px;">
+					<div id="profile_photo" style="margin-left: 210px;">
 					<c:if test="${ list.member_profile == null }">
-						<img class="img-circle"  style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
+						<img class="img-rounded" style="width: 120px; height: 120px;" src="<c:url value='/resources/images/profile.jpg' />" alt="Cinque Terre">
 					</c:if>
 					<c:if test="${ list.member_profile != null }">
 						<img src="<c:url value='/resources/images/profiles/${list.member_profile}' />" 
-						class="img-circle" alt="Cinque Terre"  style="width: 120px; height: 120px;">
+						 class="img-rounded" border="1px solid black;" style="width: 120px; height: 120px;">
 					</c:if>
 					</div>
 					<strong ><div style="margin-left: 44%; margin-top: 10px;">${ list.member_nickName }</div></strong>
 					<div style="margin-left: 50px; margin-top:30px; padding: 10px; ">
 					<table id="A">
 					<tr>
-					<td><strong>이름</strong></td>
+					<td><i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;<strong>이름</strong></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>${ list.member_name }</td>
 					</tr>
 					<tr>
-					<td><strong>이메일</strong></td>
+					<td><i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;<strong>이메일</strong></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>${ list.member_email }</td>
 					</tr>
 					<tr>
-					<td><strong>연락처</strong></td>
+					<td><i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;<strong>연락처</strong></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>${ list.member_tel }</td>
 					</tr>
 					<tr>
-					<td><strong>SNS연동</strong></td>
+					<td><i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;<strong>SNS연동</strong></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td></td>
 					</tr>
@@ -182,5 +182,7 @@ a {
 		</div>
 		
 		<!-- <div id="jb-container"> -->
+		<!-- footer -->
+		<jsp:include page="../footer.jsp" />
 </body>
 </html>

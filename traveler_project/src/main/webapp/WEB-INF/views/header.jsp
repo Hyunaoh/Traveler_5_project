@@ -109,7 +109,19 @@
 					<se:authorize access="isAuthenticated()">
 						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'">쪽지</a></li>
 						<li><a href="#" onclick="location='<c:url value="/plan/myPlanList.go" />'">여행계획</a></li>
-						<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'">마이페이지</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
+								<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'">프로필 관리</a></li>
+								<c:url value="/store/inputForm.pet" var = "storeInputForm"></c:url>
+							 	<li><a href="#" onclick="location='/member/guideForm.go'">가이드 신청</a></li>
+							</ul>
+						</li>
+						
+						
+						
+						
 						<se:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'">관리자</a></li>
 						</se:authorize>
