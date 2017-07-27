@@ -22,7 +22,8 @@
 			border-bottom : 2.5px solid lightgray;
 		}
 		.login-img{
-			height:400px;
+			height:380px;
+			background-size: cover;
 		}
 		.login-form{
 			padding-left: 3rem;
@@ -64,7 +65,9 @@
 			
 			<!-- login contents -->
 			<div class="row">
+				<!-- 로그인이미지-->
 				<div class="col-md-6 login-img" style="background-image:url('<c:url value="/resources/images/login-bg.jpg" />');"></div>
+				<!-- 로그인 하는 부분 -->
 				<div class="col-md-6">
 					<div class="login-form">
 						<h3>Login</h3>

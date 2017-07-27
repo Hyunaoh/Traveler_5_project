@@ -33,7 +33,7 @@
 
         <!-- Projects Row -->
         <c:forEach items="${groupList}" var="list">
-            <div class="col-md-3 portfolio-item">
+            <div class="col-md-3 col-sm-12 portfolio-item">
 	            <div style="padding-bottom: 3px; margin: 12px 0.5px;">
 				    <div onclick="location='groupDetailForm.go?group_pak_pk=${list.group_pak_pk}'">
 				    	<img class="img-responsive group-list-img" style="width:600px; height:250px;" src="<c:url value="/resources/images/group_img/${list.group_pak_photo}" />" alt="">

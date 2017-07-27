@@ -59,3 +59,24 @@
 .group-insert-list-content{
 	margin-bottom: 2rem; 
 }
+/* m_group insert form */
+.m_gorup-container{
+	margin-top : 6rem;
+	margin-bottom : 10rem;
+}
+.m_group-header{
+	font-style: italic;
+	color: rgba(0,0,0,0.5);
+	margin-bottom: 3rem;
+}
+.m_group-side-fix{
+	position: fixed;
+}
+.m_group-ul li{
+	margin-bottom: 3rem;	
+}
+/* m_group-delete-form */
+.m_group-delete-form-header{
+	font-size: 2rem;
+	color: rgba(0,0,0,0.8);
+}

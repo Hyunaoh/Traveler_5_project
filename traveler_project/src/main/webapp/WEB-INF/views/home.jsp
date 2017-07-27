@@ -142,7 +142,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-6">
 				<div class="dev-story-content-bg">
 					<div class="row">
 						<!-- 사진 -->
@@ -153,7 +153,9 @@
 						<div class="col-md-6">
 							<div class="dev-story-comment">
 								<h4>김태홍</h4>
-								<p>힘들었지만 재미있었닿ㅎㅎㅎㅎㅎㅎsdsdfsfdsfdsfdsf</p>
+								<p>
+									평소에 여행을 좋아해서 그런지 만들때 지겨
+								</p>
 							</div>
 						</div>
 						
@@ -161,7 +163,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-6">
 				<div class="dev-story-content-bg">
 					<div class="row">
 						<!-- 사진 -->
@@ -181,7 +183,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-6">
 				<div class="dev-story-content-bg">
 					<div class="row">
 						<!-- 사진 -->
@@ -200,7 +202,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-6">
 				<div class="dev-story-content-bg">
 					<div class="row">
 						<!-- 사진 -->
@@ -219,7 +221,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-6">
 				<div class="dev-story-content-bg">
 					<div class="row">
 						<!-- 사진 -->
