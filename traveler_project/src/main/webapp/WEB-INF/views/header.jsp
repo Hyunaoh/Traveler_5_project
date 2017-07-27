@@ -107,10 +107,10 @@
 					
 					<!-- 로그인 했을때만 보임 -->
 					<se:authorize access="isAuthenticated()">
-						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'">쪽지</a></li>
+						<li><a href="#" onclick="location='<c:url value="/message/messageListView.go" />'">쪽지 <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
 						<li><a href="#" onclick="location='<c:url value="/plan/myPlanList.go" />'">여행계획</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지<b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지 <span class="glyphicon glyphicon-user" aria-hidden="true"></span><b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<c:url value="/store/selectAll.pet" var = "storeSelectAll"></c:url>
 								<li><a href="#" onclick="location='<c:url value="/member/mypageForm.go" />'">프로필 관리</a></li>
