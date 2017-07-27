@@ -9,6 +9,7 @@
 	<!-- Group CSS -->
 	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
 	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<title>여행가 - 예약 취소</title>
 </head>

@@ -12,7 +12,7 @@
 			color: rgba(0,0,0,0.5);
 		}
 	</style>
-	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- Plan CSS -->
 	<link rel="stylesheet" href="<c:url value="/resources/css/plan/plan.css" />" />
 </head>
@@ -30,20 +30,19 @@
 				<h2 class="to-animate">여행계획</h2>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 subtext to-animate">
-						<h3>간단하게 여행을 계획하세요! 편안하고 즐거운 여행을 보낼 수 습니다!<br><a href="myPlanInsertForm.go" class="pointer" style="color:blue;">계획 세우기</a>를 눌러주세요</h3>
+						<h3>간단하게 여행을 계획하세요! 편안하고 즐거운 여행을 보낼 수 있습니다!<br><a href="myPlanInsertForm.go" class="pointer" style="color:blue;">계획 세우기</a>를 눌러주세요</h3>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row row-bottom-padded-sm">
+		<div class="row">
 			<c:set value="1" var="count" />
 			<c:forEach items="${planListAll}" var="list">
 				<div class="col-md-4 col-sm-6 col-xxs-12">
-				<div style="background-color:#fff; margin:15px 2px 15px 2px; padding:10px 10px 15px 10px;" class="to-animate">
-					<a href="<c:url value='/resources/images/plan_img/${list.plan_img}' />" style="weight: 200px; height:200px;" class="fh5co-project-item image-popup to-animate">
-						<img src="<c:url value='/resources/images/plan_img/${list.plan_img}' />" alt="이미지 오류" class="img-responsive" >
-					</a>
-					<div class="fh5co-text">
+					<div class="plan-list-container">
+						<!-- 썸네일 -->
+						<img style="width: 200px; height:200px;" src="<c:url value='/resources/images/plan_img/${list.plan_img}' />" alt="이미지 오류" class="img-responsive" >
+						
 						<h2 class="pointer" onclick="location='myPlanDetailForm.go?plan_pk=${list.plan_pk}'">${list.plan_title}</h2>
 						<span class="col-md-12" style="color:rgba(0,0,0,0.5);">${list.plan_regDate}</span>
 						<hr>
@@ -58,12 +57,11 @@
 						</form>
 						<br>
 					</div>
-				</div>
+					
 				</div>
 				<c:set value="${count+1}" var="count" />
 				<c:if test="${count > 2}">
 					<c:set value="1" var="count" />
-					<div class="clearfix visible-sm-block"></div>
 				</c:if>
 			</c:forEach>
 		</div>

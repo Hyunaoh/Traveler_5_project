@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>여행가 - 단체상품 목록</title>
 
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- Group CSS -->
 	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
 </head>

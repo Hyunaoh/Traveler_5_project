@@ -144,17 +144,17 @@
 					
 				</div>
 				<div class="form-group">
-					<label for="gender">성별</label> <br>
+					<label for="gender">성별</label><br>
 					<c:if test="${googleVO.gender eq null and facebookVO.f_gender eq null and naverVO.n_gender eq null}">
-						<input type="radio" name="member_gender" value="man" required> man 
-						<input type="radio" name="member_gender" value="woman" required> woman
+						<input type="radio" name="member_gender" value="man" required> 남성
+						<input type="radio" name="member_gender" value="woman" required> 여성
 					</c:if>
-					<c:if test="${googleVO.gender ne null or facebookVO.f_gender ne null}">
+					<c:if test="${googleVO.gender ne ' ' or facebookVO.f_gender ne ' ' or naverVO.n_gender ne ' '}">
 						<c:if test="${googleVO.gender eq 'male' or facebookVO.f_gender eq 'male' or naverVO.n_gender eq 'M'}">
-							<input type="hidden" name="member_gender" value="man" readonly> man
+							<input type="hidden" name="member_gender" value="man" readonly> 남성
 						</c:if>
 						<c:if test="${googleVO.gender eq 'female' or facebookVO.f_gender eq 'female' or naverVO.n_gender eq 'F'}">
-							<input type="hidden" name="member_gender" value="woman" readonly> woman
+							<input type="hidden" name="member_gender" value="woman" readonly> 여성
 						</c:if>
 					</c:if>
 				</div>
