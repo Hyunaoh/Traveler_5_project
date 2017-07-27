@@ -93,7 +93,7 @@
 							<span class="star-view">
 									<span class="view">
 							    	<input type="radio" name="review_score" value="1" id="p1">
-							    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>s
+							    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>
 							 		</span>
 							 		${list.review_avg } 점				
 							</span>
