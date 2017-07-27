@@ -121,8 +121,8 @@ a {
 					<strong ><div style="margin-left: 44%; margin-top: 10px;">${ list.member_nickName }</div></strong>
 					<hr>
 					<div id="B">
-					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 가이드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_guide }개</a><br>
-					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 여  &nbsp;&nbsp; 행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">${ num_trip }개</a><br>
+					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 가이드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="myGuideDetail.go">${ num_guide }개</a><br>
+					<i class="fa fa-plane" style="font-size:18px"></i>&nbsp;&nbsp;나의 여  &nbsp;&nbsp; 행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/member">${ num_trip }개</a><br>
 					</div>
 					
 				</div>	<!-- <div role="profile_photo"> -->

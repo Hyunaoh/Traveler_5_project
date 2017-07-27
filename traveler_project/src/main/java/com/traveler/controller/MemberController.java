@@ -249,7 +249,6 @@ public class MemberController {
 		System.out.println("[system] access myPageForm! ");
 
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
 
 		memberVO.setMember_id(principal.getName());
 		MemberVO list = memberDAO.selectMemberList(memberVO);
@@ -273,11 +272,9 @@ public class MemberController {
 			memberVO.setPageTotalNum(1 + totalCount / page_size);
 		}
 
-		List packageVO_result = memberDAO.getPagePerList(memberVO);
 		
 		// 그룹패키지
 		model.addAttribute("list", list);
-		model.addAttribute("list2", packageVO_result);
 		model.addAttribute("list3", list3);
 		model.addAttribute("num_guide", num_guide);
 		model.addAttribute("num_trip", num_trip);
@@ -308,7 +305,36 @@ public class MemberController {
 		memberDAO.insertInquire(counselVO);
 		return "redirect:mypageForm.go";
 	}
+	
+	@RequestMapping("/myGuideDetail.go")
+	public String myGuideDetail(MemberVO memberVO, Model model, Principal principal) throws Exception {
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		memberVO.setMember_id(principal.getName());
+		
+		
+		// 페이징 처리
+				int totalCount = memberDAO.getTotalCountOfNotice(memberVO); // 전체글수
+				final int page_size = 4;
+				if (memberVO.getPageNum() == 0) {
+					memberVO.setPageNum(1); // default 값
+				}
+				memberVO.setStartNum(page_size * (memberVO.getPageNum() - 1));
+				memberVO.setEndNum(page_size * memberVO.getPageNum());
+				// 전체 페이지 개수
+				if (totalCount % page_size == 0) {
+					memberVO.setPageTotalNum(totalCount / page_size);
+				} else {
+					memberVO.setPageTotalNum(1 + totalCount / page_size);
+				}
 
+				List packageVO_result = memberDAO.getPagePerList(memberVO);
+		
+		
+		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("page", memberVO);
+		model.addAttribute("currentPageNum", memberVO.getPageNum());
+		return "/member/myGuideDetail";
+	}
 	// ---------------------------------------------------------------------
 	@Transactional
 	@RequestMapping("/memberInsertDetailPro.go")

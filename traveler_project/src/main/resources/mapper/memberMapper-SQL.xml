@@ -142,8 +142,9 @@
 	</select>
 	
 	<select id="countTravel" parameterType="com.traveler.model.MemberVO" resultType="Integer">
-	select count(*) from package p, group_pak g
+	select count(*) from package
 	where member_id=#{member_id}
+	and package_status = 1
 	</select>
 	
 	<select id="countTravel2" parameterType="com.traveler.model.MemberVO" resultType="Integer">
