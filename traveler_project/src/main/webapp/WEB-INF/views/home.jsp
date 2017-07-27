@@ -226,7 +226,7 @@
 					<div class="row">
 						<!-- 사진 -->
 						<div class="col-md-3 dev-story-img-border">
-							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/person1.jpg' />">
+							<img class="dev-story-img" alt="" src="<c:url value='/resources/images/home_img/jihoon.jpg' />">
 						</div>
 						<!-- 개발자 소견 -->
 						<div class="col-md-6">
