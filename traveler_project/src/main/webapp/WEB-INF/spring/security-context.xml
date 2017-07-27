@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/group/groupInsertForm.go" access="hasAnyRole('ROLE_ADMIN', 'ROLE_GUIDE')" />
 		<security:intercept-url pattern="/group/groupUpdateForm.go" access="hasAnyRole('ROLE_ADMIN', 'ROLE_GUIDE')" />
+		<security:intercept-url pattern="/m_group/*" access="isAuthenticated()" />
 	</security:http>
 
 	<security:authentication-manager>

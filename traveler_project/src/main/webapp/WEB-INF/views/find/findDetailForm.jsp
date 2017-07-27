@@ -82,7 +82,7 @@
 							<p>${findVO.find_startDate} ~ ${findVO.find_endDate}</p>		
 						</div>
 						<!-- 사이드 -->
-						<div class="col-md-4">
+						<div class="col-md-4 col-sm-12">
 							<div class="find-detail-place-img-container">
 								<!-- 미국 -->
 								<c:if test="${findVO.find_place1 == '미국'}">
