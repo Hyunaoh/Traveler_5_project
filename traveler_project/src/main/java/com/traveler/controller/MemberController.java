@@ -315,8 +315,8 @@ public class MemberController {
 		}
 	     // 이미지 복사
 	
-//		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
-//		 imgCopy(fullPath, saveLocalPath, rename);
+		 String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
+		 imgCopy(fullPath, saveLocalPath, rename);
 		 
 		 // 이미지 이름 셋팅
 		 memberVO.setMember_profile(rename);

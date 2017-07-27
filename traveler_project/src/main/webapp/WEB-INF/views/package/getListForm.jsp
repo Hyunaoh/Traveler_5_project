@@ -8,57 +8,66 @@
 	<title>여행을 더하다</title>
 	
 	<style type="text/css">
+		.package_button{
+			background-color: white;
+			color: #4da6ff;
+			border: 1px solid #4da6ff;
+			padding-top: 0.7rem;
+			padding-bottom: 0.7rem;
+			padding-right: 2rem;
+			padding-left: 2rem;
+		}
+		
+		.package_button:hover{
+			background-color: #4da6ff;
+			color: #fff;
+		}
+	
+		.package-paging-content {
+			margin-bottom: 5rem;
+		}
+		
 		#searchTable{
 			border: "1px solid black";
 			background-color: "white";
 		}
+		
+		.profile_img {
+    	width: 10rem;
+    	height: 10rem;
+    	border-radius: 100%;
+		}
+		
+		.contents_box{
+			padding-top: 1rem;
+		    padding-bottom: 1rem;
+		    color: gray;
+		    border: 1px solid lightgray;
+		    margin-bottom: 1.5rem;
+		}
+		
+		.contents_box:hover{
+			backgroud-color: rgba(0, 0, 0, 0.7);
+		
+		}
 	
 	</style>
+	<link rel="stylesheet" href="<c:url value="/resources/css/find/find.css" />" />
 	<link rel="stylesheet" href="../../../resources/css/review/star.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="../../../resources/js/review/jquery-1.11.3.min.js"></script>
 </head>
+
+
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
-	<section id="fh5co-work" data-section="work" >
+	<!-- banner -->
+	<div class="package-banner" style="background-image:url('<c:url value='/resources/images/ban.jpg' />');"></div>
 	
-	<!-- 기능 테스트용...나중에 지울것 -->
 	
-		<form name="test3" action="countTest.go" method="post">
-		<input type="submit" value="테스트용!">
-		</form>
-		
-		<div class="fh5co-overlay"></div>
-		
-		<!-- Page Content -->
-		<div class="searchTable">
-				<!-- Write Well -->
-				<table id=searchTable>
-					<tr>
-					여행 국가 : <a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">대한민국 </font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">미국 </font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">영국</font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">프랑스</font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">이탈리아 </font></a>
-							<a href="insertPackageForm.go"><font color="#55d9ad">체코 </font></a><br>
-							<a href="insertPackageForm.go"><font color="#55d9ad">캐나다 </font></a><br>
-							<a href="insertPackageForm.go"><font color="#55d9ad"> </font></a><br>
-							<a href="insertPackageForm.go"><font color="#55d9ad"> </font></a><br>
-							
-					</tr>
-					<tr>
-					여행 기간 : <input type="radio" name="package_leadTime" value="">하루  ||
-							<input type="radio" name="package_leadTime" value="">1박 이상  ||
-							<input type="radio" name="package_leadTime" value="">기간 무관
-					</tr>
-					<tr>
-					<a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
-					</tr>
-			</table>
-		</div>
-
+	<!-- contents -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 section-heading text-center">
@@ -67,50 +76,98 @@
 					<div class="col-md-8 col-md-offset-2 subtext to-animate">
 						<h3>Find perfect guide here for your wonderful trip :)</h3>
 						<hr>
-						<i class="fh5co-overlay-icon icon-briefcase to-animate-2"></i> <span
-							class="fh5co-overlay-number js-counter" data-from="0"
+						<span class="fh5co-overlay-number js-counter" data-from="0"
 							data-to="${count}" data-speed="2000" data-refresh-interval="50">${count}</span>
 						<span class="fh5co-overlay-label">전체 게시물 개수</span>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<!-- side well -->
+			<div class = " col-lg-4">
+			
+				<div class="well">
+					<center><h4>직접 상품을 기획해 올려보세요!</h4>
+					<button class ="package_button" onclick="location='insertPackageForm.go '">상품 올리기</button>
+					<button class ="package_button" onclick="location='/member/guideForm.go'">가이드 신청하기</button></center>
+				</div>
+				
+				<div class= "well">
+					<h4>원하는 나라에서 찾아보세요!</h4>
+					<form action="packageSearchListForm.go" method="post">
+						<div class="row">
+							<div class="col-md-6">
+								<ul class="list-unstyled">
+									<li><a href="getAllPackage.go"><font color="#55d9ad">전체</font></a></li>
+									<li><a href="packageCountryListForm.go?package_place1=대한민국"><font color="#55d9ad">대한민국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=미국"><font color="#55d9ad">미국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=영국"><font color="#55d9ad">영국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=프랑스"><font color="#55d9ad">프랑스</font></a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-6">
+								<ul class="list-unstyled">
+									<li><a href="packageCountryListForm.go?package_place1=이탈리아"><font color="#55d9ad">이탈리아</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=체코"><font color="#55d9ad">체코</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=일본"><font color="#55d9ad">일본</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=중국"><font color="#55d9ad">중국</font></a>
+									</li>
+									<li><a href="packageCountryListForm.go?package_place1=캐나다"><font color="#55d9ad">캐나다</font></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 
-		<div class="row row-bottom-padded-sm">
+			<!-- 리스트 띄우는 부분 -->
+			<div class="col-lg-8">
+			
 			<c:forEach items="${list}" var="list">
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="#"
-						onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'"
-						class="fh5co-project-item image-popup to-animate"> <img
-						src="<c:url value="/resources/images/package_img/${list.package_image}" />"
-						alt="Image" class="img-responsive"
-						style="height: 270px; width: 359.98px;">
-						<div class="fh5co-text">
-							<h2>${list.package_title}</h2>
-							<span>작성자 : ${list.member_id}/ 소요시간 :
-								${list.package_leadTime}</span>
+				<div class="col-md-12 contents_box">
+				<a href="#"
+							onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list.package_pk}" />'">
+						
+				
+					<div class="col-md-4">
+						<img src="<c:url value="/resources/images/package_img/${list.package_image}" />"
+						alt="Image" class="img-responsive" style="height: 200px; width: 200px;">
+					</div>
+				
+					<div class = "col-md-8">
+						
+							<%-- <span>
+								<img  class="profile_img" alt="" src="<c:url value='resources/images/profiles/${list.member_profile}'/>">  </span> --%>
+							<span><h3>${list.package_title}</h3></span><br>
+							<span>작성자 : ${list.member_id}<br>
+								 소요시간 : ${list.package_leadTime}</span><br>
 							<span class="star-view">
 									<span class="view">
 							    	<input type="radio" name="review_score" value="1" id="p1">
-							    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>s
+							    	<label for="pv1" style="width:${list.review_avg * 10}px"></label>
 							 		</span>
 							 		${list.review_avg } 점				
 							</span>
-						</div>
-					</a>
-
-				</div>
-				<c:forEach items="${listAll}" step="2">
-					<div class="clearfix visible-sm-block"></div>
-				</c:forEach>
+					
+					</div>
+				<hr>
+						</a>
+			</div>
 			</c:forEach>
-		</div>
-	</div>
-
-
-	<div class="row">
-					<div class="fh5co-counter col-lg-12">
+			</div>
+			
+			<div class="row package-paging-content">
+					<div class="col-lg-12">
 						<c:set value="1" var="pageNum" />
 						<!-- 전체 게시판일때... -->
 						<c:if test="${pagingVO.state eq 'listAll'}">
@@ -151,57 +208,14 @@
 						</c:if>
 					</div>
 				</div>
-
-
-
-			
-			<!-- Sidebar Widgets Column -->
-			<div class="fh5co-counter to-animate col-md-4">
-				<!-- Write Well -->
-				<div class="row">
-					<h4>직접 상품을 기획해 올려보세요!</h4>
-					<a href="insertPackageForm.go"><font color="#55d9ad">상품 올리기 </font></a>
-				</div>
-				
-
-				<!-- Blog Categories Well -->
-				<div class="row">
-					<h4>원하는 나라에서 찾아보세요!</h4>
-					<div class="row">
-					<form action="packageSearchListForm.go" method="post">
-						<div class="col-lg-6">
-							<ul class="list-unstyled">
-									<li><a href="getAllPackage.go"><font color="#55d9ad">전체</font></a></li>
-									<li><a href="packageCountryListForm.go?package_place1=대한민국"><font color="#55d9ad">대한민국</font></a>
-									</li>
-									<li><a href="packageCountryListForm.go?package_place1=미국"><font color="#55d9ad">미국</font></a>
-									</li>
-									<li><a href="packageCountryListForm.go?package_place1=영국"><font color="#55d9ad">영국</font></a>
-									</li>
-									<li><a href="packageCountryListForm.go?package_place1=프랑스"><font color="#55d9ad">프랑스</font></a>
-									</li>
-							</ul>
-						</div>
-						<div class="col-lg-6">
-							<ul class="list-unstyled">
-								<li><a href="packageCountryListForm.go?package_place1=이탈리아"><font color="#55d9ad">이탈리아</font></a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=체코"><font color="#55d9ad">체코</font></a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=일본"><font color="#55d9ad">일본</font></a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=중국"><font color="#55d9ad">중국</font></a>
-								</li>
-								<li><a href="packageCountryListForm.go?package_place1=캐나다"><font color="#55d9ad">캐나다</font></a>
-								</li>
-							</ul>
-						</div>
-						</form>
-					</div>
-					<!-- /.row -->
-				</div>
-			</div>
-	</section>
+				<!-- paging -->
+		</div>
+		<!-- row -->
+	
+	
+	</div>
+	<!-- container -->
+	
 	
 </body>
 </html>

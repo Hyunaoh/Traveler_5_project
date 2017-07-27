@@ -21,6 +21,13 @@
 	<script src="../../../resources/js/review/jquery-1.11.3.min.js"></script>
 </head>
 <body>
+<!-- header -->
+	<jsp:include page="../header.jsp" />
+	
+
+<!-- banner -->
+	<div class="package-banner" style="background-image:url('<c:url value='/resources/images/greece.jpg' />');"></div>
+	
 	PK : ${packageVO.package_pk}<br>
 	제목 : ${packageVO.package_title}<br>
 	작성날짜 : ${packageVO.package_regDate}<br>

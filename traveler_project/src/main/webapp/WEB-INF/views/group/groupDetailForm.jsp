@@ -7,10 +7,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>여행가 - 단체상품</title>
-	
-	<!-- Group CSS -->
-	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
-	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -26,12 +22,10 @@
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
-	
-	<!-- banner -->
-	<div class="group-banner" style="background-image:url('<c:url value='/resources/images/group_img/group-package-banner.jpg' />');"></div>
+	<br><br><br><br>
 	
 	<!-- Content -->
-    <div class="container group-container">
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
 
@@ -77,12 +71,12 @@
 						<form action="groupUpdateForm.go" method="post" style="display: inline;">
 							<input type="hidden" name="group_pak_pk"
 								value="${groupVO.group_pak_pk}" /> <input type="submit" value="수정"
-								class="btn-custom" />
+								class="btn btn-primary btn-md" />
 						</form>
 						<form action="groupDeletePro.go" method="post" style="display: inline;">
 							<input type="hidden" name="group_pak_pk"
 								value="${groupVO.group_pak_pk}" /> <input type="submit" value="삭제"
-								class="btn-custom" />
+								class="btn btn-primary btn-md" />
 						</form>
 					</c:if>
 				</se:authorize>
@@ -98,7 +92,7 @@
                         	<input type="hidden" name="group_notice_parent_pk" value="${groupVO.group_pak_pk}"/>
                             <textarea name="group_notice_content" class="form-control" rows="3"></textarea>
                         </div>
-                        <button type="submit" class="btn-custom">등록</button>
+                        <button type="submit" class="btn btn-primary">등록</button>
                     </form>
                 </div>
                 <hr>
@@ -142,7 +136,7 @@
                     <form action="../m_group/m_groupInsertForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
                     	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
-                    	<button type="submit" class="btn-custom">신청</button>
+                    	<button type="submit" class="btn btn-primary btn-md">신청</button>
 					</form>
 					</c:if>
                     <c:if test="${flag1_check == true }">
@@ -153,14 +147,14 @@
 					<form action="../m_group/m_groupDeleteForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
                     	<input type="hidden" name="group_mem_reserve_id" value="${sessionID}"/>
-                    	<button type="submit" class="btn-custom">예약취소</button>
+                    	<button type="submit" class="btn btn-primary btn-md">예약취소</button>
 					</form>
 					
 					<!-- 예약한 손님 목록(글 작성자만 확인 가능) -->
 					<c:if test="${groupVO.group_pak_guide == sessionID}">
 					<form action="../m_group/m_groupListForm.go" method="post" style="display:inline;">
                     	<input type="hidden" name="group_mem_package_pk" value="${groupVO.group_pak_pk}"/>
-                    	<button type="submit" class="btn-custom">손님 목록</button>
+                    	<button type="submit" class="btn btn-primary btn-md">손님 목록</button>
 					</form>
 					</c:if>
                     <!-- /.input-group -->
@@ -211,9 +205,5 @@
 
     </div>
     <!-- /.container -->
-    
-	<!-- footer -->
-	<jsp:include page="../footer.jsp" />
-	
 </body>
 </html>

@@ -3,10 +3,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html>
 <head>
 <title>Insert title here</title>
- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style type="text/css">
+	 .package-insert-container{
+		margin-bottom: 10rem;
+	}
+	.package-insert-header{
+		
+	}
+	.package-insert-header-subtext{
+		font-style:italic;
+		margin-bottom: 5rem;
+	}
+	.package-insert-content{
+		margin-bottom: 3rem;	
+	}
+	.package-insert-content-subheader{
+		margin-bottom: 4rem;
+		color: blue;
+	}
+	.package-banner{
+	    padding: 0;
+    margin: 0;
+    height: 400px;
+    background-size: cover;
+	}
+	
+	.package-btn-custom {
+	background-color: #2F9D27;
+	color: #fff;
+	border: 1px solid #2F9D27;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	padding-right: 0.7rem;
+	padding-left: 0.7rem;
+	border-radius: 12px;
+	}
+	
+	.package-btn-custom:hover {
+		background-color: #white;
+		color: #white;
+	}	
+	  
+  </style>
 
 
 
@@ -20,17 +62,6 @@
 		for(var i = 0 ; i < taglist.length; i++){
 			availableTags.push(taglist[i].value);
 		}
-		
-		
-		/* $('[name="package_tag"]').keydown(function(e) {
-			if (e.which == 51) {
-				
-				$('[name="package_tag"').autocomplete({
-				      source: availableTags
-				      });
-			}
-		});  */
-		
 	
 		///*해시태그 칸 추가했을 시
 		$("#add_div").click(function add_div(){
@@ -41,6 +72,12 @@
 			      source: availableTags
 			      }); */
 		});
+		
+		/* ///*해시태그 칸 삭제
+		$("#remove_div").click(function remove_div(obj){
+			var obj = this;
+		    document.getElementById('field').removeChild(obj.parentNode);
+		}); */
 		
 		
 		
@@ -186,69 +223,96 @@
 </head>
 <body>
 
-
-
-	 <!--헤더 넣으니까 왜 안돼지.....????????????이상하다......-->
-	<%--  <!-- header -->
-	<jsp:include page="../header.jsp" />   --%>
+	<!-- header -->
+	<jsp:include page="../header.jsp" />   
 	
-			<br>
-			<br>
-			<br>
+	<!-- banner -->
+	<div class="package-banner" style="background-image:url('<c:url value='/resources/images/campingcar.jpg' />');"></div>
 	
-	<h1>상품 등록하기</h1>
-	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
-		<input type="text" name="package_title" placeholder="제목을 입력해주세요" required="required">
-		<select name="package_place1" id="place1" required="required" >
-			<option>나라 선택</option>
-			<option value="대한민국">대한민국</option>
-			<option value="미국">미국</option>
-			<option value="영국">영국</option>
-			<option value="프랑스">프랑스</option>
-			<option value="이탈리아">이탈리아</option>
-			<option value="체코">체코</option>
-			<option value="캐나다">캐나다</option>
-			<option value="중국">중국</option>
-			<option value="일본">일본</option>
-		</select>
+	
+	
+	<!-- contents -->
+	<div class="container package-insert-container">
+		<h1>상품 등록하기</h1>
+		<div class="col-md-6">
+			<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<label>제목</label>
+					<input type="text" class="form-control" name="package_title" placeholder="제목을 입력해주세요" required="required"/><br>
+				</div>
+				
+				<div class="form-group">
+					<label>내용</label>
+					<textarea name="package_place3" class="form-control" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
+				</div>
+				<hr>
+				<div class="form-group">
+					<label>사진<font size="1px" color="gray">-다른 이용자들을 위해 사진을 꼭 등록해주세요:)</font></label>
+					<input type ="file" name="imgFile" required="required">
+				</div>
+				<hr>
+				<div class="form-group">
+					<label>여행지 선택</label>
+					<select class = "form-control"name="package_place1" id="place1" required="required" >
+						<option>나라 선택</option>
+						<option value="대한민국">대한민국</option>
+						<option value="미국">미국</option>
+						<option value="영국">영국</option>
+						<option value="프랑스">프랑스</option>
+						<option value="이탈리아">이탈리아</option>
+						<option value="체코">체코</option>
+						<option value="캐나다">캐나다</option>
+						<option value="중국">중국</option>
+						<option value="일본">일본</option>
+					</select>
+					
+					<select class="form-control" name="package_place2"  id="place2" required="required">
+					</select>
+				</div>
+				
+				<hr>
+				<div class="form-group">
+					<label>해시태그(1개 이상 등록해주세요 :)</label>
+					<input class="package-btn-custom" type="button" id="add_div" value="해시태그 추가"><br/>
+					<div id="tagdiv">
+						<div class="col-md-9">
+						<input width="100" class="form-control" type="text" name="package_tag" list="info_list" placeholder="#해시태그" required="required" autocomplete="on">
+						</div>
+						
+						<div class="col-md-3">
+						<input type="button" class="package-btn-custom" value="삭제" onclick="remove_div(this);" id="remove_div">
+						</div>
+					</div>
+					<div id="field">
+					</div>
+				</div>
+				
+					
+					<!-- datalist -->
+					<datalist id ="info_list">
+						<c:forEach items="${tagList}" var="list">
+							<option value="${list.key }"> 관련 상품 ${list.value}개</option>
+						</c:forEach>
+					</datalist>
+					
 		
-		<select name="package_place2"  id="place2" required="required">
-		</select>
-		
-		<p id="area_text2">상세사항 : </p>
-		<textarea name="package_place3" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
-		<br>
-		
-		<p id="area_text3">해시태그 : </p>
-			<input type="button" id="add_div" value="해시태그 추가"><br/>
-			<div id="tagdiv">
-				<font color="pink" font-weight="bold">#</font>
-				<input type="text" name="package_tag" list="info_list" placeholder="해시태그" required="required" autocomplete="on">
-				<input type="button" value="삭제" onclick="remove_div(this)">
-			</div>
+					
+					
+					<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
+				
+				<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
+				<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
+				
+				
+				<input type="hidden" name="member_id"  value="test">
+				
+				
+				<input type = "submit" class = "package-btn-custom" value="등록" >
 			
-			<!-- datalist -->
-			<datalist id ="info_list">
-				<c:forEach items="${tagList}" var="list">
-					<option value="${list.key }"> 관련 상품 ${list.value}개</option>
-				</c:forEach>
-			</datalist>
+			</form>
+		</div>
 			
-
-			<div id="field">
-			</div>
-			<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
-		
-		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
-		<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
-		<input type ="file" name="imgFile" required="required">
-		
-		<input type="hidden" name="member_id"  value="test">
-		
-		
-		<input type = "submit" value="등록" >
-	
-	</form>
+	</div><!-- container end -->
 	
 		<!-- 해시태그 리스트 Jquery로 전달하기 위한.. -->
 		<c:forEach items="${tagList}" var="list">
