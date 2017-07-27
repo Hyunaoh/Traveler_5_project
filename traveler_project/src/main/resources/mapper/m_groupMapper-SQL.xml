@@ -37,4 +37,16 @@
 		DELETE FROM GROUP_MEM
 		WHERE GROUP_MEM_PACKAGE_PK = #{group_mem_package_pk} AND GROUP_MEM_RESERVE_ID = #{group_mem_reserve_id}
 	</delete>
+	<select id="selectNotPayList" parameterType="com.traveler.model.M_groupVO" resultType="com.traveler.model.M_groupVO">
+		SELECT  GM.*, G.*,  COUNT(GM.GROUP_MEM_RESERVE_ID) AS GROUP_MEM_COUNT
+		FROM GROUP_MEM GM LEFT JOIN GROUP_PAK G
+		ON GM.GROUP_MEM_PACKAGE_PK = G.GROUP_PAK_PK
+		WHERE GM.GROUP_MEM_STATUS =0
+		GROUP BY GROUP_MEM_RESERVE_ID
+	</select>
+	<update id="updatePayInfo" parameterType="com.traveler.model.M_groupVO" >
+		UPDATE GROUP_MEM
+		SET GROUP_MEM_STATUS = #{group_mem_status}
+		WHERE GROUP_MEM_RESERVE_ID = #{group_mem_reserve_id}
+	</update>
 </mapper>

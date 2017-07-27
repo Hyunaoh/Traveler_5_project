@@ -3,9 +3,12 @@
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 /* MENU CSS */
+.boay{
+	font-family: 'Nanum Gothic', sans-serif;
+}
 .menu-content {
 	margin-top: 7rem;
-	margin-bottom: 7rem;
+	margin-bottom: 10rem;
 }
 
 .home-menu-img-size {
@@ -42,7 +45,7 @@
 	padding-bottom: 8rem;
 	background-color: rgba(204, 235, 255, 0.3);
 	margin-top: 2rem;
-	margin-bottom: 3rem;
+	margin-bottom: 10rem;
 	border-radius: 2%;
 }
 .dev-story-bg{
@@ -63,7 +66,8 @@
 .dev-story-comment{
 	padding-top: 2.5rem;
 	padding-left: 1rem;
-	margin-right: 1rem;
+	padding-right: 0px;
+	margin-right: 0px;
 	margin-left: 1.5rem;
 	color: lightgray;
 	font-family: 'Nanum Gothic', sans-serif;

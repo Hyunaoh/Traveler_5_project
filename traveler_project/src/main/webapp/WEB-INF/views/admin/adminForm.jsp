@@ -17,51 +17,57 @@
 	<jsp:include page="../header.jsp" />
 	
 	<!-- contents -->
-	<section id="fh5co-services" data-section="services">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 section-heading text-left">
-					<h2 class=" left-border to-animate">관리자 페이지</h2>
-					<div class="row">
-						<div class="col-md-8 subtext to-animate">
-							<h3>ADMIN PAGE</h3>
-						</div>
+	<div class="container">
+	
+		<div class="row">
+			<div class="col-md-12 section-heading text-left">
+				<h2>관리자 페이지</h2>
+				<div class="row">
+					<div class="col-md-8">
+						<h3>ADMIN PAGE</h3>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminBoardForm.go'">
-					<i class="icon to-animate-2 icon-monitor"></i>
-					<h3>게시글 관리</h3>
-					<p>가이드 찾기 게시판</p>
-				</div>
-				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminMemberForm.go'">
-					<i class="icon icon-people to-animate-2"></i>
-					<h3>회원관리</h3>
-					<p>회원정보수정, 블랙리스트</p>
-				</div>
-
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminPackageForm.go'">
-					<i class="icon to-animate-2 icon-video2"></i>
-					<h3>가이드 상품 검증</h3>
-					<p>올바른 가이드 상품에 대한 검증</p>
-				</div>
-				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminGroupPackageForm.go'">
-					<i class="icon to-animate-2 icon-video2"></i>
-					<h3>가이드 단체 상품 검증</h3>
-					<p>올바른 가이드 단체 상품에 대한 검증</p>
-				</div>
-				<div class="clearfix visible-sm-block"></div>
-				
-				<div class="col-md-6 col-sm-6 fh5co-service to-animate cursor-point" onclick="location='adminGuideForm.go'">
-					<i class="icon icon-briefcase to-animate-2"></i>
-					<h3>가이드 권한 승인</h3>
-					<p>가이드 신청에 대한 검증 및 승인</p>
-				</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminMemberForm.go'">
+				<h3>회원관리</h3>
+				<p>회원정보수정, 블랙리스트</p>
+			</div>
+		
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminPayForm.go'">
+				<h3>결제 확인</h3>
+				<p>싱글 패키지, 단체 패키지 결제 여부 확인</p>
+			</div>
+			
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminGuideForm.go'">
+				<h3>가이드 권한 승인</h3>
+				<p>가이드 신청에 대한 검증 및 승인</p>
 			</div>
 		</div>
-	</section>
+		
+		<hr>
+		<div class="row">
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminBoardForm.go'">
+				<h3>게시글 관리</h3>
+				<p>가이드 찾기 게시판</p>
+			</div>
+			
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminPackageForm.go'">
+				<h3>가이드 상품 검증</h3>
+				<p>올바른 가이드 상품에 대한 검증</p>
+			</div>
+			
+			<div class="col-md-6 col-sm-6 cursor-point" onclick="location='adminGroupPackageForm.go'">
+				<h3>가이드 단체 상품 검증</h3>
+				<p>올바른 가이드 단체 상품에 대한 검증</p>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<jsp:include page="../footer.jsp" />
+	
 </body>
 </html>

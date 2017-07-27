@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
+.boay{
+	font-family: 'Nanum Gothic', sans-serif;
+}
 /* button */
 .btn-custom {
 	background-color: white;
