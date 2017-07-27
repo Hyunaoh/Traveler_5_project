@@ -6,26 +6,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>여행가 - 예약 현황</title>
-	<style type="text/css">
-		.container{
-			color: rgba(255, 255, 255, 0.5);
-		}
-		.col-md-6 label{
-			display: block;
-			color: rgba(255, 255, 255, 0.7);
-		}
-		.col-md-6 form{
-			display: inline;
-		}
-		.custom-header{
-			color: rgba(255, 255, 255, 0.8);
-			font-style: italic;
-		}
-		.side-fix{
-    		position: fixed;
-    		padding-left: 4rem;
-    	}
-	</style>
+	
+	<!-- Group CSS -->
+	<link rel="stylesheet" href="<c:url value="/resources/css/group/group.css" />" />
+	
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
@@ -85,7 +69,7 @@
 					]);
 			
 			        var options = {
-			          title: '연령',
+			          title: '평균 연령',
 			          is3D: true
 			        };
 			
@@ -101,36 +85,34 @@
 	    }
 	</script>
 </head>
-<body style="background-image: url('<c:url value="/resources/images/m_group_bg.jpg" />');">
+<body>
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
+	<!-- banner -->
+	<div class="group-banner" style="background-image:url('<c:url value='/resources/images/group_img/group-package-banner.jpg' />');"></div>
+	
 	<!-- content -->
-	<div class="container" style="padding-top:23rem;">
-		<h1 class="custom-header">예약한 손님</h1>
+	<div class="container m_gorup-container">
+		<h1 class="m_group-header">예약한 손님</h1>
 		<div class="col-md-6">
 			<c:forEach items="${m_groupList}" var="list">
 				<div class="row">
 					<div class="col-md-12">
 						<!-- 예약자 대표 ID -->
-						<label>예약자 ID</label>
+						<label>예약자 ID</label><br>
 						${list.group_mem_reserve_id}
-						
-						<!-- 상세정보 보기 -->
-						<form action="m_groupDetailForm.go" method="post">
-							<input type="hidden" value="${list.group_mem_package_pk}" name="group_mem_package_pk" />
-							<input type="hidden" value="${list.group_mem_reserve_id}" name="group_mem_reserve_id" />
-							<input type="submit" value="자세한 내용 보기" class="btn btn-default btn-md"/>
-						</form>
+						<br>
 						
 						<!-- 이름 -->
-						<label>이름</label>
+						<label>이름</label><br>
 						<c:if test="${list.group_mem_count == 1}">
 							${list.group_mem_name} 님 (${list.group_mem_count}명)
 						</c:if>
 						<c:if test="${list.group_mem_count != 1}">
 							${list.group_mem_name} 님 외 ${list.group_mem_count-1} 명 (총: ${list.group_mem_count}명)
 						</c:if>
+						<br>
 						
 						<!-- 연령 -->
 						<c:if test="${list.group_mem_count == 1}">
@@ -139,10 +121,11 @@
 						<c:if test="${list.group_mem_count != 1}">
 							<label>평균 연령</label>
 						</c:if>
-						${list.avg_age}
+						<br>${list.avg_age}
+						<br>
 						
 						<!-- 입급 여부 -->
-						<label>입급 여부</label>
+						<label>입급 여부</label><br>
 						<c:if test="${list.group_mem_status == 0}">
 							미입금
 						</c:if>
@@ -152,16 +135,29 @@
 						<c:if test="${list.group_mem_status != 1 and list.group_mem_status != 0 }">
 							Error!
 						</c:if>
+						<br>
+						
+						<!-- 상세정보 보기 -->
+						<form action="m_groupDetailForm.go" method="post">
+							<input type="hidden" value="${list.group_mem_package_pk}" name="group_mem_package_pk" />
+							<input type="hidden" value="${list.group_mem_reserve_id}" name="group_mem_reserve_id" />
+							<input type="submit" value="자세한 내용 보기" class="btn-custom btn-sm"/>
+						</form>
+						
 						<hr>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
+		
+		<!-- chart -->
 		<div class="col-md-6">
-			<div class="side-fix">
-				<div id="piechart_3d" style="width: 100%; height: 350px;"></div>
-			</div>
+			<div id="piechart_3d" style="width: 100%; height: 350px;"></div>
 		</div>
+		
 	</div>
+	
+    <!-- footer -->
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>
