@@ -132,7 +132,6 @@ public class PlanController {
 		StringTokenizer tokenizer_date = new StringTokenizer(planVO.getPlan_date(), ",");
 		
 		for(int i =0; i < planVO.getPlan_count(); i++){
-			System.out.println(planVO.toString());
 			String subTitle = tokenizer_subTitle.nextToken();
 			String img = tokenizer_img.nextToken();
 			String content = tokenizer_content.nextToken();
@@ -248,7 +247,6 @@ public class PlanController {
 		StringTokenizer tokenizer_date = new StringTokenizer(planVO.getPlan_date(), ",");
 		
 		for(int i =0; i < planVO.getPlan_count(); i++){
-			System.out.println(planVO.toString());
 			String subTitle = tokenizer_subTitle.nextToken();
 			String img = tokenizer_img.nextToken();
 			String content = tokenizer_content.nextToken();
