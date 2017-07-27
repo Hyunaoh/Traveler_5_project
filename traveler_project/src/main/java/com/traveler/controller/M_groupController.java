@@ -42,7 +42,7 @@ public class M_groupController {
 	
 	@Transactional
 	@RequestMapping("/m_groupInsertPro.go")
-	public String m_groupInsertPro(M_groupVO m_groupVO, int count) throws Exception{
+	public String m_groupInsertPro(M_groupVO m_groupVO, int count, Model model) throws Exception{
 		System.out.println("[system] access m_groupInsertPro!");
 
 		// 예약 인원 추가
@@ -67,7 +67,8 @@ public class M_groupController {
 			System.out.println(" >> process result["+i+"] : " + check);
 		}
 		
-		return "redirect:../group/groupDetailForm.go?group_pak_pk="+m_groupVO.getGroup_mem_package_pk();
+		model.addAttribute("group_pak_pk", m_groupVO.getGroup_mem_package_pk());
+		return "/m_group/m_groupInsertPro";
 	}
 	
 	@RequestMapping("/m_groupListForm.go")
