@@ -17,4 +17,8 @@ public interface M_groupDAO {
 	public List<M_groupVO> selectAllGroup(M_groupVO m_groupVO) throws Exception;
 
 	public int delete(M_groupVO m_groupVO) throws Exception;
+	
+	public List<M_groupVO> selectNotPayList(M_groupVO m_groupVO) throws Exception;
+	
+	public int updatePayInfo(M_groupVO m_groupVO) throws Exception;
 }

@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+/* button */
+.btn-custom {
+	background-color: white;
+	color: #4da6ff;
+	border: 1px solid #4da6ff;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.btn-custom:hover {
+	background-color: #4da6ff;
+	color: #fff;
+}
+
+/* admin */
+.admin-container{
+	margin-top : 5rem;
+	margin-bottom: 10rem;
+}
+.group_package_container {
+	padding: 1rem;
+	margin: 1rem;
+}
+
+.group_package_container:hover {
+	background-color: lightgray;
+}

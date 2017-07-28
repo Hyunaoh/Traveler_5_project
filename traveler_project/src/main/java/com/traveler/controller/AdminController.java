@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.traveler.commons.Commons;
 import com.traveler.dao.FindDAO;
 import com.traveler.dao.GroupDAO;
+import com.traveler.dao.M_groupDAO;
 import com.traveler.dao.MemberDAO;
 import com.traveler.dao.PackageDAO;
 import com.traveler.model.FindVO;
 import com.traveler.model.GroupVO;
+import com.traveler.model.M_groupVO;
 import com.traveler.model.MemberVO;
 import com.traveler.model.PackageVO;
 import com.traveler.model.PagingVO;
@@ -221,5 +223,32 @@ public class AdminController {
 		}
 		
 		return "redirect:adminGroupPackageForm.go";
+	}
+	
+	@RequestMapping("/adminPayForm.go")
+	public String adminPayForm(M_groupVO m_groupVO, Model model) throws Exception{
+		System.out.println("[system] access adminPayForm!");
+		
+		// 단체 패키지 결제 안한 사람 명단
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		List<M_groupVO> m_groupList = m_groupDAO.selectNotPayList(m_groupVO);
+		
+		model.addAttribute("m_groupList", m_groupList);
+		return "admin/adminPayForm";
+	}
+
+	@RequestMapping("/adminPayPro.go")
+	public String adminPayPro(M_groupVO m_groupVO) throws Exception{
+		System.out.println("[system] access adminPayForm!");
+		
+		// 결제 완료
+		boolean check = false;
+		M_groupDAO m_groupDAO = sqlSession.getMapper(M_groupDAO.class);
+		if(m_groupDAO.updatePayInfo(m_groupVO) > 0){
+			check = true;
+		}
+		System.out.println(" >> Process Result : " + check);
+		
+		return "redirect:adminPayForm.go";
 	}
 }

@@ -127,10 +127,10 @@
 						<!-- 입급 여부 -->
 						<label>입급 여부</label><br>
 						<c:if test="${list.group_mem_status == 0}">
-							미입금
+							<font color="red">미입금</font>
 						</c:if>
 						<c:if test="${list.group_mem_status == 1}">
-							입금
+							<font color="blue">입금 완료!</font>
 						</c:if>
 						<c:if test="${list.group_mem_status != 1 and list.group_mem_status != 0 }">
 							Error!

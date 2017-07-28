@@ -119,9 +119,6 @@
 							</ul>
 						</li>
 						
-						
-						
-						
 						<se:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a href="#" onclick="location='<c:url value="/admin/adminForm.go" />'">관리자</a></li>
 						</se:authorize>
