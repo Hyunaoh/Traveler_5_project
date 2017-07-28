@@ -8,8 +8,9 @@
 	<select id="selectAllMessageById" parameterType="com.traveler.model.MessageVO" resultType="com.traveler.model.MessageVO">
 		select * 
 		from message 
-		where   (message_send = #{message_send} or message_get = #{message_get})
-			and (message_send_flag=0 and message_send_flag=0)
+		where    (message_send = #{message_send} 
+		      or message_get = #{message_get})
+			 and (message_send_flag=0 and message_get_flag=0)
 		order by message_date desc
 	</select>
 	
