@@ -124,7 +124,7 @@ public class AdminController {
 	@RequestMapping("/adminGuideForm.go")
 	public String adminGuideForm(){
 		System.out.println("[system] access adminGuideForm!");
-		return "admin/adminGuideForm";
+		return "admin/adminMemberForm";
 	}
 
 	@RequestMapping("/adminPackageForm.go")

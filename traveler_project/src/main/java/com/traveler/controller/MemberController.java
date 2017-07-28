@@ -328,12 +328,43 @@ public class MemberController {
 				}
 
 				List packageVO_result = memberDAO.getPagePerList(memberVO);
+				List group_pak_result = memberDAO.getPagePerList_group(memberVO);
 		
 		
 		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("list3", group_pak_result);
 		model.addAttribute("page", memberVO);
 		model.addAttribute("currentPageNum", memberVO.getPageNum());
 		return "/member/myGuideDetail";
+	}
+	
+	@RequestMapping("myTripDetail.go")
+	public String myTripDetail(MemberVO memberVO, Model model, Principal principal) throws Exception {
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+		memberVO.setMember_id(principal.getName());
+		// 페이징 처리
+		int totalCount = memberDAO.getTotalCountOfNotice(memberVO); // 전체글수
+		final int page_size = 4;
+		if (memberVO.getPageNum() == 0) {
+			memberVO.setPageNum(1); // default 값
+		}
+		memberVO.setStartNum(page_size * (memberVO.getPageNum() - 1));
+		memberVO.setEndNum(page_size * memberVO.getPageNum());
+		// 전체 페이지 개수
+		if (totalCount % page_size == 0) {
+			memberVO.setPageTotalNum(totalCount / page_size);
+		} else {
+			memberVO.setPageTotalNum(1 + totalCount / page_size);
+		}
+
+		
+		List myTripDetail_list= memberDAO.getPagePerList_trip(memberVO);
+		
+		model.addAttribute("list", myTripDetail_list);
+		model.addAttribute("page", memberVO);
+		model.addAttribute("currentPageNum", memberVO.getPageNum());
+		return "/member/myTripDetail";
+		
 	}
 	// ---------------------------------------------------------------------
 	@Transactional
