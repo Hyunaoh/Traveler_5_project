@@ -16,10 +16,11 @@
 }
 
 /* admin */
-.admin-container{
-	margin-top : 5rem;
+.admin-container {
+	margin-top: 5rem;
 	margin-bottom: 10rem;
 }
+
 .group_package_container {
 	padding: 1rem;
 	margin: 1rem;
@@ -27,4 +28,24 @@
 
 .group_package_container:hover {
 	background-color: lightgray;
+}
+
+.cursor-point {
+	background-color: rgba(0, 0, 0, 0.1);
+	margin: 0.5rem;
+	padding: 2rem;
+}
+
+.cursor-point:hover {
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.admin-header {
+	font-style: italic;
+	margin-bottom: 4rem;
+}
+.admin-banner{
+	height: 400px;
+	background-size: cover;
 }

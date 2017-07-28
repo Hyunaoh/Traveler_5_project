@@ -17,6 +17,9 @@
 	<!-- header -->
 	<jsp:include page="../header.jsp" />
 	
+	<!-- banner -->
+	<div class="admin-banner" style="background-image:url('<c:url value='/resources/images/admin_img/admin-banner.jpg' />');"></div>
+	
 	<div class="container admin-container">
 		<div class="row">
 			<!-- 싱글 패키지 -->
