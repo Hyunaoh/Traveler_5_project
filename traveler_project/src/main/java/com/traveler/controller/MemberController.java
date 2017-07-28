@@ -359,7 +359,6 @@ public class MemberController {
 			} catch (Exception e) {
 			}
 		}
-
 		// 이미지 복사
 		// String saveLocalPath = "C:/git/traveler/traveler_project/src/main/webapp/resources/images/profiles";
 		// imgCopy(fullPath, saveLocalPath, rename);

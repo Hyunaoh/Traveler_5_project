@@ -46,20 +46,6 @@ public class PackageController {
 	@Autowired
 	SqlSession sqlSession;
 	
-	/*
-	@RequestMapping("countTest.go")
-	public String testHashTag(HashTagVO hashTagVO) throws Exception{
-		
-		hashTagVO.setHashTag_tag("마로마로");
-		System.out.println("어떻게 받아오나"+hashTagVO.getHashTag_tag());
-		
-		HashTagDAO hashTagDAO = sqlSession.getMapper(HashTagDAO.class);
-		System.out.println("몇 개?"+ hashTagDAO.getCount("마로마로"));
-		
-		return "/package/getListForm";
-	}
-	
-	*/
 	
 	//패키지 전체 목록 띄워주기
 	@RequestMapping("getAllPackage.go")
@@ -124,7 +110,7 @@ public class PackageController {
 		
 		model.addAttribute("tagList", list);
 		//model.addAttribute(attributeValue);
-	//	model.addAttribute("sessionId", principal.getName());
+		model.addAttribute("sessionId", principal.getName());
 		
 		
 		return "/package/insertPackageForm";
@@ -177,6 +163,52 @@ public class PackageController {
 		
 		return "redirect:getAllPackage.go";
 	}
+	
+	/*해시태그로 검색한 리스트*/
+	@RequestMapping("packageSearchListForm.go")
+	public String packageSearchListForm(Model model, PackageVO packageVO, PagingVO pagingVO) throws Exception{
+		PackageDAO packageDAO = sqlSession.getMapper(PackageDAO.class);
+		ReviewDAO reviewDAO = sqlSession.getMapper(ReviewDAO.class);
+		System.out.println(packageVO.getPackage_place1());
+		System.out.println(packageVO.getSearch());
+		
+		if(packageVO.getPackage_place1()=="전체"){
+			packageVO.setPackage_place1(null);
+		}
+		
+		// 전체 게시물 개수 가져옴
+		int totalCount = packageDAO.countsearchAsTag(packageVO);
+		final int COUNT_PER_PAGE = 9; // 한페이지당 게시글 개수
+		pagingVO.setCountBoardPerPage(COUNT_PER_PAGE);
+		pagingVO.setTotalCount(totalCount);
+		pagingVO = new Commons().processPaging(pagingVO); // 페이징 연산
+
+		// 국가 별 리스트 출력할 List 가져옴
+		packageVO.setCountBoardPerPage(pagingVO.getCountBoardPerPage());
+		packageVO.setStartBoardNum(pagingVO.getStartBoardNum());
+		List<PackageVO> searchList = packageDAO.searchAsTag(packageVO);
+		
+		for(int i=0; i<searchList.size(); i++){
+			int checkResult = reviewDAO.checkCountReview(searchList.get(i).getPackage_pk());
+			if(checkResult > 0){
+				searchList.get(i).setReview_avg(reviewDAO.getAvgScore(searchList.get(i).getPackage_pk()));
+			}
+		}
+		System.out.println("  >> success processing!");
+
+		// 검색 게시판에서 가져옴
+		pagingVO.setState("listSearchAll");
+		
+		model.addAttribute("list", searchList);
+		model.addAttribute("count", totalCount);
+		model.addAttribute("pagingVO", pagingVO);
+		model.addAttribute("packageVO", packageVO);
+		
+		
+		return "/package/getListForm";
+		
+	}
+	
 	
 	/*나라별 패키지 리스트*/
 	@RequestMapping("packageCountryListForm.go")
@@ -363,9 +395,6 @@ public class PackageController {
 			model.addAttribute("rlist", reviewList);
 			model.addAttribute("user", user);
 		
-
-		
-
 		return "/package/packageDetailForm";
 	}
 	

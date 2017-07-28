@@ -16,6 +16,24 @@ public class PackageVO {
 	private Date package_regDate;
 	private int package_status;
 	private String package_tag;
+	private int package_cost;
+	private String search;
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public int getPackage_cost() {
+		return package_cost;
+	}
+
+	public void setPackage_cost(int package_cost) {
+		this.package_cost = package_cost;
+	}
 
 	private int countBoardPerPage; // 한 페이지 당 게시물 개수
 	private int startBoardNum; // 해당 페이에서의 첫 시작 글
