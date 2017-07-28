@@ -47,7 +47,7 @@
 							<span class="group-content-font">인원 : ${list.group_pak_min} / ${list.group_pak_max}</span>
 				    	</div>
 				    </div>
-	            </div>
+	            </div>	
             </div>
         </c:forEach>
         <!-- /.row -->

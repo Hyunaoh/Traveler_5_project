@@ -137,6 +137,13 @@
 		LIMIT #{startNum}, #{endNum}
 	</select>
 	
+	<select id = "getPagePerList_trip" resultType="com.traveler.model.GroupVO" parameterType="com.traveler.model.MemberVO">
+		select p.* from group_pak p, group_mem m
+		where p.group_pak_pk = m.group_mem_package_pk
+		and m.group_mem_id = #{member_id} 
+		and m.group_mem_status = 1
+		LIMIT #{startNum}, #{endNum}	
+	</select>
 	
 	<insert id="insertInquire" parameterType="com.traveler.model.CounselVO" >
 	INSERT INTO counsel

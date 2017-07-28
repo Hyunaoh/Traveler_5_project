@@ -21,9 +21,11 @@
 	<div role="private">
 	<h2>개인패키지</h2>
 		<c:forEach items="${ list2 }" var="list2">
+			<a href="#"
+						onclick="location='<c:url value="/package/packageDetailForm.go?package_pk=${list2.package_pk}" />'">
 			<img style="width: 180px; height: 180px;"
 				src="<c:url value='/resources/images/package_img/${ list2.package_image }' />"
-				alt="">
+				alt=""></a>
 		</c:forEach>
 
 		<div class="row">
