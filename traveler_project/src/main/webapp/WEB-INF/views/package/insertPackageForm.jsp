@@ -50,8 +50,6 @@
 	  
   </style>
 
-
-
 <script>
 
 	$(document).ready(function() {
@@ -68,9 +66,7 @@
 		    var div = document.createElement('div');
 		    div.innerHTML = document.getElementById('tagdiv').innerHTML;
 		    document.getElementById('field').appendChild(div);
-		   /*  $('[name="package_tag"]').autocomplete({
-			      source: availableTags
-			      }); */
+		  
 		});
 		
 		/* ///*해시태그 칸 삭제
@@ -234,82 +230,122 @@
 	<!-- contents -->
 	<div class="container package-insert-container">
 		<h1>상품 등록하기</h1>
-		<div class="col-md-6">
-			<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
-				<div class="form-group">
-					<label>제목</label>
-					<input type="text" class="form-control" name="package_title" placeholder="제목을 입력해주세요" required="required"/><br>
-				</div>
-				
-				<div class="form-group">
-					<label>내용</label>
-					<textarea name="package_place3" class="form-control" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
-				</div>
-				<hr>
-				<div class="form-group">
-					<label>사진<font size="1px" color="gray">-다른 이용자들을 위해 사진을 꼭 등록해주세요:)</font></label>
-					<input type ="file" name="imgFile" required="required">
-				</div>
-				<hr>
-				<div class="form-group">
-					<label>여행지 선택</label>
-					<select class = "form-control"name="package_place1" id="place1" required="required" >
-						<option>나라 선택</option>
-						<option value="대한민국">대한민국</option>
-						<option value="미국">미국</option>
-						<option value="영국">영국</option>
-						<option value="프랑스">프랑스</option>
-						<option value="이탈리아">이탈리아</option>
-						<option value="체코">체코</option>
-						<option value="캐나다">캐나다</option>
-						<option value="중국">중국</option>
-						<option value="일본">일본</option>
-					</select>
+		<div class="row">
+			<div class="col-md-6">
+				<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label>제목</label>
+						<input type="text" class="form-control" name="package_title" placeholder="제목을 입력해주세요" required="required"/><br>
+					</div>
 					
-					<select class="form-control" name="package_place2"  id="place2" required="required">
-					</select>
-				</div>
-				
-				<hr>
-				<div class="form-group">
-					<label>해시태그(1개 이상 등록해주세요 :)</label>
-					<input class="package-btn-custom" type="button" id="add_div" value="해시태그 추가"><br/>
-					<div id="tagdiv">
-						<div class="col-md-9">
-						<input width="100" class="form-control" type="text" name="package_tag" list="info_list" placeholder="#해시태그" required="required" autocomplete="on">
+					<div class="form-group">
+						<label>내용</label>
+						<textarea name="package_place3" class="form-control" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label>사진<font size="1px" color="gray">-다른 이용자들을 위해 사진을 꼭 등록해주세요:)</font></label>
+						<input type ="file" name="imgFile" required="required">
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="row">
+							<label>여행지 선택</label>
 						</div>
-						
-						<div class="col-md-3">
-						<input type="button" class="package-btn-custom" value="삭제" onclick="remove_div(this);" id="remove_div">
+						<div class="row">
+							<div class="col-md-6">
+								<select class = "form-control"name="package_place1" id="place1" required="required" >
+										<option>나라 선택</option>
+										<option value="대한민국">대한민국</option>
+										<option value="미국">미국</option>
+										<option value="영국">영국</option>
+										<option value="프랑스">프랑스</option>
+										<option value="이탈리아">이탈리아</option>
+										<option value="체코">체코</option>
+										<option value="캐나다">캐나다</option>
+										<option value="중국">중국</option>
+										<option value="일본">일본</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<select class="form-control" name="package_place2"  id="place2" required="required">
+								</select>
+							</div>
 						</div>
 					</div>
-					<div id="field">
+					
+					<hr>
+					<div class="form-group">
+						<label>해시태그(1개 이상 등록해주세요 :)</label>
+						<input class="package-btn-custom" type="button" id="add_div" value="해시태그 추가"><br/>
+						<div id="tagdiv">
+							<div class="col-md-9">
+							<input width="100" class="form-control" type="text" name="package_tag" list="info_list" placeholder="#해시태그" required="required" autocomplete="on">
+							</div>
+							
+							<div class="col-md-3">
+							<input type="button" class="package-btn-custom" value="삭제" onclick="remove_div(this);" id="remove_div">
+							</div>
+						</div>
+						<div id="field">
+						</div>
 					</div>
-				</div>
-				
-					
-					<!-- datalist -->
-					<datalist id ="info_list">
-						<c:forEach items="${tagList}" var="list">
-							<option value="${list.key }"> 관련 상품 ${list.value}개</option>
-						</c:forEach>
-					</datalist>
-					
-		
-					
-					
 					<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
+					<hr>
+					
+					<div class="form-group">
+						<label>상세 내용</label>
+					<textarea class="form-control" name="package_content" rows="5" cols="50" placeholder="상세 내용을 입력해주세요" required="required"></textarea><br>
+					</div>
+					
+					<div class="form-group">
+						<div class = "row">
+							<div class="col-md-6">
+								<input type="number" class ="form-control" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
+							</div>
+							<div class="col-md-6">
+								<input type="number" class ="form-control" name="package_cost" placeholder="1인 가격을 입력해주세요" required="required">
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="member_id"  value="${sessionId}">
+					
+					<br/>
+					<br/>
+					<input type = "button" class = "package-btn-custom" value="등록" onclick="submit()">
 				
-				<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
-				<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
-				
-				
-				<input type="hidden" name="member_id"  value="test">
-				
-				
-				<input type = "submit" class = "package-btn-custom" value="등록" >
-			
-			</form>
+				</form>
+			</div>
+		<!-- datalist -->
+		<datalist id ="info_list">
+			<c:forEach items="${tagList}" var="list">
+				<option value="${list.key }"> 관련 상품 ${list.value}개</option>
+			</c:forEach>
+		</datalist>
+			<!-- side bar -->
+			<div class="col-md-6" style="background-color: rgba(255,255,255,0.9);">
+				<ul>
+					<li class="group-insert-list-content">
+						<font color="green">제목</font>은 게시판에서 미리 보여지는 부분입니다.<br>고객들이 쉽게 알 수 있게 적을수록 상품의 인기가 높아집니다.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">내용</font>에는 자신의 상품의 자세한 정보를<br>써주시면 고객들에게 더욱 도움이 될 겁니다.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">나라</font>와 <font color="green">도시</font>, 그리고 <font color="green">상세한 장소</font>를 작성해서 상품의 여행코스를 알려주세요.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">최소인원</font>및 <font color="green">최대인원</font> 을 정확히 확인해서 올려주세요.
+					</li>
+					<hr>
+					<li class="group-insert-list-content">
+						<font color="green">가격</font>을 적당한 수준에 맞게 올려주시길 바랍니다.
+					</li>
+				</ul>
+			</div>
 		</div>
 			
 	</div><!-- container end -->
@@ -320,7 +356,91 @@
 				
 		</c:forEach>
 		
+
 		
 
 </body>
 </html>
+
+
+<%-- 
+<script type="text/javascript">
+	
+	function remove_div(obj){
+	document.getElementById('field').removeChild(obj.parentNode);
+	}
+
+</script>
+
+
+</head>
+<body>
+	
+			<br>
+			<br>
+			<br>
+	
+	<h1>상품 등록하기</h1>
+	<form name="insertForm" action="insertPackagePro.go" method="post" enctype="multipart/form-data">
+		<input type="text" name="package_title" placeholder="제목을 입력해주세요" required="required">
+		<select name="package_place1" id="place1" required="required" >
+			<option>나라 선택</option>
+			<option value="대한민국">대한민국</option>
+			<option value="미국">미국</option>
+			<option value="영국">영국</option>
+			<option value="프랑스">프랑스</option>
+			<option value="이탈리아">이탈리아</option>
+			<option value="체코">체코</option>
+			<option value="캐나다">캐나다</option>
+			<option value="중국">중국</option>
+			<option value="일본">일본</option>
+		</select>
+		
+		<select name="package_place2"  id="place2" required="required">
+		</select>
+		
+		<p id="area_text2">상세사항 : </p>
+		<textarea name="package_place3" id="detail_info" rows="5" cols="50" class="form-control" required="required"></textarea><br>
+		<br>
+		
+		<p id="area_text3">해시태그 : </p>
+			<input type="button" id="add_div" value="해시태그 추가"><br/>
+			<div id="tagdiv">
+				<font color="pink" font-weight="bold">#</font>
+				<input type="text" name="package_tag" list="info_list" placeholder="해시태그" required="required" autocomplete="on">
+				<input type="button" value="삭제" onclick="remove_div(this)">
+			</div>
+			
+			<!-- datalist -->
+			<datalist id ="info_list">
+				<c:forEach items="${tagList}" var="list">
+					<option value="${list.key }"> 관련 상품 ${list.value}개</option>
+				</c:forEach>
+			</datalist>
+			
+
+			<div id="field">
+			</div>
+			<font size="1px" color="grey">예> #로맨틱 #성공적 #올빼미여행 </font><br><br>
+		
+		<textarea name="package_content" rows="5" cols="50" placeholder="내용을 입력해주세요" required="required"></textarea><br>
+		<input type="number" name="package_leadTime" placeholder="소요시간을 입력해주세요" required="required">
+		<input type ="file" name="imgFile" required="required">
+		
+		<input type="hidden" name="member_id"  value="test">
+		
+		
+		<input type = "submit" value="등록" >
+	
+	</form>
+	
+		<!-- 해시태그 리스트 Jquery로 전달하기 위한.. -->
+		<c:forEach items="${tagList}" var="list">
+			<input type="hidden" name="tag" value="${list.key}">	
+				
+		</c:forEach>
+		
+		
+
+</body>
+</html> --%>

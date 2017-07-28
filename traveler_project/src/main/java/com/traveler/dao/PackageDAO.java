@@ -45,6 +45,12 @@ public interface PackageDAO {
 	//해시태그 겹치는 게시물 가져오기
 	public List<PackageVO> getSimillar(String str) throws Exception;
 	
+	//나라와 해시태그로 게시물 검색하기
+	public List<PackageVO> searchAsTag(PackageVO packageVO) throws Exception;
+	
+	//특정나라& 해시태그 갯수
+	public int countsearchAsTag(PackageVO packageVO) throws Exception;
+	
 	
 	
 }
