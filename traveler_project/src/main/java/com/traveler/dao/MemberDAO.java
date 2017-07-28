@@ -46,6 +46,8 @@ public interface MemberDAO {
 
 	public List getPagePerList(MemberVO memberVO);
 
+	public List getPagePerList_group(MemberVO memberVO);
+	
 	//Q&A
 	public void insertInquire(CounselVO counselVO);
 	
@@ -54,6 +56,8 @@ public interface MemberDAO {
 	public int countTravel(MemberVO memberVO);
 
 	public int countTravel2(MemberVO memberVO);
+
+	
 
 	
 

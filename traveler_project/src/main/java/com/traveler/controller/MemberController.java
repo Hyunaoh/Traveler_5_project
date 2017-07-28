@@ -328,9 +328,11 @@ public class MemberController {
 				}
 
 				List packageVO_result = memberDAO.getPagePerList(memberVO);
+				List group_pak_result = memberDAO.getPagePerList_group(memberVO);
 		
 		
 		model.addAttribute("list2", packageVO_result);
+		model.addAttribute("list3", group_pak_result);
 		model.addAttribute("page", memberVO);
 		model.addAttribute("currentPageNum", memberVO.getPageNum());
 		return "/member/myGuideDetail";
