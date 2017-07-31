@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.sun.jna.platform.win32.Sspi.TimeStamp;
+
 /**
  * @author OHHYUNA
  *
@@ -60,30 +62,28 @@ public class MessageVO {
 		return message_date;
 	}
 
-	public void setMessage_date(Date message_date) throws ParseException {
+	public void setMessage_date(String message_date) throws ParseException {
 		
 		Calendar calendar = Calendar.getInstance();
         java.util.Date today = calendar.getTime();
-        
+                
         // 받아온 날짜 및 시간
         String res = "";
-        
+                
         // 데이터 형태
-        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("a HH:mm");
 		
-		String form1 = sdf.format(message_date);
 		String form2 = sdf.format(today);
-
+		
 		// 받아온 날짜가 오늘 날짜라면,
-		if(form1.equals(form2)){
+		if(message_date.substring(0, 10).equals(form2)){
 			
-			res = sdf2.format(message_date);
+			res = message_date.substring(11, 16);
 
 		// 받아온 날짜가 다른 날이라면,
 		} else {
-			
-			res = sdf.format(message_date);
+			res = message_date.substring(5, 10);
 		
 		}
 		
